@@ -19,6 +19,8 @@ format:
     theme: minty
     css: styles.css
     toc: true
+    toc-location: left
+    page-layout: full
 
 editor: visual
 
