@@ -36,11 +36,10 @@ sequenceDiagram
   Me doing VAA->>My son: Well, sometimes you have to do things you don't like so as to reach what makes you happy.
 ```
 
-##### [My VAA Timeline]{.underline}
+##### [Going through VAA]{.underline}
 
 ```{mermaid}
 timeline
-        title Going through VAA
         section January
           7-13 Jan : Quarto, Netlify, R, GitHub
                   : A Layered Grammar of Graphics and ggplot2
@@ -71,6 +70,7 @@ listing:
     type: table
     fields: [date, title]
 ---
+<br>
 
 ## Latest Hands-on Exercises Posts
 
