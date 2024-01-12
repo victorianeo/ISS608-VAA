@@ -16,7 +16,7 @@ about:
 ::: {#hero-heading}
 ### Hi, I'm Victoria Neo!
 
-I enjoy deep diving into things that spark my creativity. I look forward to my VAA journey and the artifacts I will create.
+I enjoy deep diving into things that spark my creativity. I look forward to my Visual Analytics and Applications journey and the artifacts I will create. It might take a lot of time and effort but I believe the result is worth it.
 
 > “We must all suffer from one of two pains: the pain of discipline or the pain of regret. The difference is discipline weighs ounces while regret weighs tons.”
 >
@@ -33,7 +33,7 @@ listing:
     fields: [date, image, title]
 ---
 
-### Latest Posts
+### Latest Creations
 
 ::: {#stuff-listings}
 :::
