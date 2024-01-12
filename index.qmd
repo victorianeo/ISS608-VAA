@@ -1,7 +1,7 @@
 ::: grid
 ::: g-col-9
 ---
-title: "Hi, I'm Victoria Neo"
+title: "Hi, I'm <br>Victoria Neo</br>"
 image: "images/micandme.gif"
 subtitle: I enjoy deep diving into things that spark my creativity. I look forward to the journey and the products I will create. 
 about:
@@ -12,9 +12,11 @@ about:
 ---
 
 ::: {#hero-heading}
-#### This space is a documentation of my journey through Visual Analytics and Applications, and what I have learnt from and felt about it.
+## My VAA Journey
 
-##### [**A Conversation with my son**]{.underline}
+This space is a documentation of my journey through Visual Analytics and Applications, and what I have learnt from and felt about it.
+
+##### [A Conversation with my son]{.underline}
 
 ```{mermaid}
 sequenceDiagram
@@ -34,7 +36,7 @@ sequenceDiagram
   Me doing VAA->>My son: Well, sometimes you have to do things you don't like so as to reach what makes you happy.
 ```
 
-##### [**A VAA Timeline**]{.underline}
+##### [My VAA Timeline]{.underline}
 
 ```{mermaid}
 timeline
@@ -42,6 +44,7 @@ timeline
         section January
           7-13 Jan : Quarto, Netlify, R, GitHub
                   : A Layered Grammar of Graphics and ggplot2
+                  : Hands-on Exercise 1
                   : 🙃
           14-20 Jan 
           21-27 Jan 
@@ -59,15 +62,24 @@ timeline
 ::: g-col-3
 ---
 listing:
-  id: posts-listings
-  contents: Hands-on_Ex
-  type: table
-  fields: [date, title]
+  - id: hand-listings
+    contents: Hands-on_Ex
+    type: table
+    fields: [date, title]
+  - id: home-listings
+    contents: Take-home_Ex
+    type: table
+    fields: [date, title]
 ---
 
 ## Latest Hands-on Exercises Posts
 
-::: {#posts-listings}
+::: {#hand-listings}
+:::
+
+## Latest Take-home Exercises Posts
+
+::: {#home-listings}
 :::
 :::
 :::
