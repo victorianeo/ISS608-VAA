@@ -1,5 +1,21 @@
 ---
-title: "ISS608-VAA"
+title: "Hi! I'm Victoria Neo"
+image: "images/micandme.gif"
+subtitle: I enjoy deep diving into things that spark my creativity. I look forward to the journey and the products I will create. 
+about:
+  id: hero-heading
+  template: trestles
+  image-shape: rectangle
+  image-width: 8cm
 ---
 
-Welcome to **Victoria Neo**'s experience journey with ISSS608 Visual Analytics and Applications
+::: {#hero-heading}
+This space is a documentation of my journey through Visual Analytics and Applications and what I have learnt from and felt about it.
+
+## Latest Posts
+:::
+---
+listing:
+  contents: Hands-on_Ex
+---
+:::

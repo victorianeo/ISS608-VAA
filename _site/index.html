@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ISS608-VAA</title>
+<title>ISS608-VAA - Hi! I’m Victoria Neo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -30,10 +30,11 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -66,12 +67,70 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
+
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="floating nav-fixed">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -119,38 +178,76 @@ ul.task-list li input[type="checkbox"] {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
-  
-<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-    </div>
+    
 <!-- main -->
 <main class="content column-page" id="quarto-document-content">
 
+
+
+
+<div class="quarto-about-trestles content column-page">
+  <div class="about-entity">
+    <img src="images/micandme.gif" class="about-image
+  rectangle " style="width: 8cm;">
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">ISS608-VAA</h1>
+<h1 class="title">Hi! I’m Victoria Neo</h1>
+<p class="subtitle lead">I enjoy deep diving into things that spark my creativity. I look forward to the journey and the products I will create.</p>
+</div>
+<div class="quarto-title-meta column-page">
+  </div>
+</header>
+  </div>
+  <div class="about-contents"><div id="hero-heading">
+<p>This space is a documentation of my journey through Visual Analytics and Applications and what I have learnt from and felt about it.</p>
+<section id="latest-posts" class="level2">
+<h2 data-anchor-id="latest-posts">Latest Posts</h2>
+</section>
+</div></div>
 </div>
 
-
-
-<div class="quarto-title-meta column-page">
-
-    
-  
-    
-  </div>
-  
-
-
-</header>
-
-
-<p>Welcome to <strong>Victoria Neo</strong>’s experience journey with ISSS608 Visual Analytics and Applications</p>
+<p>:::</p>
 
 
 
-</main> <!-- /main -->
+
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1704988800000" data-listing-file-modified-sort="1705025503307" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="41" data-listing-word-count-sort="8113">
+<div class="thumbnail">
+<p><a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="no-external"></a></p><a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="no-external">
+<p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex01\images\clipboard-2786807562.png"  class="thumbnail-image card-img"/></p>
+</a><p><a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="no-external"></a></p>
+</div>
+<div class="body">
+<h3 class="no-anchor listing-title">
+<a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="no-external">Hands-on Exercise 1</a>
+</h3>
+<div class="listing-subtitle">
+<a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="no-external">Lesson 1: </a><a href="https://r4va.netlify.app/chap01">Hands-on Exercise 1: A Layered Grammar of Graphics: ggplot2 methods</a>
+</div>
+<div class="listing-description">
+<a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="no-external">1) Set up RStudio, Quarto and Netlify</a>
+</div>
+</div>
+<div class="metadata">
+<a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="no-external">
+<div class="listing-date">
+Jan 12, 2024
+</div>
+<div class="listing-author">
+Victoria Neo
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -171,13 +268,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     
