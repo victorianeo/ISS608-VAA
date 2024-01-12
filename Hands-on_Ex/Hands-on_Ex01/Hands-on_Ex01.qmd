@@ -11,31 +11,55 @@ format:
     code-copy: true
 ---
 
-::: callout-tip
-## Reflection
+::: grid
+::: g-col-6
+# Overall Summary Statistics
 
-I am an absolute newbie in R and Quarto. This page is only possible by standing on the shoulders of giants. Definitely inspired by [Hailey](https://isss608-ay2023-haileycsy.netlify.app)! Just doing extra stuff of IDEA before getting to the Hands-on Exercise.
-
-Putting down some information on my experience with this exercise:
-
-+-----------------------------+--------------------------------------+-----------------+
-|                             | Values                               | Special Remarks |
-+=============================+======================================+=================+
-| Hours taken to complete (h) | 17 hours                             | Two sick kids   |
-+-----------------------------+--------------------------------------+-----------------+
-| Work done                   | 1.  Setting up R, Quarto and Netlify |                 |
-|                             |                                      |                 |
-|                             | 2.  Setting up git                   |                 |
-|                             |                                      |                 |
-|                             | 3.  IDEA for exam_data               |                 |
-|                             |                                      |                 |
-|                             | 4.  Hands-on Ex 1                    |                 |
-+-----------------------------+--------------------------------------+-----------------+
-| Number of Reflections       | 3                                    |                 |
-+-----------------------------+--------------------------------------+-----------------+
-| Number of Questions         | 3                                    |                 |
-+-----------------------------+--------------------------------------+-----------------+
++-------------+----------------------------------------+--------------------------------------------------------------+
+|             | Values                                 | Special Remarks                                              |
++=============+========================================+==============================================================+
+| Work done   | 1\) Set up RStudio, Quarto and Netlify | Will take some time to think about the design of the website |
+|             |                                        |                                                              |
+|             | 2\) Set up Git, GitHub and RStudio     |                                                              |
+|             |                                        |                                                              |
+|             | 3\) IDEA on exam_data                  |                                                              |
+|             |                                        |                                                              |
+|             | 4\) Hands-on Exercise 1                |                                                              |
++-------------+----------------------------------------+--------------------------------------------------------------+
+| Hours taken | 20 hours                               | Two sick kids                                                |
++-------------+----------------------------------------+--------------------------------------------------------------+
+| Reflections | 4                                      | Overall Reflections                                          |
+|             |                                        |                                                              |
+|             |                                        | [Reflection 1]                                               |
+|             |                                        |                                                              |
+|             |                                        | [Reflection 2]                                               |
+|             |                                        |                                                              |
+|             |                                        | [Reflection 3]                                               |
++-------------+----------------------------------------+--------------------------------------------------------------+
+| Questions   | 2                                      | [?Question? 1]                                               |
+|             |                                        |                                                              |
+|             |                                        | [?Question? 2]                                               |
++-------------+----------------------------------------+--------------------------------------------------------------+
 :::
+
+::: g-col-6
+# Overall Thoughts
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **How do I feel?**                                                                                                                                                                                                                                                                                                                                                                                                                            |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| ![](images/clipboard-2786807562.png)                                                                                                                                                                                                                                                                                                                                                                                                          |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| **What do I think?**                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| This Hands-on Exercise 1 reminded me of DAL Hands-on Exercises. It allowed me to form a concrete connection between theory (A Layered Grammar of Graphics) and practice (different Geometric Objects, types of Facets etc.). It was interesting to see different examples of the layers but after awhile it got a little tedious. I did have a lot of time to play around with Quarto and RStudio so that I could quickly familiarise myself. |
+|                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| I do hope to see more of how we can structure our thinking of data analytics according to a Layered Grammar of Graphics ([Am loving this!]). I am looking forward to this course!                                                                                                                                                                                                                                                             |
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+:::
+:::
+
+# Getting Started
 
 ## 1: Data
 
@@ -46,6 +70,12 @@ The code chunk below uses p_load() of pacman package to check if tidyverse packa
 ```{r}
 pacman::p_load(tidyverse, kableExtra)
 ```
+
+::: callout-tip
+## Reflection 1
+
+I am an absolute newbie in R and Quarto. This page is only possible by standing on the shoulders of giants. Definitely inspired by [Hailey](https://isss608-ay2023-haileycsy.netlify.app)! Just doing extra stuff of IDEA before getting to the Hands-on Exercise.
+:::
 
 ### 1.2 Data Set
 
@@ -60,7 +90,7 @@ exam_data <- read_csv("data/Exam_data.csv", show_col_types = FALSE)
 #### 1.2.2 Summary Statistic of exam_data
 
 ::: callout-tip
-## Reflection
+## Reflection 2
 
 I was unsure of the R codes needed to do data cleaning and so referred to [Hailey's website](https://isss608-ay2023-haileycsy.netlify.app), [Data Cleaning in R](https://www.geeksforgeeks.org/data-cleaning-in-r/), and [Data Cleaning in R Made Simple](https://towardsdatascience.com/data-cleaning-in-r-made-simple-1b77303b0b17). I am happy that the dataset was quite clean.
 :::
@@ -188,7 +218,7 @@ ggplot(data=exam_data, aes(x = MATHS)) +
 #### 2.1.1 Why ggplot2 is recommended?
 
 ::: callout-tip
-## Reflections
+## Reflection 3
 
 I'd like to conclude the preference for ggplot2 based on the differences below is based entirely on the subjective notion of "what is pleasing to the eye".
 
@@ -203,9 +233,13 @@ Apparently, this is due to the notion of [visual variables](https://towardsdatas
 
 > The transferable skills from ggplot2 are not the idiosyncrasies of plotting syntax, but a powerful way of thinking about visualisation, as a way of mapping between variables and the visual properties of geometric objects that you can perceive. \~[Hadley Wickham](http://varianceexplained.org/r/teach_ggplot2_to_beginners/#comment-1745406157)
 
+::: callout-important
+## Am loving this!
+
 Interestingly, how we visualise this data should reflect how we make sense of the world. The following quote also stood out for me as it reinforces the notion that data visualisation is not isolated from data analysis - “Data analysis without data visualisation is no data analysis" (Cleveland, 1994 in Kam, 2023).
 
 > ggplot2 is designed to work iteratively. You start with a layer that shows the raw data. Then you add layers of annotations and statistical summaries. This allows you to produce graphics **using the same structured thinking that you would use to design an analysis.** This reduces the distance between the plot in your head and the one on the page. This is especially helpful for students who have not yet developed the structured approach to analysis used by experts. \~[Hadley Wickham](http://varianceexplained.org/r/teach_ggplot2_to_beginners/#comment-1745406157) (bold my own)
+:::
 
 ### 2.2 **A Layered Grammar of Graphics**
 
@@ -303,7 +337,7 @@ The y scale is not very useful, in fact it is very misleading.
 :::
 
 ::: callout-tip
-## ?Question?
+## ?Question? 1
 
 I wonder why the y scale is suddenly in decimal place (0.00, 0.25 etc) when it was previously in count.
 :::
@@ -326,7 +360,7 @@ ggplot(data=exam_data,
 ```
 
 ::: callout-tip
-## ?Question?
+## ?Question? 2
 
 ![](images/clipboard-860919374.png)
 
