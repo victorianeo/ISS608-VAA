@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>ISS608-VAA - Hi! I’m Victoria Neo</title>
+<title>ISS608-VAA - Hi, I’m Victoria Neo</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -70,20 +70,20 @@ ul.task-list li input[type="checkbox"] {
 <script>
 
   window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    const listingTargetEl = window.document.querySelector('#listing-posts-listings .list');
     if (!listingTargetEl) {
       // No listing discovered, do not attach.
       return; 
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-subtitle','listing-image','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-subtitle","listing-image","listing-description"],
+      searchColumns: ["listing-date","listing-title","listing-author"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+    window['quarto-listings']['listing-posts-listings'] = new List('listing-posts-listings', options);
 
     if (window['quarto-listing-loaded']) {
       window['quarto-listing-loaded']();
@@ -96,6 +96,9 @@ ul.task-list li input[type="checkbox"] {
     }
   })
   </script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
 
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -148,14 +151,34 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item dropdown ">
-    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hands-on-exercise" role="button" data-bs-toggle="dropdown" aria-expanded="false">
- <span class="menu-text">Hands-on Exercise</span>
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-hands-on-exercises" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">✌️ Hands-on Exercises</span>
     </a>
-    <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercise">    
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-hands-on-exercises">    
         <li>
     <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html">
  <span class="dropdown-text">Hands-on Exercise 1</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex02/Hands-on_Ex02.html">
+ <span class="dropdown-text">Hands-on Exercise 2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex03/Hands-on_Ex03.html">
+ <span class="dropdown-text">Hands-on Exercise 3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04.html">
+ <span class="dropdown-text">Hands-on Exercise 4</span></a>
+  </li>  
+    </ul>
+  </li>
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-take-home-exercises" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+ <span class="menu-text">Take-home Exercises</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-take-home-exercises">    
+        <li class="dropdown-header">Take-home Exercise 1</li>
     </ul>
   </li>
 </ul>
@@ -186,13 +209,15 @@ window.Quarto = {
 
 
 
+<div class="grid">
+<div class="g-col-9">
 <div class="quarto-about-trestles content column-page">
   <div class="about-entity">
     <img src="images/micandme.gif" class="about-image
-  rectangle " style="width: 8cm;">
+  rounded " style="width: 8cm;">
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Hi! I’m Victoria Neo</h1>
+<h1 class="title">Hi, I’m Victoria Neo</h1>
 <p class="subtitle lead">I enjoy deep diving into things that spark my creativity. I look forward to the journey and the products I will create.</p>
 </div>
 <div class="quarto-title-meta column-page">
@@ -200,54 +225,127 @@ window.Quarto = {
 </header>
   </div>
   <div class="about-contents"><div id="hero-heading">
-<p>This space is a documentation of my journey through Visual Analytics and Applications and what I have learnt from and felt about it.</p>
-<section id="latest-posts" class="level2">
-<h2 data-anchor-id="latest-posts">Latest Posts</h2>
+<section id="this-space-is-a-documentation-of-my-journey-through-visual-analytics-and-applications-and-what-i-have-learnt-from-and-felt-about-it." class="level4">
+<h4 data-anchor-id="this-space-is-a-documentation-of-my-journey-through-visual-analytics-and-applications-and-what-i-have-learnt-from-and-felt-about-it.">This space is a documentation of my journey through Visual Analytics and Applications, and what I have learnt from and felt about it.</h4>
+<section id="a-conversation-with-my-son" class="level5">
+<h5 data-anchor-id="a-conversation-with-my-son"><u><strong>A Conversation with my son</strong></u></h5>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">sequenceDiagram
+  participant My brain
+  participant Me doing VAA
+  participant My son
+  My son-&gt;&gt;Me doing VAA: Mum, why are you not playing with us?
+  Me doing VAA-&gt;&gt;My son: Because I have to do work.
+  My son-&gt;&gt;Me doing VAA: Why are you so slow?
+  My brain-&gt;&gt;Me doing VAA: I can't say because I am dumb... 🥲    
+  Me doing VAA-&gt;&gt;My son: Because it takes time to do a good job! 
+  My son-&gt;&gt;Me doing VAA: But, if you don't like it, why do you do it?
+  Me doing VAA-&gt;&gt;My son: Do you do things that you don't like?
+  My son-&gt;&gt;Me doing VAA: No!
+  My brain-&gt;&gt;Me doing VAA: But... but I have no choice... 🥲 
+  Me doing VAA-&gt;&gt;My son: Well, sometimes you have to do things you don't like so as to reach what makes you happy.
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="a-vaa-timeline" class="level5">
+<h5 data-anchor-id="a-vaa-timeline"><u><strong>A VAA Timeline</strong></u></h5>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">timeline
+        title Going through VAA
+        section January
+          7-13 Jan : Quarto, Netlify, R, GitHub
+                  : A Layered Grammar of Graphics and ggplot2
+                  : 🙃
+          14-20 Jan 
+          21-27 Jan 
+        section February
+          28-3 Feb  
+          4-10 Feb 
+          11-17 Feb 
+          18-24 Feb 
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
 </section>
 </div></div>
 </div>
 
-<p>:::</p>
-
-
-
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1704988800000" data-listing-file-modified-sort="1705025503307" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="41" data-listing-word-count-sort="8113">
-<div class="thumbnail">
-<p><a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="no-external"></a></p><a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="no-external">
-<p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex01\images\clipboard-2786807562.png"  class="thumbnail-image card-img"/></p>
-</a><p><a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="no-external"></a></p>
 </div>
-<div class="body">
-<h3 class="no-anchor listing-title">
-<a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="no-external">Hands-on Exercise 1</a>
-</h3>
-<div class="listing-subtitle">
-<a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="no-external">Lesson 1: </a><a href="https://r4va.netlify.app/chap01">Hands-on Exercise 1: A Layered Grammar of Graphics: ggplot2 methods</a>
+<section id="latest-hands-on-exercises-posts" class="level2 g-col-3">
+<h2 data-anchor-id="latest-hands-on-exercises-posts">Latest Hands-on Exercises Posts</h2>
+<div id="listing-posts-listings" class="quarto-listing quarto-listing-container-table">
+<div class="listing-actions-group">
+   <div class="input-group input-group-sm quarto-listing-sort">
+     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+     <select id="listing-posts-listings-sort" class="form-select" aria-label="Order By" onchange="window['quarto-listings']['listing-posts-listings'].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute('data-direction')})">
+       <option value="" disabled="" selected="" hidden="">Order By</option>
+       <option value="index" data-direction="asc">Default</option>
+         <option value="listing-date-sort" data-direction="asc">
+          Date - Oldest
+        </option>
+         <option value="listing-date-sort" data-direction="desc">
+          Date - Newest
+        </option>
+         <option value="listing-title-sort" data-direction="asc">
+          Title
+        </option>
+     </select>
+  </div>
+    <div class="input-group input-group-sm quarto-listing-filter">
+      <span class="input-group-text"><i class="bi bi-search"></i></span>
+      <input type="text" class="search form-control" placeholder="Filter">
+    </div>
 </div>
-<div class="listing-description">
-<a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="no-external">1) Set up RStudio, Quarto and Netlify</a>
-</div>
-</div>
-<div class="metadata">
-<a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="no-external">
-<div class="listing-date">
-Jan 12, 2024
-</div>
-<div class="listing-author">
-Victoria Neo
-</div>
-</a>
-</div>
-</div>
-</div>
+<table class="quarto-listing-table table">
+<thead>
+<tr>
+<th>
+<a class="sort" data-sort="listing-date-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Date</a>
+</th>
+<th>
+<a class="sort" data-sort="listing-title-sort" onclick="if (this.classList.contains('sort-asc')) { this.classList.add('sort-desc'); this.classList.remove('sort-asc') } else { this.classList.add('sort-asc'); this.classList.remove('sort-desc')} return false;">Title</a>
+</th>
+</tr>
+</thead>
+<tbody class="list">
+<tr data-index="0" data-listing-date-sort="1704988800000" data-listing-file-modified-sort="1705025503307" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="41" data-listing-word-count-sort="8113" data-listing-title-sort="Hands-on Exercise 1" data-listing-filename-sort="Hands-on_Ex01.qmd">
+<td>
+<span class="listing-date">Jan 12, 2024</span>
+</td>
+<td>
+<a href="./Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html" class="title listing-title">Hands-on Exercise 1</a>
+</td>
+</tr>
+</tbody>
+</table>
 <div class="listing-no-matching d-none">
 No matching items
 </div>
-</div></main> <!-- /main -->
+</div>
+</section>
+</div>
+
+
+
+
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
