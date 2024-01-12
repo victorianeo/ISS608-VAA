@@ -2,16 +2,16 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Hi, I’m Victoria Neo",
+    "title": "ISS608-VAA",
     "section": "",
-    "text": "This space is a documentation of my journey through Visual Analytics and Applications, and what I have learnt from and felt about it.\n\n\n\n\n\n\n\nsequenceDiagram\n  participant My brain\n  participant Me doing VAA\n  participant My son\n  My son-&gt;&gt;Me doing VAA: Mum, why are you not playing with us?\n  Me doing VAA-&gt;&gt;My son: Because I have to do work.\n  My son-&gt;&gt;Me doing VAA: Why are you so slow?\n  My brain-&gt;&gt;Me doing VAA: I can't say because I am dumb... 🥲    \n  Me doing VAA-&gt;&gt;My son: Because it takes time to do a good job! \n  My son-&gt;&gt;Me doing VAA: But, if you don't like it, why do you do it?\n  Me doing VAA-&gt;&gt;My son: Do you do things that you don't like?\n  My son-&gt;&gt;Me doing VAA: No!\n  My brain-&gt;&gt;Me doing VAA: But... but I have no choice... 🥲 \n  Me doing VAA-&gt;&gt;My son: Well, sometimes you have to do things you don't like so as to reach what makes you happy.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ntimeline\n        section January\n          7-13 Jan : Quarto, Netlify, R, GitHub\n                  : A Layered Grammar of Graphics and ggplot2\n                  : Hands-on Exercise 1\n                  : 🙃\n          14-20 Jan \n          21-27 Jan \n        section February\n          28-3 Feb  \n          4-10 Feb \n          11-17 Feb \n          18-24 Feb \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n   \n     \n     \n       Order By\n       Default\n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Title\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\nDate\n\n\nTitle\n\n\n\n\n\n\nJan 12, 2024\n\n\nHands-on Exercise 1\n\n\n\n\n\nNo matching items\n\n\n\n\n\n\n\n   \n     \n     \n       Order By\n       Default\n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Title\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\nDate\n\n\nTitle\n\n\n\n\n\n\n \n\n\n🚧 Under Construction\n\n\n\n\n\nNo matching items"
+    "text": "Hi, I’m Victoria Neo!\nI enjoy deep diving into things that spark my creativity. I look forward to my VAA journey and the artifacts I will create.\n\n“We must all suffer from one of two pains: the pain of discipline or the pain of regret. The difference is discipline weighs ounces while regret weighs tons.”\n― Jim Rohn\n\n\n\n\n\n\nLatest Posts\n\n\n\n\n\n\n\n\nHands-on Exercise 1\n\n\n\nJan 12, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n🚧 Under Construction\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "My VAA Journey",
     "section": "",
-    "text": "🚧 Under Construction"
+    "text": "This space is a documentation of my journey through Visual Analytics and Applications, and what I have learnt from and felt about it.\n\nA Conversation with my son\n\n\n\n\n\nsequenceDiagram\n  participant My brain\n  participant Me doing VAA\n  participant My son\n  \n  My son-&gt;&gt;Me doing VAA: Mum, why are you not playing with us?\n  Me doing VAA-&gt;&gt;My son: Because I have to do work.\n  My son-&gt;&gt;Me doing VAA: Why are you so slow?\n  My brain-&gt;&gt;Me doing VAA: I can't say because I am dumb... 🥲    \n  Me doing VAA-&gt;&gt;My son: Because it takes time to do a good job! \n  My son-&gt;&gt;Me doing VAA: But, if you don't like it, why do you do it?\n  Me doing VAA-&gt;&gt;My son: Do you do things that you don't like?\n  My son-&gt;&gt;Me doing VAA: No!\n  My brain-&gt;&gt;Me doing VAA: But... but I have no choice... 🥲 \n  Me doing VAA-&gt;&gt;My son: Well, sometimes you have to do things you don't like so as to reach what makes you happy.\n\n\n\n\n\n\n\n\nGoing through VAA\n\n\n\n\n\ntimeline\n        section January\n          7-13 Jan : Quarto, Netlify, R, GitHub\n                  : A Layered Grammar of Graphics and ggplot2\n                  : Hands-on Exercise 1\n                  : 🙃\n          14-20 Jan \n          21-27 Jan \n        section February\n          28-3 Feb  \n          4-10 Feb \n          11-17 Feb \n          18-24 Feb"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
@@ -86,9 +86,9 @@
   {
     "objectID": "index.html#latest-posts",
     "href": "index.html#latest-posts",
-    "title": "Hi! I’m Victoria Neo",
+    "title": "ISS608-VAA",
     "section": "Latest Posts",
-    "text": "Latest Posts"
+    "text": "Latest Posts\n\n\n\n\n\n\n\n\nHands-on Exercise 1\n\n\n\nJan 12, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n🚧 Under Construction\n\n\n\n\n\n\n\nNo matching items\n\n\n:::"
   },
   {
     "objectID": "index.html#hi-im-victoria-neo",
@@ -100,9 +100,9 @@
   {
     "objectID": "index.html#latest-hands-on-exercises-posts",
     "href": "index.html#latest-hands-on-exercises-posts",
-    "title": "Hi, I’m Victoria Neo",
-    "section": "",
-    "text": "Order By\n       Default\n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Title\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\nDate\n\n\nTitle\n\n\n\n\n\n\nJan 12, 2024\n\n\nHands-on Exercise 1\n\n\n\n\n\nNo matching items"
+    "title": "ISS608-VAA",
+    "section": "Latest Hands-on Exercises Posts",
+    "text": "Latest Hands-on Exercises Posts\n\n\n\n\n\n\n\n\nHands-on Exercise 1\n\n\n\nJan 12, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n🚧 Under Construction\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html#my-vaa-journey",
@@ -114,8 +114,8 @@
   {
     "objectID": "index.html#latest-take-home-exercises-posts",
     "href": "index.html#latest-take-home-exercises-posts",
-    "title": "Hi, I’m Victoria Neo",
-    "section": "",
-    "text": "Order By\n       Default\n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Title\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\nDate\n\n\nTitle\n\n\n\n\n\n\n \n\n\n🚧 Under Construction\n\n\n\n\n\nNo matching items"
+    "title": "ISS608-VAA",
+    "section": "Latest Take-home Exercises Posts",
+    "text": "Latest Take-home Exercises Posts\n\n\n\n\n\n\n\n\n🚧 Under Construction\n\n\n\n\n\n\n\nNo matching items"
   }
 ]
