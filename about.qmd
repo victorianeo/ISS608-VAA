@@ -4,7 +4,27 @@ title: "My VAA Journey"
 
 This space is a documentation of my journey through Visual Analytics and Applications, and what I have learnt from and felt about it.
 
-##### [A Conversation with my son]{.underline}
+## [1. Going through VAA]{.underline}
+
+```{mermaid}
+timeline         
+  section January           
+    7-13 Jan : Quarto, Netlify, R, GitHub                   
+              : A Layered Grammar of Graphics and ggplot2                   
+              : Hands-on Exercise 1                   
+              : 🙃          
+    14-20 Jan            
+    21-27 Jan          
+  section February           
+    28-3 Feb             
+    4-10 Feb           
+    11-17 Feb           
+    18-24 Feb                       
+```
+
+## [2. Funny Conversations]{.underline}
+
+### [2.1 A Conversation with my son]{.underline}
 
 ```{mermaid}
 sequenceDiagram
@@ -24,22 +44,4 @@ sequenceDiagram
   Me doing VAA->>My son: Well, sometimes you have to do things you don't like so as to reach what makes you happy.
 ```
 
-##### [Going through VAA]{.underline}
-
-```{mermaid}
-timeline
-        section January
-          7-13 Jan : Quarto, Netlify, R, GitHub
-                  : A Layered Grammar of Graphics and ggplot2
-                  : Hands-on Exercise 1
-                  : 🙃
-          14-20 Jan 
-          21-27 Jan 
-        section February
-          28-3 Feb  
-          4-10 Feb 
-          11-17 Feb 
-          18-24 Feb 
-          
-          
-```
+## 
