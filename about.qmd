@@ -1,5 +1,11 @@
 ---
 title: "My VAA Journey"
+format:
+  html:
+    code-fold: true
+    code-summary: "expand diagrams"
+    code-tools: true
+    code-copy: true
 ---
 
 This space is a documentation of my journey through Visual Analytics and Applications, and what I have learnt from and felt about it.
