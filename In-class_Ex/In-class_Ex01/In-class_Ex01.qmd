@@ -1,0 +1,13 @@
+---
+title: "In-class Exercise 1"
+subtitle: "Lesson 1: [Hands-on Exercise 1: A Layered Grammar of Graphics: ggplot2 methods](https://r4va.netlify.app/chap01)" 
+author: "Victoria Neo"
+date: 01/13/2024
+date-modified: last-modified
+format:
+  html:
+    code-fold: true
+    code-summary: "code block"
+    code-tools: true
+    code-copy: true
+---
