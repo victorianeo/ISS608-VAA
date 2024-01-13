@@ -28,6 +28,7 @@ listing:
   - id: stuff-listings
     contents: 
       - Hands-on_Ex
+      - In-class_Ex
       - Take-home_Ex
     type: grid
     fields: [date, image, title]
