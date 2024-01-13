@@ -1,9 +1,14 @@
 ---
-title: "In-class Exercise 1"
-subtitle: "Lesson 1: [Hands-on Exercise 1: A Layered Grammar of Graphics: ggplot2 methods](https://r4va.netlify.app/chap01)" 
+title: "In-class Exercise 1: Now You See It!"
+subtitle: "Following along Prof Kam's Lesson 1" 
 author: "Victoria Neo"
 date: 01/13/2024
 date-modified: last-modified
+execute: 
+  eval: true
+  echo: true
+  warning: false
+editor:: visual
 format:
   html:
     code-fold: true
@@ -11,3 +16,49 @@ format:
     code-tools: true
     code-copy: true
 ---
+
+## Loading R packages
+
+In this hands-on exercise, two R packages will be used. They are:
+
+-   [tidyverse](https://www.tidyverse.org/),and
+
+-   [haven](https://haven.tidyverse.org/)
+
+The code chunk used is as follows:
+
+```{r}
+pacman::p_load(tidyverse, haven)
+```
+
+## Importing PISA data
+
+The code chunk below uses [`read_sas()`](https://haven.tidyverse.org/reference/read_sas.html) of [haven](https://haven.tidyverse.org/index.html) to import PISA data into R environment.
+
+```{r}
+#| eval: false
+stu_qqq <- read_sas("data/cy08msp_stu_qqq.sas7bdat")
+```
+
+The code chunk below filters out students from Singapore into a new tbl_df.
+
+```{r}
+#| eval: false
+stu_qqq_SG <- stu_qqq %>%
+  filter(CNT =="SGP")
+```
+
+The code chunk below writes the tbl_df into a new .rds file.
+
+```{r}
+#| eval: false
+write_rds(stu_qqq_SG,
+          "data/stu_qqq_SG.rds")
+```
+
+The code chunk below reads the new .rds file that contains data about students from Singapore.
+
+```{r}
+stu_qqq_SG <-
+  read_rds("data/stu_qqq_SG.rds")
+```

@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "ISS608-VAA",
     "section": "",
-    "text": "Hi, I’m Victoria Neo!\nI enjoy deep diving into things that spark my creativity. I look forward to my Visual Analytics and Applications journey and the artifacts I will create. It might take a lot of time and effort but I believe the result is worth it.\n\n“We must all suffer from one of two pains: the pain of discipline or the pain of regret. The difference is discipline weighs ounces while regret weighs tons.”\n― Jim Rohn\n\n\n\n\n\n\nLatest Creations\n\n\n\n\n\n\n\n\nHands-on Exercise 1\n\n\n\nJan 12, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n🚧 Under Construction\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Hi, I’m Victoria Neo!\nI enjoy deep diving into things that spark my creativity. I look forward to my Visual Analytics and Applications journey and the artifacts I will create. It might take a lot of time and effort but I believe the result is worth it.\n\n“We must all suffer from one of two pains: the pain of discipline or the pain of regret. The difference is discipline weighs ounces while regret weighs tons.”\n― Jim Rohn\n\n\n\n\n\n\nLatest Creations\n\n\n\n\n\n\n\n\nHands-on Exercise 1\n\n\n\nJan 12, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nTake-home Exercise 1\n\n\n\nJan 13, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -18,7 +18,7 @@
     "href": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html",
     "title": "Hands-on Exercise 1",
     "section": "",
-    "text": "Values\nSpecial Remarks\n\n\n\n\nWork done\n1) Set up RStudio, Quarto and Netlify\n2) Set up Git, GitHub and RStudio\n3) IDEA on exam_data\n4) Hands-on Exercise 1\nWill take some time to think about the design of the website\n\n\nHours taken\n20 hours\nTwo sick kids\n\n\nReflections\n4\nOverall Reflections\nReflection 1\nReflection 2\nReflection 3\n\n\nQuestions\n2\n?Question? 1\n?Question? 2\n\n\n\n\n\n\n\n\n\nHow do I feel?\n\n\n\nWhat do I think?\nThis Hands-on Exercise 1 reminded me of DAL Hands-on Exercises. It allowed me to form a concrete connection between theory (A Layered Grammar of Graphics) and practice (different Geometric Objects, types of Facets etc.). It was interesting to see different examples of the layers but after awhile it got a little tedious. I did have a lot of time to play around with Quarto and RStudio so that I could quickly familiarise myself.\nI do hope to see more of how we can structure our thinking of data analytics according to a Layered Grammar of Graphics (Am loving this!). I am looking forward to this course!"
+    "text": "Values\nSpecial Remarks\n\n\n\n\nWork done\n1) Set up RStudio, Quarto and Netlify\n2) Set up Git, GitHub and RStudio\n3) IDEA on exam_data\n4) Hands-on Exercise 1\nWill take some time to think about the design of the website\n\n\nHours taken\n20 hours\nTwo sick kids\n\n\nReflections\n4\nOverall Reflections\nReflection 1\nReflection 2\nReflection 3\n\n\nQuestions\n2\n?Question? 1\n?Question? 2"
   },
   {
     "objectID": "Hands-on_Ex/Hands-on_Ex01/Hands-on_Ex01.html#install-and-launch-r-packages",
@@ -138,5 +138,26 @@
     "title": "My VAA Journey",
     "section": "2. Funny Conversations",
     "text": "2. Funny Conversations\n\n2.1 A Conversation with my son\n\n\n\n\n\nsequenceDiagram\n  participant My brain\n  participant Me doing VAA\n  participant My son\n  \n  My son-&gt;&gt;Me doing VAA: Mum, why are you not playing with us?\n  Me doing VAA-&gt;&gt;My son: Because I have to do work.\n  My son-&gt;&gt;Me doing VAA: Why are you so slow?\n  My brain-&gt;&gt;Me doing VAA: I can't say because I am dumb... 🥲    \n  Me doing VAA-&gt;&gt;My son: Because it takes time to do a good job! \n  My son-&gt;&gt;Me doing VAA: But, if you don't like it, why do you do it?\n  Me doing VAA-&gt;&gt;My son: Do you do things that you don't like?\n  My son-&gt;&gt;Me doing VAA: No!\n  My brain-&gt;&gt;Me doing VAA: But... but I have no choice... 🥲 \n  Me doing VAA-&gt;&gt;My son: Well, sometimes you have to do things you don't like so as to reach what makes you happy."
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex01/In-class_Ex01.html",
+    "href": "In-class_Ex/In-class_Ex01/In-class_Ex01.html",
+    "title": "In-class Exercise 1: Now You See It!",
+    "section": "",
+    "text": "In this hands-on exercise, two R packages will be used. They are:\n\ntidyverse,and\nhaven\n\nThe code chunk used is as follows:\n\n\ncode block\npacman::p_load(tidyverse, haven)"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#loading-r-packages",
+    "href": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#loading-r-packages",
+    "title": "In-class Exercise 1: Now You See It!",
+    "section": "",
+    "text": "In this hands-on exercise, two R packages will be used. They are:\n\ntidyverse,and\nhaven\n\nThe code chunk used is as follows:\n\n\ncode block\npacman::p_load(tidyverse, haven)"
+  },
+  {
+    "objectID": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#importing-pisa-data",
+    "href": "In-class_Ex/In-class_Ex01/In-class_Ex01.html#importing-pisa-data",
+    "title": "In-class Exercise 1: Now You See It!",
+    "section": "Importing PISA data",
+    "text": "Importing PISA data\nThe code chunk below uses read_sas() of haven to import PISA data into R environment.\n\n\ncode block\nstu_qqq &lt;- read_sas(\"data/cy08msp_stu_qqq.sas7bdat\")\n\n\nThe code chunk below filters out students from Singapore into a new tbl_df.\n\n\ncode block\nstu_qqq_SG &lt;- stu_qqq %&gt;%\n  filter(CNT ==\"SGP\")\n\n\nThe code chunk below writes the tbl_df into a new .rds file.\n\n\ncode block\nwrite_rds(stu_qqq_SG,\n          \"data/stu_qqq_SG.rds\")\n\n\nThe code chunk below reads the new .rds file that contains data about students from Singapore.\n\n\ncode block\nstu_qqq_SG &lt;-\n  read_rds(\"data/stu_qqq_SG.rds\")"
   }
 ]
