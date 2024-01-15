@@ -35,7 +35,7 @@ listing:
     max-items: 10
     fields: [date-modified, image, title]
     sort:
-      - "date-modified"
+      - "date-modified desc"
 ---
 
 ### Latest Creations
