@@ -12,9 +12,9 @@ format:
     code-copy: true
 ---
 
-(ref:ah-ggplot) *Illustration by* \@allison_horst. *Taken from* [Ryan Peek](http://ryanpeek.org/)'s and [Rich Pauloo](#0)'s [5. Data visualization with ggplot2](https://www.r4wrds.com/intro/m_ggplot)
+![](images/clipboard-209490517.png){width="40%" height="40%"}
 
-![](images/clipboard-209490517.png){width=80%}{height=80%}
+(ref:ah-ggplot) *Illustration by* \@allison_horst. *Taken from* [Ryan Peek](http://ryanpeek.org/)'s and [Rich Pauloo](#0)'s [5. Data visualization with ggplot2](https://www.r4wrds.com/intro/m_ggplot)
 
 # Overview Summary
 

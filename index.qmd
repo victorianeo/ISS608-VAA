@@ -31,7 +31,11 @@ listing:
       - In-class_Ex
       - Take-home_Ex
     type: grid
-    fields: [date, image, title]
+    grid-columns: 5
+    max-items: 10
+    fields: [date-modified, image, title]
+    sort:
+      - "date-modified"
 ---
 
 ### Latest Creations
