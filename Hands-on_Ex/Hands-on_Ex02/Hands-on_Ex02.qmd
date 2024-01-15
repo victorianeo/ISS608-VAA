@@ -1,5 +1,5 @@
 ---
-title: "Hands-on Exercise2"
+title: "Hands-on Exercise 2"
 subtitle: "Lesson 2: [Designing Graphs to Enlighten || Beyond ggplot2 Fundamentals](https://r4va.netlify.app/chap02)" 
 author: "Victoria Neo"
 date: 01/12/2024
@@ -14,17 +14,17 @@ format:
 
 (ref:ah-ggplot) *Illustration by* \@allison_horst. *Taken from* [Ryan Peek](http://ryanpeek.org/)'s and [Rich Pauloo](#0)'s [5. Data visualization with ggplot2](https://www.r4wrds.com/intro/m_ggplot)
 
-![(ref:ah-ggplot)](https://www.r4wrds.com/intro/images/ggplot2.png){alt="(ref:ah-ggplot)"}
+![](images/clipboard-209490517.png){width=80%}{height=80%}
 
 # Overview Summary
 
-|                  |                                                                                                                                                                                                                                                                   |
-|-------------------------|-----------------------------------------------|
-| Work done        | Hands-on Exercise 2                                                                                                                                                                                                                                               |
-| Hours taken      | ⏱️⏱️⏱️⏱️ (one under-the-weather kid)                                                                                                                                                                                                                              |
-| Questions        | 🙋🏻‍♀️🙋🏻‍♀️                                                                                                                                                                                                                                                              |
-| How do I feel?   | 🫡                                                                                                                                                                                                                                                                |
-| What do I think? | This week's Hands-on Exercise seemed much manageable and more time can be dedicated to the Take-home Exercise 1. I enjoyed learning and exploring the different themes - I think I really like theme [fivethirtyeight.com](https://abcnews.go.com/538) the best.  |
+|                  |                                                                                                                                                                                                                                                                  |
+|--------------------------|----------------------------------------------|
+| Work done        | Hands-on Exercise 2                                                                                                                                                                                                                                              |
+| Hours taken      | ⏱️⏱️⏱️⏱️ (one under-the-weather kid)                                                                                                                                                                                                                             |
+| Questions        | 🙋🏻‍♀️🙋🏻‍♀️                                                                                                                                                                                                                                                             |
+| How do I feel?   | 🫡                                                                                                                                                                                                                                                               |
+| What do I think? | This week's Hands-on Exercise seemed much manageable and more time can be dedicated to the Take-home Exercise 1. I enjoyed learning and exploring the different themes - I think I really like theme [fivethirtyeight.com](https://abcnews.go.com/538) the best. |
 
 # Getting Started
 
@@ -212,7 +212,6 @@ ggplot(data=exam_data,
 What an ugly plot! I always have this problem and then refrain from adding such labels because it renders the plot unreadable.
 
 Yay for ggrepel!
-
 :::
 
 #### 2.1.1 Working with ggrepel
