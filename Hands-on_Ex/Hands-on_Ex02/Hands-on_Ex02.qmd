@@ -3,7 +3,7 @@ title: "Hands-on Exercise 2"
 subtitle: "Lesson 2: [Designing Graphs to Enlighten || Beyond ggplot2 Fundamentals](https://r4va.netlify.app/chap02)" 
 author: "Victoria Neo"
 date: 01/12/2024
-date-modified: last-modified
+date-modified: 01/15/2024
 format:
   html:
     code-fold: true
@@ -32,7 +32,7 @@ format:
 
 ### 1.1 Installing and loading the required libraries
 
-The code chunk below uses p_load() of pacman package to check if tidyverse, ggrepel, ggthemes, hrbrthemes and patchwrok packages are installed in the computer. If they are, then they will be launched into R.
+The code chunk below uses p_load() of pacman package to check if tidyverse, ggrepel, ggthemes, hrbrthemes and patchwork packages are installed in the computer. If they are, then they will be launched into R.
 
 ::: callout-note
 -   ggrepel: an R package provides geoms for ggplot2 to repel overlapping text labels.

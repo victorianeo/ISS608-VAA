@@ -1,0 +1,18 @@
+---
+title: "In-class Exercise 2: Now You See It!"
+subtitle: "Following along Prof Kam's Lesson 1" 
+author: "Victoria Neo"
+date: 01/20/2024
+date-modified: last-modified
+execute: 
+  eval: true
+  echo: true
+  warning: false
+editor:: visual
+format:
+  html:
+    code-fold: show
+    code-summary: "code block"
+    code-tools: true
+    code-copy: true
+---
