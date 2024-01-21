@@ -5,15 +5,61 @@
 }
 
 .focusbox {
-  padding: 2em 1em 1em 8em;
+  padding: 2em 1em 1em 6.5em;
   margin-bottom: 10px;
   border: 1.5px solid #3A3B60;
   border-radius: 10px;
-  font-size: 18px;
-  background: #eafff2 5px center/3em no-repeat;
-  background-size: 7em;
+  font-size: 15px;
+  background: #fffac0 5px center/3em no-repeat;
+  background-size: 6em;
+  content: attr(data-title);
 }
 
 .focus {
   background-image: url("images/focus.png");
+}
+
+.thinkbox {
+  padding: 2em 1em 1em 6.5em;
+  margin-bottom: 10px;
+  border: 1.5px solid #3A3B60;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #d6f1f2 5px center/3em no-repeat;
+  background-size: 5em;
+}
+
+.think {
+  background-image: url("images/think.png");
+}
+
+
+.codebox {
+  padding: 2em 1em 1em 6.5em;
+  margin-bottom: 10px;
+  border: 1.5px solid #3A3B60;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #ffe5c5 5px center/3em no-repeat;
+  background-size: 5em;
+}
+
+.code {
+  background-image: url("images/code.png");
+}
+
+.kambox {
+  padding: 2em 1em 1em 8.5em;
+  margin-bottom: 10px;
+  border: 1.5px solid #d1e3f6;
+  border-radius: 10px;
+  font-size: 15px;
+  color: white;
+  background: #2c3539 5px center/3em no-repeat;
+  background-size: 5em;
+  background-position: 1.5em 3em;
+}
+
+.kam {
+  background-image: url("images/profkam.png");
 }

@@ -42,7 +42,9 @@ format:
     css: styles.css
     toc: true
     toc-location: left
+    toc-depth: 3
     page-layout: full
+    fontsize: 1em
 
 editor: visual
 

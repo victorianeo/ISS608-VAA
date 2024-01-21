@@ -12,6 +12,7 @@ format:
     code-copy: true
 ---
 
+
 ![](images/clipboard-2705904821.png){width="60%" height="60%"}
 
 Meritocracy cartoon, October 29, 2010 (Josh C. Lyman via <http://www.clibsy.com/>). *Taken from* [Merit-hypocrisy in the Air](https://donaldearlcollins.com/2015/04/18/merit-hypocrisy-in-the-air/)
@@ -29,6 +30,7 @@ In this take-home exercise, you are required to use appropriate **Exploratory Da
 -   the distribution of Singapore students’ performance in mathematics, reading, and science, and
 
 -   the relationship between these performances with schools, gender and socioeconomic status (SES) of the students.
+
 
 ```{mermaid}
 flowchart TB
@@ -49,6 +51,7 @@ flowchart TB
   F --> B
   F --> C
 ```
+
 
 ## 1.2 The Literature Review
 
@@ -158,6 +161,7 @@ In this exercise, only the Student questionnaire data file was used and uploaded
 The code chunk below uses p_load() of pacman package to check if tidyverse, ggrepel, ggthemes, hrbrthemes, patchwork and haven packages are installed in the computer. If they are, then they will be launched into R.
 :::
 
+
 ```{r}
 pacman::p_load(ggrepel, patchwork, 
                ggthemes, hrbrthemes,
@@ -167,14 +171,17 @@ pacman::p_load(ggrepel, patchwork,
                colorspace) 
 ```
 
+
 ::: {.codebox .code data-latex="code"}
 The code chunk below reads the .rds file containing data about students from Singapore.
 :::
+
 
 ```{r}
 stu_qqq_SG <-
   read_rds("data/stu_qqq_SG.rds")
 ```
+
 
 ### 2.2.2 Summary Statistic of **stu_qqq_SG**
 
@@ -183,11 +190,13 @@ stu_qqq_SG <-
 
 ### Displaying the first 5 rows of **stu_qqq_SG** using `head():`
 
+
 ```{r}
 head(stu_qqq_SG,5) %>%
   kbl() %>%
    kable_classic_2(full_width = F)
 ```
+
 
 ## Data Structure
 
@@ -199,9 +208,11 @@ head(stu_qqq_SG,5) %>%
 There are 6606 rows and 1279 variables.
 :::
 
+
 ```{r}
 glimpse(stu_qqq_SG)
 ```
+
 
 ## Data Health
 
@@ -218,11 +229,14 @@ glimpse(stu_qqq_SG)
 
 #### 1. Checking for duplicates:
 
+
 ```{r}
 stu_qqq_SG[duplicated(stu_qqq_SG),]
 ```
 
+
 #### 2. Checking missing values:
+
 
 ```{r}
 sum(is.na(stu_qqq_SG))
@@ -239,11 +253,13 @@ cat("Number of columns with 0% missing values:", num_0_percent_missing, "\n")
 cat("Number of columns with 100% missing values:", num_100_percent_missing, "\n")
 
 ```
+
 :::
 
 ### 2.2.3 Some Identified Variables of Interest
 
 Based on the [1.2 The Literature Review] above, these are some identified variables that we can use for our [1.1 The Task].
+
 
 ```{mermaid}
 flowchart TB
@@ -283,6 +299,7 @@ flowchart TB
   B --> B4
 ```
 
+
 #### 2.2.3.1 Investigating Plausible Values of MATH, READ, SCIENCE
 
 According to the article "[Efficiency Analysis with Educational Data: How to Deal with Plausible Values from International Large-Scale Assessments](https://www.mdpi.com/2227-7390/9/13/1579)", it mentioned that analysts often used just **one of the plausible values** - "the standard errors of the statistics of interest are generally underestimated, as the uncertainty associated with the measurement of proficiency distributions is ignored. However, PISA analysts indicate that using one or five plausible values in a large sample **does not make a substantial difference**" (bold my own).
@@ -296,17 +313,20 @@ This section visually investigates if there is significant difference between th
 The code chunk below filters out PV1MATH and the other 9 PVs, PV1READ and the other 9 PVs, PV1SCIE and the other 9 PVs into a new data frame.
 :::
 
+
 ```{r}
 pv_data <- stu_qqq_SG[, c("PV1MATH", "PV2MATH", "PV3MATH", "PV4MATH", "PV5MATH", "PV6MATH", "PV7MATH", "PV8MATH", "PV9MATH", "PV10MATH", "PV1READ", "PV2READ", "PV3READ", "PV4READ", "PV5READ", "PV6READ", "PV7READ", "PV8READ", "PV9READ", "PV10READ", "PV1SCIE", "PV2SCIE", "PV3SCIE", "PV4SCIE", "PV5SCIE", "PV6SCIE", "PV7SCIE", "PV8SCIE", "PV9SCIE", "PV10SCIE")]
 
 glimpse(pv_data)
 ```
 
+
 ## **Step 2: Aggregating new variables**
 
 ::: {.codebox .code data-latex="code"}
 The code chunk aggregates the different PV columns for Math, Reading and Science into key-value columns for each type of score using [`tidyverse::gather()`](https://tidyr.tidyverse.org/reference/gather.html).
 :::
+
 
 ```{r}
 #| warning: false
@@ -321,9 +341,11 @@ pv_data$SCIType <- factor(pv_data$SCIType, levels = c("PV1SCIE", "PV2SCIE", "PV3
 glimpse(pv_data)
   
 ```
+
 :::
 
 #### 2.2.3.2 Visualising Plausible Values of MATH, READ, SCIENCE with Ridgeline plot
+
 
 ```{r , fig.width=12,}
 demo_mathpv <- ggplot(pv_data, 
@@ -364,6 +386,7 @@ patchwork_score & theme_fivethirtyeight()
 
 ```
 
+
 ::: {.focusbox .focus data-latex="focus"}
 #### **Insights from Ridgeline plot of Plausible Values**
 
@@ -373,6 +396,7 @@ The 10 Plausible Values for MATH, READ and SCIENCE are very close in their distr
 ### 2.2.4 Data Preparation
 
 For the purpose of this exercise, to tease out any relationship between academic performance in Math, Reading and Science and 1) School, 2) SES, and 3) Gender, I have decided to use the variables SchoolID for School, ESCS for SES and ST004D01T for Gender.
+
 
 ```{mermaid}
 flowchart TB
@@ -400,6 +424,7 @@ flowchart TB
   C --> C1
 ```
 
+
 ::: {.callout-note collapse="true"}
 ## Expand To Learn More About ESCS
 
@@ -412,13 +437,16 @@ From the [PISA 2022 Technical Report](https://www.oecd.org/pisa/data/pisa2022tec
 The code chunk below filters out the identified variables of interest (CNTSTUID, CNTSCHID: Intl. School ID, ESCS: Index of economic, social and cultural status, ST004D01T: Gender, PV1MATH, PV1READ, and PV1SCIE) into a new data frame.
 :::
 
+
 ```{r}
 filtered_data <- stu_qqq_SG[, c("CNTSTUID", "CNTSCHID", "ESCS", "ST004D01T", "PV1MATH", "PV1READ", "PV1SCIE")]
 ```
 
+
 ::: {.codebox .code data-latex="code"}
 The code chunk below writes the tbl_df into a new .rds file.
 :::
+
 
 ```{r}
 #| eval: false
@@ -426,14 +454,17 @@ write_rds(filtered_data,
           "data/filtered_data.rds")
 ```
 
+
 ::: {.codebox .code data-latex="code"}
 The code chunk below reads the new .rds file that contains filtered data about students from Singapore.
 :::
+
 
 ```{r}
 filtered_data <-
   read_rds("data/filtered_data.rds")
 ```
+
 
 #### 2.2.4.1 Summary Statistic of **filtered_data**
 
@@ -442,11 +473,13 @@ filtered_data <-
 
 ### Displaying the first 5 rows of **filtered_data** using `head():`
 
+
 ```{r}
 head(filtered_data,5) %>%
   kbl() %>%
    kable_classic_2(full_width = F)
 ```
+
 
 ## Data Structure
 
@@ -460,9 +493,11 @@ There are 6606 rows and 7 variables.
 Of note, CNTSTUID, CNTSCHID and ST004D01T have been wrongly labelled as \<`dbl>` when they should be cast as `<factor>` as they is categorical in nature.
 :::
 
+
 ```{r}
 glimpse(filtered_data)
 ```
+
 
 ## Data Health
 
@@ -480,11 +515,14 @@ glimpse(filtered_data)
 
 #### 1. Checking for duplicates:
 
+
 ```{r}
 filtered_data[duplicated(filtered_data),]
 ```
 
+
 #### 2. Checking missing values:
+
 
 ```{r}
 sum(is.na(filtered_data))
@@ -502,56 +540,71 @@ cat("Number of columns with 100% missing values:", num_100_percent_missing, "\n"
 print(result)
 ```
 
+
 #### 3. Checking data irregularities:
 
 3.1 In CNTSTUID
+
 
 ```{r}
 unique(filtered_data$CNTSTUID)
 
 ```
 
+
 3.2 In CNTSCHID
+
 
 ```{r}
 unique(filtered_data$CNTSCHID)
 
 ```
 
+
 3.3 In ESCS
+
 
 ```{r}
 summary(filtered_data$ESCS)
 
 ```
 
+
 3.4 In ST004D01T
+
 
 ```{r}
 unique(filtered_data$ST004D01T)
 
 ```
 
+
 3.5 In PV1MATH
+
 
 ```{r}
 summary(filtered_data$PV1MATH)
 
 ```
 
+
 3.6 In PV1READ
+
 
 ```{r}
 summary(filtered_data$PV1READ)
 
 ```
 
+
 3.7 In PV1SCIE
+
 
 ```{r}
 summary(filtered_data$PV1SCIE)
 
 ```
+
 :::
 
 ### 2.2.5 Altering table format of **filtered_data**
@@ -566,6 +619,7 @@ summary(filtered_data$PV1SCIE)
 ::: panel-tabset
 ## **Step 1: Removing Missing values:**
 
+
 ```{r}
 #| code-fold: show
 # Removing Rows with NA Values in Any Column
@@ -573,13 +627,17 @@ filtered_data <- filtered_data %>%
   na.omit()
 ```
 
+
 Checking for missing values:
+
 
 ```{r}
 sum(is.na(filtered_data))
 ```
 
+
 ## **Step 2: Changing data types:**
+
 
 ```{r}
 #| code-fold: show
@@ -590,7 +648,9 @@ filtered_data$ST004D01T <- as.factor(filtered_data$ST004D01T)
 
 ```
 
+
 ## **Step 3: Changing variables' categories:**
+
 
 ```{r}
 #| code-fold: show
@@ -605,7 +665,9 @@ filtered_data$CNTSCHID <- sub("^7020", "", filtered_data$CNTSCHID)
 filtered_data$CNTSCHID <- as.factor(filtered_data$CNTSCHID)
 ```
 
+
 ## **Step 4: Changing data names:**
+
 
 ```{r}
 #| code-fold: show
@@ -620,6 +682,7 @@ filtered_data <- filtered_data %>%
            "SCIENCE" = "PV1SCIE"
              )
 ```
+
 :::
 
 ### 2.2.6 Cleaned **filtered_data**
@@ -636,6 +699,7 @@ filtered_data <- filtered_data %>%
 The code chunk below summarizes filtered_data.
 :::
 
+
 ```{r}
 glimpse(filtered_data)
 ```
@@ -645,6 +709,7 @@ categorical_variables <- sapply(filtered_data, function(x) !is.numeric(x))
 sapply(filtered_data[categorical_variables], function(x) length(unique(x)))
 ```
 
+
 # 3 Visual Summary of filtered_data
 
 ## 3.1 Visualising Math, Reading, Science, Schools, SES and Gender
@@ -652,6 +717,7 @@ sapply(filtered_data[categorical_variables], function(x) length(unique(x)))
 ::: {.codebox .code data-latex="code"}
 The code chunk below visualises the distribution of each variable scores using histograms and bar charts.
 :::
+
 
 ```{r, fig.width= 10, fig.height = 10}
 math <- ggplot(data=filtered_data, 
@@ -707,6 +773,7 @@ patchwork & theme_fivethirtyeight(base_size = 7)
 
 ```
 
+
 ## 3.2 Visualising Math, Reading and Science Scores with Schools, SES and Gender
 
 ::: {.thinkbox .think data-latex="think"}
@@ -732,6 +799,7 @@ The code chunk below visualises the distribution of Math scores using histogram,
 :::
 
 ### 3.2.1 Visualising Math with Schools, SES and Gender
+
 
 ```{r, fig.width= 10, fig.height = 10}
 #| warning: false
@@ -830,7 +898,9 @@ patchwork_math & theme_fivethirtyeight(base_size = 7)
 
 ```
 
+
 ### 3.2.2 Visualising Reading Scores with Schools, SES and Gender
+
 
 ```{r, fig.width= 10, fig.height = 10}
 #| warning: false
@@ -927,7 +997,9 @@ patchwork_read & theme_fivethirtyeight(base_size = 7)
 
 ```
 
+
 ### 3.2.3 Visualising Science Scores with Schools, SES and Gender
+
 
 ```{r, fig.width= 10, fig.height = 10}
 #| warning: false
@@ -1023,6 +1095,7 @@ patchwork_sci & theme_fivethirtyeight(base_size = 7)
 
 ```
 
+
 ::: {.focusbox .focus data-latex="focus"}
 #### **Insights from Visualisations**
 
@@ -1074,6 +1147,7 @@ In short, I can conclude that there are associations between academic scores of 
 
 ## 4.3 A Visual Summary
 
+
 ```{mermaid}
 flowchart TB
   A[School]
@@ -1112,6 +1186,8 @@ flowchart TB
   C1 --> C12
 ```
 
+
 ::: callout-warning
 This is not an exhaustive list - more school IDs have not been included but 70201003 is a school that appeared in the top 5 schools for Math, Reading and Science scores! With more research, this will become more comprehensive.
 :::
+
