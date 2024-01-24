@@ -63,3 +63,17 @@
 .kam {
   background-image: url("images/profkam.png");
 }
+
+.cautionbox {
+  padding: 2em 1em 1em 5.5em;
+  margin-bottom: 10px;
+  border: 1.5px solid #3A3B60;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #FFCAD4 5px center/3em no-repeat;
+  background-size: 4em;
+}
+
+.caution {
+  background-image: url("images/caution.png");
+}
