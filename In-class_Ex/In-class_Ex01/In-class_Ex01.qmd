@@ -3,7 +3,7 @@ title: "In-class Exercise 1: Now You See It!"
 subtitle: "Following along Prof Kam's Lesson 1" 
 author: "Victoria Neo"
 date: 01/13/2024
-date-modified: last-modified
+date-modified: 01/13/2024
 execute: 
   eval: true
   echo: true
@@ -16,6 +16,8 @@ format:
     code-tools: true
     code-copy: true
 ---
+
+## ![](images/clipboard-3117031621.png)
 
 ## Loading R packages
 
