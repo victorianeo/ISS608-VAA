@@ -2,7 +2,7 @@
 title: "Take-home Exercise 1"
 subtitle: "[Take-home Exercise 1](https://isss608-ay2023-24jan.netlify.app/take-home_ex/th_ex01)" 
 author: "Victoria Neo"
-date: 01/13/2024
+date: 01/21/2024
 date-modified: last-modified
 format:
   html:
