@@ -18,13 +18,13 @@ format:
 
 # Overview Summary
 
-|                  |                                                                                                                                                                                                                                         |
+|                  |                                                                                                                                                                                                                                                 |
 |--------------------------|----------------------------------------------|
-| Work done        | Hands-on Exercise 3a                                                                                                                                                                                                                    |
-| Hours taken      | ⏱️⏱️⏱️⏱️ (sick fil)                                                                                                                                                                                                                     |
-| Questions        | 🙋🏻‍♀️🙋🏻‍♀️                                                                                                                                                                                                                                    |
-| How do I feel?   | 🚚😵                                                                                                                                                                                                                                    |
-| What do I think? | This week's Hands-on Exercises were heavy as we still had our Take-home Exercise 2 to think about and work on. That aside, I was very interactivity is very important because enabling the reader to explore helps to democratise data. |
+| Work done        | Hands-on Exercise 3a                                                                                                                                                                                                                            |
+| Hours taken      | ⏱️⏱️⏱️⏱️ (sick fil)                                                                                                                                                                                                                             |
+| Questions        | 0                                                                                                                                                                                                                                            |
+| How do I feel?   | 🚚😵                                                                                                                                                                                                                                            |
+| What do I think? | This week's Hands-on Exercises were a little long as we still had our Take-home Exercise 2 to think about and work on. That aside, I was very interactivity is very important because enabling the reader to explore helps to democratise data. |
 
 # Getting Started
 
@@ -63,7 +63,7 @@ The data set, *Exam_data.csv,* contains the Year-end examination grades of a coh
 #### 1.2.1 Importing exam_data
 
 ::: {.codebox .code data-latex="code"}
-The code chunk below read_csv() of readr package is used to import Exam_data.csv data file into R and save it as an tibble data frame called exam_data.
+In the code chunk below, read_csv() of readr package is used to import Exam_data.csv data file into R and save it as an tibble data frame called exam_data.
 :::
 
 ```{r}
@@ -168,9 +168,9 @@ There were no data irregularities found in exam_data.
 :::
 :::
 
-## 2: Hands-on Exercise
+# 2: Hands-on Exercise
 
-### 2.1 Interactive Data Visualisation - ggiraph methods
+## 2.1 Interactive Data Visualisation - ggiraph methods
 
 ::: {.kambox .kam data-latex="kam"}
 #### What did Prof Kam say?
@@ -188,7 +188,7 @@ Interactive is made with [**ggplot geometries**](https://davidgohel.github.io/gg
 If it used within a shiny application, elements associated with an id (data_id) can be selected and manipulated on client and server sides. Refer to this [article](https://davidgohel.github.io/ggiraph/articles/offcran/shiny.html) for more detail explanation.
 :::
 
-#### 2.1.2 Tooltip
+### 2.1.2 Tooltip
 
 ::: panel-tabset
 ## Tooltip effect with tooltip aesthetic
@@ -339,7 +339,7 @@ girafe(ggobj = gg_point,
 ```
 :::
 
-#### 2.1.3 Hover
+### 2.1.3 Hover
 
 ::: panel-tabset
 ## Hover effect with *data_id* aesthetic
@@ -399,7 +399,7 @@ Note: Different from previous example, in this example the ccs customisation req
 :::
 :::
 
-#### 2.1.4 Tooltip + Hover
+### 2.1.4 Tooltip + Hover
 
 ::: panel-tabset
 ## Combining tooltip and hover effect
@@ -433,7 +433,7 @@ girafe(
 ```
 :::
 
-#### 2.1.5 Click effect
+### 2.1.5 Click effect
 
 ::: panel-tabset
 ## Click effect with onclick
@@ -469,7 +469,7 @@ Note that click actions must be a string column in the dataset containing valid 
 :::
 :::
 
-#### 2.1.6 Coordinated Multiple Views
+### 2.1.6 Coordinated Multiple Views
 
 ::: panel-tabset
 ## Coordinated Multiple Views with ggiraph
@@ -520,7 +520,7 @@ girafe(code = print(p1 + p2),
 ```
 :::
 
-### 2.2 **Interactive Data Visualisation - plotly methods!**
+## 2.2 **Interactive Data Visualisation - plotly methods!**
 
 ::: {.kambox .kam data-latex="kam"}
 #### What did Prof Kam say?
@@ -533,7 +533,7 @@ There are two ways to create interactive graph by using plotly, they are:
 -   and by using ggplotly()
 :::
 
-#### 2.2.1 Creating an interactive scatter plot: plot_ly() method
+### 2.2.1 Creating an interactive scatter plot: plot_ly() method
 
 ::: panel-tabset
 ## The plot
@@ -558,26 +558,27 @@ plot_ly(data = exam_data,
 ```
 :::
 
-#### 2.2.2 Working with visual variable: plot_ly() method
-
-::: panel-tabset
-## The plot
-
-```{r}
-#| echo: false 
-#| warning: false
-plot_ly(data = exam_data, 
-        x = ~ENGLISH, 
-        y = ~MATHS, 
-        color = ~RACE)
-```
-
-## The code
+### 2.2.2 Working with visual variable: plot_ly() method
 
 ::: {.codebox .code data-latex="code"}
 In the code chunk below, *color* argument is mapped to a qualitative visual variable (i.e. RACE).
 :::
 
+::: panel-tabset
+## The plot
+
+```{r}
+#| echo: false 
+#| warning: false
+plot_ly(data = exam_data, 
+        x = ~ENGLISH, 
+        y = ~MATHS, 
+        color = ~RACE)
+```
+
+## The code
+
+
 ```{r}
 #| warning: false 
 #| code-fold: show
@@ -589,33 +590,7 @@ plot_ly(data = exam_data,
 ```
 :::
 
-#### 2.2.3 Coordinated Multiple Views with plotly
-
-::: panel-tabset
-## The plot
-
-```{r}
-#| echo: false 
-#| warning: false
-d <- highlight_key(exam_data)
-p1 <- ggplot(data=d, 
-            aes(x = MATHS,
-                y = ENGLISH)) +
-  geom_point(size=1) +
-  coord_cartesian(xlim=c(0,100),
-                  ylim=c(0,100))
-
-p2 <- ggplot(data=d, 
-            aes(x = MATHS,
-                y = SCIENCE)) +
-  geom_point(size=1) +
-  coord_cartesian(xlim=c(0,100),
-                  ylim=c(0,100))
-subplot(ggplotly(p1),
-        ggplotly(p2))
-```
-
-## The code
+### 2.2.3 Coordinated Multiple Views with plotly
 
 ::: {.codebox .code data-latex="code"}
 The creation of a coordinated linked plot by using plotly involves three steps:
@@ -633,6 +608,32 @@ Thing to learn from the code chunk:
 -   Visit this [link](https://rstudio.github.io/crosstalk/) to learn more about crosstalk,
 :::
 
+::: panel-tabset
+## The plot
+
+```{r}
+#| echo: false 
+#| warning: false
+d <- highlight_key(exam_data)
+p1 <- ggplot(data=d, 
+            aes(x = MATHS,
+                y = ENGLISH)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+
+p2 <- ggplot(data=d, 
+            aes(x = MATHS,
+                y = SCIENCE)) +
+  geom_point(size=1) +
+  coord_cartesian(xlim=c(0,100),
+                  ylim=c(0,100))
+subplot(ggplotly(p1),
+        ggplotly(p2))
+```
+
+## The code
+
 ```{r}
 #| warning: false 
 #| code-fold: show
@@ -656,7 +657,7 @@ subplot(ggplotly(p1),
 ```
 :::
 
-### 2.3 **Interactive Data Visualisation - crosstalk methods!**
+## 2.3 **Interactive Data Visualisation - crosstalk methods!**
 
 ::: {.kambox .kam data-latex="kam"}
 #### What did Prof Kam say?
@@ -664,7 +665,7 @@ subplot(ggplotly(p1),
 Crosstalk is an add-on to the htmlwidgets package. It extends htmlwidgets with a set of classes, functions, and conventions for implementing cross-widget interactions (currently, linked brushing and filtering).
 :::
 
-#### 2.3.1 Interactive Data Table: DT package
+### 2.3.1 Interactive Data Table: DT package
 
 -   A wrapper of the JavaScript Library DataTables
 
@@ -674,8 +675,14 @@ Crosstalk is an add-on to the htmlwidgets package. It extends htmlwidgets with a
 DT::datatable(exam_data, class= "compact")
 ```
 
-#### 2.3.2 Linked brushing: crosstalk method
+### 2.3.2 Linked brushing: crosstalk method
+::: {.codebox .code data-latex="code"}
+Things to learn from the code chunk:
 
+-   *highlight()* is a function of **plotly** package. It sets a variety of options for brushing (i.e., highlighting) multiple plots. These options are primarily designed for linking multiple plotly graphs, and may not behave as expected when linking plotly to another htmlwidget package via crosstalk. In some cases, other htmlwidgets will respect these options, such as persistent selection in leaflet.
+
+-   *bscols()* is a helper function of **crosstalk** package. It makes it easy to put HTML elements side by side. It can be called directly from the console but is especially designed to work in an R Markdown document. **Warning:** This will bring in all of Bootstrap!.
+:::
 ::: panel-tabset
 ## The plot
 
@@ -699,14 +706,6 @@ crosstalk::bscols(gg,
 ```
 
 ## The code
-
-::: {.codebox .code data-latex="code"}
-Things to learn from the code chunk:
-
--   *highlight()* is a function of **plotly** package. It sets a variety of options for brushing (i.e., highlighting) multiple plots. These options are primarily designed for linking multiple plotly graphs, and may not behave as expected when linking plotly to another htmlwidget package via crosstalk. In some cases, other htmlwidgets will respect these options, such as persistent selection in leaflet.
-
--   *bscols()* is a helper function of **crosstalk** package. It makes it easy to put HTML elements side by side. It can be called directly from the console but is especially designed to work in an R Markdown document. **Warning:** This will bring in all of Bootstrap!.
-:::
 
 ```{r}
 #| warning: false 
