@@ -3,16 +3,15 @@
 .test h3 {
   text-align: center;
 }
-
 .focusbox {
-  padding: 2em 1em 1em 6.5em;
+  padding: 1em 1em 1em 6.5em;
   margin-bottom: 10px;
   border: 1.5px solid #3A3B60;
   border-radius: 10px;
   font-size: 15px;
-  background: #fffac0 5px center/3em no-repeat;
-  background-size: 6em;
-  content: attr(data-title);
+  background: #fffac0 no-repeat;
+  background-size: 5em;
+  background-position: 7px 46px;
 }
 
 .focus {
@@ -20,13 +19,14 @@
 }
 
 .thinkbox {
-  padding: 2em 1em 1em 6.5em;
+  padding: 1em 1em 1em 6.5em;
   margin-bottom: 10px;
   border: 1.5px solid #3A3B60;
   border-radius: 10px;
   font-size: 15px;
-  background: #d6f1f2 5px center/3em no-repeat;
+  background: #d6f1f2 no-repeat;
   background-size: 5em;
+  background-position: 7px 46px;
 }
 
 .think {
@@ -76,4 +76,20 @@
 
 .caution {
   background-image: url("images/caution.png");
+}
+
+
+.pastbox {
+  padding: 1em 1em 1em 6.5em;
+  margin-bottom: 10px;
+  border: 1.5px solid #3A3B60;
+  border-radius: 10px;
+  font-size: 15px;
+  background: #F7F5FF no-repeat;
+  background-size: 5em;
+  background-position: 7px 46px;
+}
+
+.past {
+  background-image: url("images/past.png");
 }

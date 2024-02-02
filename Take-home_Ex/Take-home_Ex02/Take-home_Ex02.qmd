@@ -1,0 +1,173 @@
+---
+title: "Take-home Exercise 2: DataVis Makeover"
+subtitle: "[DataVis Makeover of Take-home Exercise 1](https://isss608-ay2023-24jan.netlify.app/take-home_ex/th_ex02)" 
+author: "Victoria Neo"
+date: 02/01/2024
+date-modified: last-modified
+format:
+  html:
+    code-fold: true
+    code-summary: "code block"
+    code-tools: true
+    code-copy: true
+    code-block-border-left: "#f9dc5c"
+    code-block-background: true
+---
+
+![Histogram, May 1, 2019. *Taken from* [Extreme Makeover: Histogram Edition](https://medium.com/@johnnaujoks/extreme-makeover-histogram-edition-fdb824d7e58)](images/clipboard-508869842.png){fig-align="left" width="455"}
+
+# 1 Setting the scene
+
+## 1.1 The Task
+
+In this take-home exercise, you are required to:
+
+-   select one of the Take-home Exercise 1 prepared by your classmate,
+
+-   critic the submission in terms of clarity and aesthetics,
+
+-   prepare a sketch for the alternative design by using the data visualisation design principles and best practices you had learned in Lesson 1 and 2, and
+
+-   remake the original design by using ggplot2, ggplot2 extensions and tidyverse packages.
+
+::: {.pastbox .past data-latex="code"}
+#### **Remember Take-home Exercise 1**
+
+The 2022 Programme for International Student Assessment (PISA) data was released on December 5, 2022. PISA global education survey every three years to assess the education systems worldwide through testing 15 year old students in the subjects of mathematics, reading, and science.
+
+In this take-home exercise, you are required to use appropriate **Exploratory Data Analysis (EDA)** methods and **ggplot2** functions to reveal:
+
+-   the distribution of Singapore students’ performance in mathematics, reading, and science, and
+
+-   the relationship between these performances with schools, gender and socioeconomic status (SES) of the students.
+
+```{mermaid}
+flowchart TB
+  A[School] 
+  B[SES]
+  C[Gender]
+  D[Reading Scores]
+  E[Math Scores]
+  F[Science Scores]
+  
+  D --> A
+  D --> B
+  D --> C
+  E --> A
+  E --> B
+  E --> C
+  F --> A
+  F --> B
+  F --> C
+```
+:::
+
+## 1.2 Getting Started
+
+### 1.2.1 Installing R packages and loading the dataset
+
+The code chunk below uses p_load() of pacman package to check if tidyverse, ggrepel, ggthemes, hrbrthemes, patchwork and haven packages are installed in the computer. If they are, then they will be launched into R.
+
+```{r}
+pacman::p_load(ggrepel, patchwork, 
+               ggthemes, hrbrthemes,
+               tidyverse, kableExtra,
+               haven, dplyr,
+               ggdist, ggridges,
+               colorspace) 
+```
+
+The code chunk below reads the .rds file that contains cleaned data (excluding missing values and about students from Singapore.
+
+```{r}
+cleaned_data <-
+  read_rds("data/cleaned_studata.rds")
+```
+
+# 2 Data Visualisations Makeover
+
+The data visualisations were taken from [here](https://isss608-ay2024-rizfebriansyah.netlify.app/take-home_ex/take-home_ex01/take-home_ex01#reading-as-our-main-focus). I will be doing the makeover according to my favourite ggtheme [theme_fivethirtyeight()](https://abcnews.go.com/538)
+
+## 2.1 **Distribution Across Three Subjects - Mathematics, Reading and Science**
+
+::: grid
+::: g-col-5
+The author stated:
+
+| *We will now do the plot for each respective subject. We will be doing a histogram to show the distribution across three subjects. The figure in the tabset below displays a composite of three histograms, seamlessly created using patchwork. This is specifically designed for merging separate ggplot2 graphs into a unified figure. The red dotted line indicates the mean.*
+
+He later went on to conclude:
+
+| *The histogram presented above offers a visual representation of the distribution of scores across three academic subjects: MATHEMATICS, READING and SCIENCE. The distribution pattern observed for each subject strongly aligns with the characteristics of **a normal distribution*** (bold my own)*.*
+:::
+
+::: g-col-7
+![](images/distributions.png){width="500"}
+:::
+:::
+
+| 
+| *A normal distribution is characterised by a symmetrical bell-shaped curve, with the majority of data points clustering around the mean and gradually tapering off towards the extremes. In the context of academic performance, this implies that a significant proportion of students scored close to the average, while fewer students achieved scores either significantly above or below the mean. In the case of academic assessments, a normal distribution suggests **that the difficulty level of the questions was appropriately balanced**, allowing for a diverse range of scores among the students* (bold my own)*.*
+
+### 2.1.1 Own Thoughts
+
+One key issue I want to highlight is the conclusion that the distributions of all three scores are **normal**. My own personal conclusion were the distributions were left-skewed. The author's mention of the difficulty level of the questions also presented a new dimension to reimagine the proficiency levels of student.
+
+::: {.thinkbox .think data-latex="think"}
+#### Visual Challenges
+
+-   The visualisations did not clearly represent if the distributions were normal or left-skewed.
+
+-   Would the use of proficiency levels of students for each subject be more informative than using continuous scores?
+:::
+
+### 2.1.2 Critique: Clarity and Aesthetics
+
+Using the principles from [**A Layered Grammar of Graphics**](https://r4va.netlify.app/chap01),
+
+::: grid
+::: g-col-4
+##### ![](images/clipboard-1344228557.png){width="32"} Level 7: Theme (Colour and Space)
+
+-   Aesthetics
+
+    -   The blue and red, while to provide contrast, **does not blend well** with the other colours.
+    -   Grid lines are soft and not distracting.
+
+-   Clarity
+
+    -   The patchwork neatly puts all the plots in one diagram but the dimensions are **not equally spaced** for each plot (it seems that Science scores are given more weightage than the rest).
+:::
+
+::: g-col-8
+![](images/distribution1.gif){width="825"}
+:::
+:::
+
+##### ![](images/clipboard-1690536157.png){width="35" height="41"}Level 7: Theme (Text)
+
+-   Aesthetics
+
+    -   There is too much **cluttered text**: the titles and axes labels are not well placed.
+
+-   Clarity
+
+    -   There is no overall main title or lead-in to provide a context .e.g. the purpose and the story of the data visualisation.
+
+    -   The titles are **repeated** e.g. Math scores and Mathematics.
+
+    -   The axes are **not well-labelled** e.g. Mathematics as the x-axis.
+
+    -   There is **no data source** caption included.
+
+![](images/clipboard-47177670.png){width="33"}Level 6: Coordinates \| Level 5: Statistics \| Level 3: Geometries \| Level 2: Aesthetics
+
+-   Clarity
+
+    -   The max labelled counts on the x-axis for the three plots are **not consistent** - 800 for Mathematics vs 750 for Reading and Science.
+
+    -   The units of the y-axis for the three plots are **not consistent** - Math is 400, 600, 800 vs 200, 400, 600 and 800 for Reading and Science; and Science's x-axis starts at 200 while the rest appears to start at 0.
+
+    -   The reference line (the mean) was very important for readability but still **failed to fully convey** if it was a normal or left-skewed distribution.
+
+    -   While the use of continuous scores is popular and allows us to easily see how well students score, it **does not necessarily provide us with information about the proficiency scores of our students** e.g. how they cope with the different levels of difficulty of questions as mentioned by the author above.
