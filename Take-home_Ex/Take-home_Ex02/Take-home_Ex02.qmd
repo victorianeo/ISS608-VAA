@@ -68,7 +68,7 @@ flowchart TB
 
 ### 1.2.1 Installing R packages and loading the dataset
 
-The code chunk below uses p_load() of pacman package to check if tidyverse, ggrepel, ggthemes, hrbrthemes, patchwork and haven packages are installed in the computer. If they are, then they will be launched into R.
+The code chunk below uses p_load() of pacman package to check if the necessary packages are installed in the computer. If they are, then they will be launched into R.
 
 ```{r}
 pacman::p_load(ggrepel, patchwork, 
@@ -76,7 +76,7 @@ pacman::p_load(ggrepel, patchwork,
                tidyverse, kableExtra,
                haven, dplyr,
                ggdist, ggridges,
-               colorspace) 
+               colorspace, ggpmisc) 
 ```
 
 The code chunk below reads the .rds file that contains cleaned data about students from Singapore.
@@ -153,7 +153,7 @@ This uncertainty could be due to how the data was visualised. By using the princ
 
 -   Clarity
 
-    -   There is no overall main title or lead-in to provide a context .e.g. the purpose and the story of the data visualisation.
+    -   There is **no overall main title or lead-in** to provide a context .e.g. the purpose and the story of the data visualisation.
 
     -   The titles are **repeated** e.g. Math scores and Mathematics.
 
@@ -201,8 +201,7 @@ The code chunk below prepares the individual histogram plots for each subject.
 ## Mathematics
 
 ```{r}
-#| fig-show: hide
-#| code-fold: show
+
 math <- ggplot(data = cleaned_data, aes(x = MATH)) +
   geom_histogram(aes(y = after_stat(density)), bins = 20, 
                  boundary = 100,
@@ -217,25 +216,24 @@ math <- ggplot(data = cleaned_data, aes(x = MATH)) +
   geom_text(data = cleaned_data %>%
                summarize(mean_score = mean(MATH), median_score = median(MATH)),
              aes(x = median_score - 100, y = Inf, label = paste("Median:", round(median_score, 0))),
-             color = "#008FD5", vjust = 1, hjust = -0.5, size = 3) +
+             color = "#008FD5", vjust = 1, hjust = -0.55, size = 3) +
   geom_vline(data = cleaned_data %>%
                summarize(mean_score = mean(MATH), median_score = median(MATH)),
              aes(xintercept = mean_score), color = "#77AB43", linetype = "dashed") +  
   geom_text(data = cleaned_data %>%
                summarize(mean_score = mean(MATH), median_score = median(MATH)),
              aes(x = mean_score - 100, y = Inf, label = paste("Mean:", round(mean_score, 0))),
-             color = "#77AB43", vjust = 1, hjust = 0.75, size = 3) +
+             color = "#77AB43", vjust = 1, hjust = 0.55, size = 3) +
   scale_x_continuous(breaks = seq(0, 1000, by = 200),  
                      minor_breaks = seq(0, 1000, by = 100)) +
  ylab(NULL) + xlab('Distribution of Math Scores') 
+math
 
 ```
 
 ## Reading
 
 ```{r}
-#| fig-show: hide 
-#| code-fold: show
 read <- ggplot(data=cleaned_data, 
              aes(x= READ)) +
 geom_histogram(aes(y = after_stat(density)), bins = 20, 
@@ -251,25 +249,23 @@ geom_histogram(aes(y = after_stat(density)), bins = 20,
   geom_text(data = cleaned_data %>%
                summarize(mean_score = mean(READ), median_score = median(READ)),
              aes(x = median_score - 100, y = Inf, label = paste("Median:", round(median_score, 0))),
-             color = "#008FD5", vjust = 1, hjust = -0.5, size = 3) +
+             color = "#008FD5", vjust = 1, hjust = -0.55, size = 3) +
   geom_vline(data = cleaned_data %>%
                summarize(mean_score = mean(READ), median_score = median(READ)),
              aes(xintercept = mean_score), color = "#77AB43", linetype = "dashed") +  
   geom_text(data = cleaned_data %>%
                summarize(mean_score = mean(READ), median_score = median(READ)),
              aes(x = mean_score - 100, y = Inf, label = paste("Mean:", round(mean_score, 0))),
-             color = "#77AB43", vjust = 1, hjust = 0.75, size = 3) +
+             color = "#77AB43", vjust = 1, hjust = 0.55, size = 3) +
   scale_x_continuous(breaks = seq(0, 1000, by = 200),  
                      minor_breaks = seq(0, 1000, by = 100)) +
  ylab(NULL) + xlab('Distribution of Reading Scores') 
-
+read
 ```
 
 ## Science
 
 ```{r}
-#| fig-show: hide 
-#| code-fold: show
 sci <- ggplot(data=cleaned_data, 
              aes(x= SCIENCE)) +
 geom_histogram(aes(y = after_stat(density)), bins = 20, 
@@ -285,17 +281,18 @@ geom_histogram(aes(y = after_stat(density)), bins = 20,
   geom_text(data = cleaned_data %>%
                summarize(mean_score = mean(SCIENCE), median_score = median(SCIENCE)),
              aes(x = median_score - 100, y = Inf, label = paste("Median:", round(median_score, 0))),
-             color = "#008FD5", vjust = 1, hjust = -0.5, size = 3) +
+             color = "#008FD5", vjust = 1, hjust = -0.55, size = 3) +
   geom_vline(data = cleaned_data %>%
                summarize(mean_score = mean(SCIENCE), median_score = median(SCIENCE)),
              aes(xintercept = mean_score), color = "#77AB43", linetype = "dashed") +  
   geom_text(data = cleaned_data %>%
                summarize(mean_score = mean(SCIENCE), median_score = median(SCIENCE)),
              aes(x = mean_score - 100, y = Inf, label = paste("Mean:", round(mean_score, 0))),
-             color = "#77AB43", vjust = 1, hjust = 0.75, size = 3) +
+             color = "#77AB43", vjust = 1, hjust = 0.55, size = 3) +
   scale_x_continuous(breaks = seq(0, 1000, by = 200),  
                      minor_breaks = seq(0, 1000, by = 100)) +
  ylab(NULL) + xlab('Distribution of Science Scores') 
+sci
 ```
 :::
 
@@ -310,7 +307,7 @@ patchwork <- patchwork +
     caption = "Data source: OECD PISA 2022",
     theme = theme(plot.title = element_text(size = 50))  
   )
-patchwork & theme_fivethirtyeight(base_size = 7) +
+patchwork & theme_fivethirtyeight(base_size = 10) +
   theme(
     panel.grid.minor.x = element_line(linewidth = 0.2, linetype = 'solid', colour = "grey85"),
     plot.title = element_text(face = "bold"), axis.title=element_text(face = "bold", size=9))
@@ -322,7 +319,7 @@ patchwork & theme_fivethirtyeight(base_size = 7) +
 ::: g-col-5
 The author stated:
 
-| *The scatterplot... illustrates a positive correlation between reading and mathematics values. As the reading values increase, so do the corresponding mathematics values. This relationship is further emphasised by the upward trend observed in the best fit line. The consistent increase in one variable is mirrored by a proportional increase in the other. In light of these findings, it can be confidently asserted that a positive connection exists, suggesting that engaging in reading contributes to enhanced performance in mathematics among students.*
+| *The scatterplot... illustrates a positive **correlation** between reading and mathematics values. As the reading values increase, so do the corresponding mathematics values. This relationship is further emphasised by the upward trend observed in the best fit line. The consistent increase in one variable is mirrored by a proportional increase in the other. In light of these findings, it can be confidently asserted that a positive connection exists, suggesting that engaging in reading contributes to enhanced performance in mathematics among students* (bold my own)*.*
 :::
 
 ::: g-col-7
@@ -334,35 +331,244 @@ The author took this perspective because:
 
 | *With reference to this research paper titled ‘Reading matters more than mathematics in science learning: an analysis of the relationship between student achievement in reading, mathematics, and science’ by Yuanze Zhu, the results revealed that proficiency in reading and mathematics strongly correlated with science achievement, with reading exerting a more substantial influence than mathematics.*
 
-### 2.2.4 Makeover
+### 2.2.1 Own Thoughts
 
-The code chunk below shows two different ways to address overplotting.
+1)  The author's intention of this data visualisation is a little **confusing** to me - is the author trying to expose the significant influence of reading on the other subjects? Why does he only focus on one data visualisation with X = Reading and Y = Mathematics?
+
+2)  Bearing in mind that the plot intends to visualise the relationship between two continuous variables, I also automatically thought of the scatterplot. However, while it does visualise the relationship, the data visualisation **does not seem intuitive**, despite the presence of the linear model line.
+
+::: {.thinkbox .think data-latex="think"}
+#### Visual Challenges
+
+-   How can we visually tease out the relationship of reading on the other subjects and vice versa?
+
+-   The visualisation is messy due to overplotting - is there a better way to visualise the relationship between two continuous variables?
+
+-   How can we improve the identification of correlational relationships in a scatterplot?
+:::
+
+### 2.2.2 Critique: Clarity and Aesthetics
+
+By using the principles from [**A Layered Grammar of Graphics**](https://r4va.netlify.app/chap01),
+
+::: grid
+::: g-col-4
+###### ![](images/clipboard-1344228557.png){width="32"} Level 7: Theme (Colour \| Space)
+
+-   Aesthetics
+
+    -   The choice of black and blue provided a nice contrast.
+    -   Grid lines are soft and not distracting.
+
+-   Clarity
+
+    -   It was **confusing** to use only one data visualisation on two subjects to tease out the relationship between subjects.
+:::
+
+::: g-col-8
+![](images/mathvsread.gif){width="825"}
+:::
+:::
+
+###### ![](images/clipboard-1690536157.png){width="40" height="40"}Level 7: Theme (Text)
+
+-   Aesthetics
+
+    -   Axes are well-labelled so we can tease out any causal relationship between Reading and Mathematics.
+
+-   Clarity
+
+    -   There is **no overall main title or lead-in** to provide a context .e.g. the purpose and the story of the data visualisation.
+
+    -   There is **no data source** caption included.
+
+###### ![](images/clipboard-47177670.png){width="35" height="34"}Level 6: Coordinates \| Level 5: Statistics \| Level 3: Geometries \| Level 2: Aesthetics
+
+-   Aesthetics
+
+    -   Overplotting - the mass of points from each student makes the chart messy and confusing (especially the dark mass in the centre of the reference line).
+
+-   Clarity
+
+    -   The scales on the x-axis and y-axis are consistent - 800 for Mathematics and Reading.
+
+    -   Clearly visualised relationship between Reading and Mathematics scores with the use of a straight reference line - linear model.
+
+### 2.2.3 Sketch
+
+These are my proposed main changes:
+
+![](images/clipboard-3895657816.png){width="38"} A well-crafted title and subtitle to provide context.
+
+![](images/clipboard-556412521.png){width="39"} Explore four different ways (refer to section below) to address overplotting in the scatterplot.
+
+![](images/clipboard-936539531.png){width="37" height="39"} Add regression line coefficients to the lm reference line.
+
+![](images/clipboard-2805879406.png){width="39"} Create 5 more different data visualisations together to check which subjects had relationships with each other e.g. Reading vs Science.
+
+![](images/clipboard-591484430.png){width="39" height="36"} Put the plots side-by-side to improve comparability.
+
+#### 2.2.3.1 Overplotting
+
+According to [**A Complete Guide to Scatter Plots**](https://chartio.com/learn/charts/what-is-a-scatter-plot/)**,**
+
+> *Overplotting is the case where data points overlap to a degree where we have difficulty seeing relationships between points and variables. It can be difficult to tell how densely-packed data points are when many of them are in a small area.*
+>
+> *There are a few common ways to alleviate this issue. One alternative is to sample only a subset of data points: a random selection of points should still give the general idea of the patterns in the full data. We can also change the form of the dots, adding transparency to allow for overlaps to be visible, or reducing point size so that fewer overlaps occur. As a third option, we might even choose a different chart type like the heatmap, where color indicates the number of points in each bin. Heatmaps in this use case are also known as 2-d histograms.*
+
+[![*Taken from* [A Complete Guide to Scatter Plots](https://chartio.com/learn/charts/what-is-a-scatter-plot/)](images/clipboard-2059484608.png)](https://chartio.com/learn/charts/what-is-a-scatter-plot/)
+
+The code chunk below shows four different recommended ways to address overplotting.
 
 ::: grid
 ::: g-col-6
-**Plot with transparency**
+**Plot 1 with sampled data (sample = 400)**
 
 ```{r, fig.width= 4.25, fig.height = 3}
-ggplot(cleaned_data, aes(x=READ, y=MATH) ) +  
+# Set the seed for reproducibility
+set.seed(123)
+
+# Randomly select a sample of about 500 students
+sampled_data <- cleaned_data %>% sample_n(400)
+
+# Create the scatterplot with the sampled data
+samplescatter <- ggplot(sampled_data, aes(x = READ, y = MATH)) +  
+  geom_point() +
+  stat_poly_eq(use_label(c("eq", "R2"))) +
+  geom_smooth(method = lm, linewidth = 0.2, color = "#008FD5", alpha = 0.3) +
+  coord_cartesian(xlim = c(0, 1000), ylim = c(0, 1000)) +
+  scale_x_continuous(breaks = seq(0, 1000, by = 200),  
+                      minor_breaks = seq(0, 1000, by = 100))
+samplescatter
+```
+:::
+
+::: g-col-6
+**Plot 2 with transparency (alpha = 0.03)**
+
+```{r, fig.width= 4.25, fig.height = 3}
+transscatter <- ggplot(cleaned_data, aes(x=READ, y=MATH) ) +  
   geom_point(alpha = 0.03) +
+  stat_poly_eq(use_label(c("eq", "R2"))) +
   geom_smooth(method = lm, linewidth = 0.2, color = "#008FD5", alpha = 0.3)  +
   coord_cartesian(xlim = c(0, 1000), ylim = c(0, 1000))  +
   scale_x_continuous(breaks = seq(0, 1000, by = 200),  
                      minor_breaks = seq(0, 1000, by = 100))
+
+transscatter
 ```
-::: 
+:::
+:::
+
+::: grid
 ::: g-col-6
-**Plot with hexagon binning**
+**Plot 3 with hexagon binning (bins = 25)**
 
 ```{r, fig.width= 5, fig.height = 3}
-ggplot(cleaned_data, aes(x=READ, y=MATH) ) +
+hexscatter <- ggplot(cleaned_data, aes(x=READ, y=MATH) ) +
   geom_hex(bins = 25, color = "white", alpha = 0.6) +
   scale_fill_gradient(low="#008FD5",high="black")+
+  stat_poly_eq(use_label(c("eq", "R2"))) +
   geom_smooth(method = lm, linewidth = 0.2, color = "#008FD5", alpha = 0.4)  +
   coord_cartesian(xlim = c(0, 1000), ylim = c(0, 1000))  +
   scale_x_continuous(breaks = seq(0, 1000, by = 200),  
                      minor_breaks = seq(0, 1000, by = 100))
 
+hexscatter
+```
+:::
+
+::: g-col-6
+**Plot 4 with 2D Histogram (bins = 25)**
+
+```{r, fig.width= 5, fig.height = 3}
+twodscatter <- ggplot(cleaned_data, aes(x=READ, y=MATH) ) +
+  geom_bin2d(bins = 25, color = "white",alpha = 0.6) +
+  scale_fill_gradient(low="#008FD5",high="black")+
+  stat_poly_eq(use_label(c("eq", "R2"))) +
+  geom_smooth(method = lm, linewidth = 0.2, color = "#008FD5", alpha = 0.4)  +
+  coord_cartesian(xlim = c(0, 1000), ylim = c(0, 1000))  +
+  scale_x_continuous(breaks = seq(0, 1000, by = 200),  
+                     minor_breaks = seq(0, 1000, by = 100))
+ 
+twodscatter
 ```
 :::
 :::
+
+In the end, Plot 2 seemed the most aesthetically pleasing - since the scatterplot's intention is to convey that there is a correlation between Reading and Math scores, and given that most scores cluster in the middle of the cloud, it appeared that binning or gradient colours made it messier.
+
+### 2.2.4 Makeover
+
+The code chunk below prepares the individual histogram plots for each subject.
+
+::: panel-tabset
+## Reading vs Mathematics 
+
+```{r}
+
+# Calculate midpoints
+mean_math <- mean(cleaned_data$MATH)
+
+readvsmath <- ggplot(cleaned_data, aes(x=READ, y=MATH) ) +  
+  geom_point(alpha = 0.03) +
+  stat_poly_eq(use_label(c("eq", "R2")), hjust = -0.45, vjust = 1.5) +
+  geom_smooth(method = lm, linewidth = 0.2, color = "#008FD5", alpha = 0.3)  +
+  coord_cartesian(xlim = c(0, 1000), ylim = c(0, 1000))  +
+  scale_x_continuous(breaks = seq(0, 1000, by = 200),  
+                     minor_breaks = seq(0, 1000, by = 100))  +
+ ylab('Math Scores') + xlab('Reading Scores') 
+
+readvsmath
+```
+
+## Reading vs Science 
+
+```{r}
+readvssci <- ggplot(cleaned_data, aes(x=READ, y=SCIENCE) ) +  
+  geom_point(alpha = 0.03) +
+  stat_poly_eq(use_label(c("eq", "R2")), hjust = -0.52, vjust = 1.5) +
+  geom_smooth(method = lm, linewidth = 0.2, color = "#008FD5", alpha = 0.3)  +
+  coord_cartesian(xlim = c(0, 1000), ylim = c(0, 1000))  +
+  scale_x_continuous(breaks = seq(0, 1000, by = 200),  
+                     minor_breaks = seq(0, 1000, by = 100))   +
+ ylab('Science Scores') + xlab('Reading Scores') 
+readvssci
+
+```
+
+## Mathematics vs Science
+
+```{r}
+
+mathvssci <- ggplot(cleaned_data, aes(x=MATH, y=SCIENCE) ) +  
+  geom_point(alpha = 0.03) +
+  stat_poly_eq(use_label(c("eq", "R2")), hjust = -0.42, vjust = 1.5) +
+  geom_smooth(method = lm, linewidth = 0.2, color = "#008FD5", alpha = 0.3)  +
+  coord_cartesian(xlim = c(0, 1000), ylim = c(0, 1000))  +
+  scale_x_continuous(breaks = seq(0, 1000, by = 200),  
+                     minor_breaks = seq(0, 1000, by = 100))   +
+ ylab('Science Scores') + xlab('Math Scores') 
+mathvssci
+
+```
+:::
+
+The code chunk below prepares the individual scatterplots for subject pairwise comparison as a composite figure.
+
+```{r, fig.width= 12, fig.height = 6}
+patchwork <- readvsmath + readvssci + mathvssci
+patchwork <- patchwork + 
+  plot_annotation(
+    title = "The higher you score in one subject, the more likely you will score higher in the other subjects.",
+    subtitle = "Strong positive linear relationships between Math, Reading and Science Scores.\nThis is especially true in Math and Science scores that have the strongest correlation.",
+    caption = "Data source: OECD PISA 2022",
+    theme = theme(plot.title = element_text(size = 50))  
+  )
+patchwork & theme_fivethirtyeight(base_size = 10) +
+  theme(
+    panel.grid.minor.x = element_line(linewidth = 0.2, linetype = 'solid', colour = "grey85"),
+    plot.title = element_text(face = "bold"), axis.title=element_text(face = "bold", size=9))
+```
+
+
