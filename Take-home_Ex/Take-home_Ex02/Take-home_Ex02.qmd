@@ -388,7 +388,7 @@ By using the principles from [**A Layered Grammar of Graphics**](https://r4va.ne
 
 -   Clarity
 
-    -   The scales on the x-axis and y-axis are consistent - 800 for Mathematics and Reading.
+    -   The scales on the x-axis and y-axis are consistent - 800 for Mathematics and Reading scores.
 
     -   Clearly visualised relationship between Reading and Mathematics scores with the use of a straight reference line - linear model.
 
@@ -414,7 +414,7 @@ These are my proposed main changes:
 :::
 :::
 
-#### 2.2.3.1 Overplotting
+#### Overplotting
 
 According to [**A Complete Guide to Scatter Plots**](https://chartio.com/learn/charts/what-is-a-scatter-plot/)**,**
 
@@ -475,7 +475,7 @@ hexscatter <- ggplot(cleaned_data, aes(x=READ, y=MATH) ) +
   geom_hex(bins = 25, color = "white", alpha = 0.6) +
   scale_fill_gradient(low="#008FD5",high="black")+
   stat_poly_eq(use_label(c("eq", "R2"))) +
-  geom_smooth(method = lm, linewidth = 0.2, color = "#008FD5", alpha = 0.4)  +
+  geom_smooth(method = lm, linewidth = 0.2, color = "black", alpha = 0.4)  +
   coord_cartesian(xlim = c(0, 1000), ylim = c(0, 1000))  +
   scale_x_continuous(breaks = seq(0, 1000, by = 200),  
                      minor_breaks = seq(0, 1000, by = 100))
@@ -492,7 +492,7 @@ twodscatter <- ggplot(cleaned_data, aes(x=READ, y=MATH) ) +
   geom_bin2d(bins = 25, color = "white",alpha = 0.6) +
   scale_fill_gradient(low="#008FD5",high="black")+
   stat_poly_eq(use_label(c("eq", "R2"))) +
-  geom_smooth(method = lm, linewidth = 0.2, color = "#008FD5", alpha = 0.4)  +
+  geom_smooth(method = lm, linewidth = 0.2, color = "black", alpha = 0.4)  +
   coord_cartesian(xlim = c(0, 1000), ylim = c(0, 1000))  +
   scale_x_continuous(breaks = seq(0, 1000, by = 200),  
                      minor_breaks = seq(0, 1000, by = 100))
@@ -566,7 +566,7 @@ The code chunk below prepares the individual scatterplots for subject pairwise c
 patchwork <- readvsmath + readvssci + mathvssci
 patchwork <- patchwork + 
   plot_annotation(
-    title = "The higher you score in one subject, the more likely you will score higher in the other subjects.",
+    title = "The higher you score in one subject, the more likely you will score as well as in the other subjects.",
     subtitle = "Strong positive linear relationships between Math, Reading and Science scores.\nThis is especially true in Math and Science scores that have the strongest correlation.",
     caption = "Data source: OECD PISA 2022",
     theme = theme(plot.title = element_text(size = 50))  
@@ -596,28 +596,26 @@ The author built three different plots to uncover the relationship between Gende
 
 A boxplot was used to visualise the differences in reading scores between females and males.
 
-![](images/clipboard-3040735814.png){width="417"}
+![](images/clipboard-3040735814.png){width="501"}
 
 ## Socioeconomic status
 
 A scatterplot was used to derive any relationship between Reading scores and one's socioeconomic status (SES).
 
-![](images/clipboard-1717027209.png){width="418"}
+![](images/clipboard-1717027209.png){width="501"}
 
 ## Schools
 
 A boxplot was used to visualise the differences in reading scores amongst the top 5 heavily represented schools (those who had the most students participating) in PISA.
 
-![](images/clipboard-2948822257.png){width="418"}
+![](images/clipboard-2948822257.png){width="501"}
 :::
 
 ### 2.3.1 Own Thoughts
 
 1)  I find it **confusing** to have three separate plots - I think we can group all plots together as the common variable is Reading scores.
 
-2)  Given that we want to find the effects of Gender, SES and Schools on Reading scores, Gender, SES and Schools should be independent/ X variables while reading scores is the Y variable.
-
-3)  I think the choice of using the top 5 heavily represented schools is **not meaningful**. Moreover, using the label "top 5" is more traditionally associated with performance, rather than size of representation.
+2)  I think the choice of using the top 5 heavily represented schools is **not meaningful**. Using the label "top 5" is more traditionally associated with performance, rather than size of representation.
 
 ::: {.thinkbox .think data-latex="think"}
 #### Visual Challenges
@@ -628,3 +626,454 @@ A boxplot was used to visualise the differences in reading scores amongst the to
 
 -   How can we improve SchoolIDs as a meaningful label and visually represent them?
 :::
+
+As scatterplots have been critiqued and explored in the previous section of \[2.2 Reading vs Mathematics\], I will makeover the Reading scores vs ESCS in the same way, while flipping the X- and Y- axis.
+
+### 2.3.2 Critique: Clarity and Aesthetics
+
+In this section, I will be critiquing the use of boxplots to visually represent the relationships between Gender and Schools; and Reading scores. By using the principles from [**A Layered Grammar of Graphics**](https://r4va.netlify.app/chap01),
+
+::: grid
+::: g-col-4
+###### ![](images/clipboard-1344228557.png){width="32"} Level 7: Theme (Colour \| Space)
+
+-   Aesthetics
+
+    -   The choice of black and grey was in line with previous data visualisations, providing consistency.
+
+    -   The choice of a red dot (mean) on black provided contrast, but the colours were **jarring** and not in line with a theme.
+
+    -   Grid lines are soft and not distracting.
+:::
+
+::: g-col-8
+![](images/boxplots.gif){width="825"}
+:::
+:::
+
+-   Clarity
+
+    -   It was **confusing** to separate the plots - a story about effects on Reading scores would be better visualised if the plots were together.
+
+###### ![](images/clipboard-1690536157.png){width="40" height="40"}Level 7: Theme (Text)
+
+-   Aesthetics
+
+    -   Axes are well-labelled so we can immediately see what relationship (X- and Y- variables) the plot is visualising.
+
+-   Clarity
+
+    -   There is **no overall main title or lead-in** to provide a context .e.g. the purpose and the story of the data visualisation.
+
+    -   There is **no data source** caption included.
+
+    -   CNTSCHID as a label is not **meaningful**.
+
+###### ![](images/clipboard-47177670.png){width="38" height="38"}and ![](images/clipboard-1102525892.png){width="36"} Level 6: Coordinates \| Level 5: Statistics \| Level 3: Geometries \| Level 2: Aesthetics
+
+-   Aesthetics
+
+    -   While boxplots give an excellent summary of the statistics, it looks very **plain**; especially since Males and Females have the same colour or all the schools presented have the same colour.
+
+-   Clarity
+
+    -   Boxplots are good to compare between multiple groups e.g. between Males and Females and between schools.
+
+    -   The scales on the x-axis and y-axis are consistent - 800 for Reading scores, but may be too **limited** at 800 and result in outliers been cut off.
+
+    -   Clearly visualised some skewness with the use of the mean (red dot) and the outliers but **hard to compare** with other members of the group.
+
+    -   The order of groups is also **confusing** - in the Schools boxplot, there is no inherent order and thus difficult to compare between schools.
+
+    -   Boxplots do not allow us to observe the detailed shape of distribution of each groups - it was **hard to see** if the distribution was truly skewed.
+
+    -   The boxplots **cannot be intuitively interpreted** as they are not annotated with the sample population size, mean and median values.
+
+    -   SchoolIDs and their label CNTSCHID **poorly represents** the top 5 heavily represented schools in the sample. It does not allow for easy interpretability.
+
+### 2.3.3 Sketch
+
+These are my proposed main changes:
+
+::: grid
+::: g-col-5
+![](images/clipboard-3895657816.png){width="38"} A well-crafted title and subtitle to provide context.
+
+![](images/clipboard-556412521.png){width="39"} Explore different ways (refer to section below) to improve the simplicity of the boxplot.
+
+![](images/clipboard-936539531.png){width="37" height="39"} Add text annotations such as the sample size to the boxplots.
+
+![](images/clipboard-2805879406.png){width="39"} Recreate CNTSCHID by using top 5 and bottom 5 performing schools in Reading scores.
+
+![](images/clipboard-591484430.png){width="39" height="36"} Makeover the scatterplot of ESCS vs Reading scores using the above section's scatterplot design.
+
+![](images/clipboard-2374361642.png){width="39"} Put the plots side-by-side to improve interpretability and readability for Reading scores.
+:::
+
+::: g-col-7
+![](images/makeover3_sketch.png){width="500"}
+:::
+:::
+
+#### Improving the visualisation of distribution in a boxplo
+
+According to [**A Complete Guide to Scatter Plots**](https://chartio.com/learn/charts/what-is-a-scatter-plot/), [**The Box Plot: A Simple but Informative Visualization**](https://medium.com/analytics-vidhya/the-box-plot-a-simple-but-informative-visualization-cacc20d9ff25#:~:text=How%20can%20a%20box%20plot,limitation%20of%20the%20pie%20chart.)and [**9  Visualising Distribution**](https://r4va.netlify.app/chap09), there are four ways to improve the simplicity of the boxplot by using:t
+
+1.  Notches in boxplots
+
+> *Notches are used to show the most likely values expected for the median when the data represents a sample. When a comparison is made between groups, you can tell if the difference between medians are statistically significant based on if their ranges overlap. If any of the notch areas overlap, then we can’t say that the medians are statistically different; if they do not have overlap, then we can have good confidence that the true medians differ.* [**A Complete Guide to Scatter Plots**](https://chartio.com/learn/charts/what-is-a-scatter-plot/)
+
+2.  Violin plots
+
+> *In a violin plot, each group’s distribution is indicated by a density curve. In a density curve, each data point does not fall into a single bin like in a histogram, but instead contributes a small volume of area to the total distribution. Violin plots are a compact way of comparing distributions between groups. Often, additional markings are added to the violin plot to also provide the standard box plot information, but this can make the resulting plot noisier to read.* [**A Complete Guide to Scatter Plots**](https://chartio.com/learn/charts/what-is-a-scatter-plot/)
+
+3.  Ridgeline plots
+
+> *Ridgeline plot (sometimes called Joyplot) is a data visualisation technique for revealing the distribution of a numeric value for several groups. Distribution can be represented using histograms or density plots, all aligned to the same horizontal scale and presented with a slight overlap.* [**9  Visualising Distribution**](https://r4va.netlify.app/chap09)
+
+4.  Raincloud plots
+
+> *Raincloud Plot is a data visualisation techniques that produces a half-density to a distribution plot. It gets the name because the density plot is in the shape of a “raincloud”. The raincloud (half-density) plot enhances the traditional box-plot by highlighting multiple modalities (an indicator that groups may exist). The boxplot does not show where densities are clustered, but the raincloud plot does!* [**9  Visualising Distribution**](https://r4va.netlify.app/chap09)
+
+##### For Gender
+
+The code chunk below shows four different recommended ways to improve the boxplot's simplicity for two categories e.g. males and females.
+
+::: grid
+::: g-col-6
+**Plot 1 with Notched Boxplots**
+
+```{r, fig.width= 5, fig.height = 4}
+
+gender_counts <- cleaned_data %>%
+  group_by(GENDER) %>%
+  summarise(count = n())
+
+ggplot(cleaned_data, aes(x = READ, y = GENDER, color = GENDER)) +  
+  geom_boxplot(notch=TRUE) +
+  scale_color_manual(values=c("#c73824", "#0477bf")) +
+  stat_summary(geom = "point",       
+               fun="mean",         
+               colour ="black",     
+               size=2) + 
+     geom_vline(data = cleaned_data %>%
+               summarize(mean_value = mean(READ)),
+             aes(xintercept = mean_value),
+             color = "black", linetype = "dashed") +
+  geom_text(data = cleaned_data %>%
+               summarize(mean_score = mean(READ)),
+             aes(x = mean_score - 100, y = Inf, label = paste("Mean:", round(mean_score, 0))),
+             color = "black", vjust = 2, hjust = -0.8, size = 3) +
+  scale_x_continuous(breaks = seq(0, 1000, by = 200),  
+                      minor_breaks = seq(0, 1000, by = 100))  + 
+  guides(color = FALSE, fill = FALSE)  +
+  geom_text(data = gender_counts,
+            aes(x = 0, y = GENDER, label = paste("n =", count)),
+            hjust = 0.3, vjust = 0.45, size = 3, color = "black") +
+  coord_cartesian(xlim = c(0, 1000)) 
+
+```
+:::
+
+::: g-col-6
+**Plot 2 with Violin + Notched Boxplots**
+
+```{r, fig.width= 5, fig.height = 4}
+
+gender_counts <- cleaned_data %>%
+  group_by(GENDER) %>%
+  summarise(count = n())
+
+ggplot(cleaned_data, aes(x = READ, y = GENDER, color = GENDER)) +  
+    geom_violin(aes(fill = GENDER), size = 0.6, alpha = 0.4, linewidth = 0) +
+  geom_boxplot(width= 0.4, outlier.colour = "grey20", outlier.size = 1, 
+               outlier.alpha = 0.3, notch = TRUE) +
+  stat_summary(geom = "point",       
+               fun="mean",         
+               colour ="black",        
+               size=2) +  
+   geom_vline(data = cleaned_data %>%
+               summarize(mean_value = mean(READ)),
+             aes(xintercept = mean_value),
+             color = "black", linetype = "dashed") +
+  geom_text(data = cleaned_data %>%
+               summarize(mean_score = mean(READ)),
+             aes(x = mean_score - 100, y = Inf, label = paste("Mean:", round(mean_score, 0))),
+             color = "black", vjust = 2, hjust = -0.8, size = 3) +
+  scale_color_manual(values=c("#c73824", "#0477bf")) +
+  scale_x_continuous(breaks = seq(0, 1000, by = 200),  
+                      minor_breaks = seq(0, 1000, by = 100)) + 
+  guides(color = FALSE, fill = FALSE)  +
+  geom_text(data = gender_counts,
+            aes(x = 0, y = GENDER, label = paste("n =", count)),
+            hjust = 0.3, vjust = 0.45, size = 3, color = "black") +
+  coord_cartesian(xlim = c(0, 1000))
+```
+:::
+:::
+
+::: grid
+::: g-col-6
+**Plot 3 with Ridgeline plots**
+
+```{r, fig.width= 5, fig.height = 4}
+
+pr <- ggplot(cleaned_data,
+       aes(x = READ, 
+           y = GENDER, 
+           fill = factor(after_stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE, 
+    quantiles = 4,
+    quantile_lines = TRUE) +
+   geom_vline(data = cleaned_data %>%
+               summarize(mean_value = mean(READ)),
+             aes(xintercept = mean_value),
+             color = "black", linetype = "dashed") +
+  scale_fill_manual(name = "Quartiles", values = c("#696969", "darkgrey", "grey", "lightgrey")) 
+
+pr <- pr + 
+   annotate("text", x = rep(0, nrow(gender_counts)), y = gender_counts$GENDER, 
+           label = paste("n =", gender_counts$count),
+           hjust = 0.3, vjust = 0.45, size = 2, color = "black")
+
+pr +
+  annotate("text", x = mean(cleaned_data$READ) - 100, y = Inf, 
+           label = paste("Mean:", round(mean(cleaned_data$READ), 0)),
+           color = "black", vjust = 2, hjust = 0.6, size = 3)
+```
+:::
+
+::: g-col-6
+**Plot 4 with Raincloud plots**
+
+```{r, fig.width= 5, fig.height = 4}
+
+gender_counts <- cleaned_data %>%
+  group_by(GENDER) %>%
+  summarise(count = n())
+
+
+ggplot(cleaned_data, 
+       aes(x = READ, 
+           y = GENDER,
+           color = GENDER)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA,
+               height = 0.5) +
+  geom_boxplot(width = .15,
+               outlier.shape = NA,
+               notch = TRUE) +
+  scale_color_manual(values=c("#c73824", "#0477bf")) +
+  stat_dots(side = "left", 
+            justification = 1.1, 
+            binwidth = 3,
+            dotsize = 0.5,
+            alpha = 0.4,
+            aes(color = GENDER))  +
+    stat_summary(geom = "point",       
+               fun="mean",         
+               colour ="black",        
+               size=2) +
+   geom_vline(data = cleaned_data %>%
+               summarize(mean_value = mean(READ)),
+             aes(xintercept = mean_value),
+             color = "black", linetype = "dashed") + 
+    geom_text(data = cleaned_data %>%
+               summarize(mean_score = mean(READ)),
+             aes(x = mean_score - 100, y = Inf, label = paste("Mean:", round(mean_score, 0))),
+             color = "black", vjust = 2, hjust = -0.8, size = 3) + 
+  guides(color = FALSE, fill = FALSE) +
+  geom_text(data = gender_counts,
+            aes(x = 0, y = GENDER, label = paste("n =", count)),
+            hjust = 0.3, vjust = 0.45, size = 3, color = "black") +
+  coord_cartesian(xlim = c(0, 1000))
+```
+:::
+:::
+
+In the end, Plot 4 seemed the most aesthetically pleasing for Gender - we can see the distribution clearly with a modest left skew (reflected also in [2.1 Distribution Across Three Subjects - Mathematics, Reading and Science]) and interestingly, Female distribution is bimodal. We can also tell from the notched boxplot that it is statistically significant that Females have higher mean and median Reading scores than males. The histograms also show that top female outliers score higher than top male outliers while bottom male outliers score lower than bottom female outliers.
+
+##### For Schools
+
+The code chunk below shows four different recommended ways to improve the boxplot's simplicity for 10 members of a group e.g. the top 5 and bottom 5 schools for reading scores.
+
+```{r}
+# Calculate the mean reading score for each school
+school_means <- cleaned_data %>%
+  group_by(SCHOOLID) %>%
+  summarize(MeanREADScore = mean(READ, na.rm = TRUE), .groups = 'drop')
+
+# Select the top 5 and bottom 5 schools
+top_bottom_schools <- school_means %>%
+  arrange(MeanREADScore) %>%
+  slice(c(1:5, (n()-4):n())) %>%
+  pull(SCHOOLID)
+
+# Filter the original dataset to include only the selected schools
+selected_school_data <- cleaned_data %>%
+  filter(SCHOOLID %in% top_bottom_schools)
+
+# Set the SCHOOLID as a factor ordered by the mean scores
+selected_school_data <- selected_school_data %>%
+  mutate(SCHOOLID = factor(SCHOOLID, levels = top_bottom_schools))
+
+read_counts <- selected_school_data %>%
+  group_by(SCHOOLID) %>%
+  summarise(count = n())
+
+```
+
+::: grid
+::: g-col-6
+**Plot 1 with Notched Boxplots**
+
+```{r, fig.width= 12, fig.height = 10}
+
+p1  <- ggplot(selected_school_data, aes(x = READ, y = SCHOOLID)) +
+  geom_boxplot(notch = TRUE) +
+  stat_summary(geom = "point",       
+               fun = "mean",         
+               colour = "black",     
+               size = 2) + 
+  geom_vline(data = cleaned_data %>%
+               summarize(mean_score = mean(READ), median_score = median(READ)),
+             aes(xintercept = mean_score), color = "black", linetype = "dashed") +  
+  geom_text(data = cleaned_data %>%
+               summarize(mean_score = mean(READ)),
+             aes(x = mean_score - 100, y = Inf, label = paste("Mean:", round(mean_score, 0))),
+             color = "black", vjust = 2, hjust = -0.8, size = 3) +
+  scale_x_continuous(breaks = seq(0, 1000, by = 200),  
+                     minor_breaks = seq(0, 1000, by = 100))  + 
+  guides(color = FALSE, fill = FALSE)  +
+  geom_text(data = read_counts,
+            aes(x = 0, y = SCHOOLID, label = paste("n =", count)),
+            hjust = 1.2, vjust = 0.45, size = 3, color = "black") +
+  coord_cartesian(xlim = c(0, 1000))
+
+p1 + annotate("rect", xmin = 545, xmax = Inf, ymin = -Inf, ymax = Inf,
+           alpha = .05,fill = "#0477bf")
+
+```
+:::
+
+::: g-col-6
+**Plot 2 with Violin + Notched Boxplots**
+
+```{r, fig.width= 12, fig.height = 10} 
+p2 <- ggplot(selected_school_data, aes(x = READ, y = SCHOOLID)) +  
+  geom_violin(size = 0.6, alpha = 0.4, linewidth = 0) +
+  geom_boxplot(width = 0.4, outlier.colour = "grey20", outlier.size = 1, 
+               outlier.alpha = 0.3, notch = TRUE) +
+  stat_summary(geom = "point",       
+               fun = "mean",         
+               colour = "black",        
+               size = 2) +  
+geom_vline(data = cleaned_data %>%
+               summarize(mean_score = mean(READ), median_score = median(READ)),
+             aes(xintercept = mean_score), color = "black", linetype = "dashed") +  
+  geom_text(data = cleaned_data %>%
+               summarize(mean_score = mean(READ)),
+             aes(x = mean_score - 100, y = Inf, label = paste("Mean:", round(mean_score, 0))),
+             color = "black", vjust = 2, hjust = -0.8, size = 3) +
+  scale_x_continuous(breaks = seq(0, 1000, by = 200),  
+                     minor_breaks = seq(0, 1000, by = 100)) + 
+  guides(color = FALSE, fill = FALSE)  +
+  geom_text(data = read_counts,
+            aes(x = 0, y = SCHOOLID, label = paste("n =", count)),
+            hjust = 1.2, vjust = 0.45, size = 3, color = "black") +
+  coord_cartesian(xlim = c(0, 1000))
+
+p2 + annotate("rect", xmin = 545, xmax = Inf, ymin = -Inf, ymax = Inf,
+           alpha = .05,fill = "#0477bf")
+
+```
+:::
+:::
+
+::: grid
+::: g-col-6
+**Plot 3 with Ridgeline plots**
+
+```{r, fig.width= 12, fig.height = 10}   
+p3 <- ggplot(selected_school_data,
+       aes(x = READ, 
+           y = SCHOOLID, 
+           fill = factor(after_stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE, 
+    quantiles = 4,
+    quantile_lines = TRUE) +
+
+   geom_vline(data = cleaned_data %>%
+               summarize(mean_value = mean(READ)),
+             aes(xintercept = mean_value),
+             color = "black", linetype = "dashed") +
+  scale_fill_manual(name = "Quartiles", values = c("#696969", "darkgrey", "grey", "lightgrey")) 
+
+p3 <- p3 + annotate("rect", xmin = 545, xmax = Inf, ymin = -Inf, ymax = Inf,
+           alpha = .05,fill = "#0477bf") 
+
+p3 <- p3 + 
+   annotate("text", x = rep(0, nrow(read_counts)), y = read_counts$SCHOOLID, 
+           label = paste("n =", read_counts$count),
+           hjust = 1.2, vjust = 0.45, size = 3, color = "black")
+
+p3 +
+  annotate("text", x = mean(cleaned_data$READ) - 100, y = Inf, 
+           label = paste("Mean:", round(mean(cleaned_data$READ), 0)),
+           color = "black", vjust = 2, hjust = -0.7, size = 3)
+
+```
+:::
+
+::: g-col-6
+**Plot 4 with Raincloud plots**
+
+```{r, fig.width= 12, fig.height = 10}  
+p4 <- ggplot(selected_school_data, 
+       aes(x = READ, 
+           y = SCHOOLID)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA,
+               height = 0.5) +
+  geom_boxplot(width = .15,
+               outlier.shape = NA,
+               notch = TRUE) +
+  stat_dots(side = "left", 
+            justification = 1.1, 
+            binwidth = 3,
+            dotsize = 1.5,
+            alpha = 0.4)  +
+    stat_summary(geom = "point",       
+               fun="mean",         
+               colour ="black",        
+               size=2) +
+geom_vline(data = cleaned_data %>%
+               summarize(mean_score = mean(READ), median_score = median(READ)),
+             aes(xintercept = mean_score), color = "black", linetype = "dashed") +  
+  geom_text(data = cleaned_data %>%
+               summarize(mean_score = mean(READ)),
+             aes(x = mean_score - 100, y = Inf, label = paste("Mean:", round(mean_score, 0))),
+             color = "black", vjust = 2, hjust = -0.8, size = 3) + 
+  guides(color = FALSE, fill = FALSE) +
+  geom_text(data = read_counts,
+            aes(x = 0, y = SCHOOLID, label = paste("n =", count)),
+            hjust = 0.3, vjust = 0.45, size = 3, color = "black") +
+  coord_cartesian(xlim = c(0, 1000))
+
+p4 + annotate("rect", xmin = 545, xmax = Inf, ymin = -Inf, ymax = Inf,
+              alpha = 0.05, fill = "#0477bf")
+```
+:::
+:::
+
+In the end, Plot 3 seemed the most aesthetically pleasing for SchoolIDs - there were 10 schools that were to be represented and the other plots seem to visually represent these 10 in a messy manner. It was hard for the eye to focus and draw any conclusions. The Ridgeline plot allowed the top 5 and bottom 5 to be seamlessly separated by the mean score for Reading and packed the schools together for easy comparability. It was easy to see that the top 5 schools and bottom 5 schools had variations between and within the groups. Better performing schools also had higher student representation on  average.
