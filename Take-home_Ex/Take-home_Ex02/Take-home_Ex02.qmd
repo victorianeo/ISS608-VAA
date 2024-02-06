@@ -226,7 +226,7 @@ math <- ggplot(data = cleaned_data, aes(x = MATH)) +
              color = "#77AB43", vjust = 1, hjust = 0.55, size = 3) +
   scale_x_continuous(breaks = seq(0, 1000, by = 200),  
                      minor_breaks = seq(0, 1000, by = 100)) +
- ylab(NULL) + xlab('Distribution of Math Scores') 
+ ylab(NULL) + xlab('Distribution of Math scores') 
 math
 
 ```
@@ -259,7 +259,7 @@ geom_histogram(aes(y = after_stat(density)), bins = 20,
              color = "#77AB43", vjust = 1, hjust = 0.55, size = 3) +
   scale_x_continuous(breaks = seq(0, 1000, by = 200),  
                      minor_breaks = seq(0, 1000, by = 100)) +
- ylab(NULL) + xlab('Distribution of Reading Scores') 
+ ylab(NULL) + xlab('Distribution of Reading scores') 
 read
 ```
 
@@ -291,10 +291,12 @@ geom_histogram(aes(y = after_stat(density)), bins = 20,
              color = "#77AB43", vjust = 1, hjust = 0.55, size = 3) +
   scale_x_continuous(breaks = seq(0, 1000, by = 200),  
                      minor_breaks = seq(0, 1000, by = 100)) +
- ylab(NULL) + xlab('Distribution of Science Scores') 
+ ylab(NULL) + xlab('Distribution of Science scores') 
 sci
 ```
 :::
+
+### 2.1.5 Final Product: Distribution of Math, Reading and Science scores
 
 The code chunk below prepares the individual histogram plots for each subject as a composite figure.
 
@@ -414,7 +416,7 @@ These are my proposed main changes:
 :::
 :::
 
-#### Overplotting
+#### Improving overplotting in scatterplots
 
 According to [**A Complete Guide to Scatter Plots**](https://chartio.com/learn/charts/what-is-a-scatter-plot/)**,**
 
@@ -559,6 +561,8 @@ mathvssci
 
 ```
 :::
+
+### 2.2.5 Final Product: The relationships between Math, Reading and Science scores
 
 The code chunk below prepares the individual scatterplots for subject pairwise comparison as a composite figure.
 
@@ -715,7 +719,7 @@ These are my proposed main changes:
 :::
 :::
 
-#### Improving the visualisation of distribution in a boxplo
+#### Improving the visualisation of distribution in a boxplot
 
 According to [**A Complete Guide to Scatter Plots**](https://chartio.com/learn/charts/what-is-a-scatter-plot/), [**The Box Plot: A Simple but Informative Visualization**](https://medium.com/analytics-vidhya/the-box-plot-a-simple-but-informative-visualization-cacc20d9ff25#:~:text=How%20can%20a%20box%20plot,limitation%20of%20the%20pie%20chart.)and [**9  Visualising Distribution**](https://r4va.netlify.app/chap09), there are four ways to improve the simplicity of the boxplot by using:t
 
@@ -896,36 +900,40 @@ ggplot(cleaned_data,
 :::
 :::
 
-In the end, Plot 4 seemed the most aesthetically pleasing for Gender - we can see the distribution clearly with a modest left skew (reflected also in [2.1 Distribution Across Three Subjects - Mathematics, Reading and Science]) and interestingly, Female distribution is bimodal. We can also tell from the notched boxplot that it is statistically significant that Females have higher mean and median Reading scores than males. The histograms also show that top female outliers score higher than top male outliers while bottom male outliers score lower than bottom female outliers.
+In the end, Plot 4 seemed the most aesthetically pleasing for Gender - we can see the distribution clearly with a modest left skew (reflected also in \[2.1 Distribution Across Three Subjects - Mathematics, Reading and Science\]) and interestingly, Female distribution is bimodal. We can also tell from the notched boxplot that it is statistically significant that Females have higher mean and median Reading scores than males. The histograms also show that top female outliers score higher than top male outliers while bottom male outliers score lower than bottom female outliers.
 
 ##### For Schools
 
-The code chunk below shows four different recommended ways to improve the boxplot's simplicity for 10 members of a group e.g. the top 5 and bottom 5 schools for reading scores.
+The code chunk below shows four different recommended ways to improve the boxplot's simplicity for 10 members of a group e.g. the top 5 and bottom 5 schools based on total scores of Mathematics, Reading and Science.
 
 ```{r}
-# Calculate the mean reading score for each school
-school_means <- cleaned_data %>%
+
+# Create a new variable to calculate total scores of READ, MATH, and SCIENCE
+cleaned_data <- cleaned_data %>%
+  mutate(TOTAL_SCORE = READ + MATH + SCIENCE)
+
+# Calculate the mean total score for each school
+school_totals <- cleaned_data %>%
   group_by(SCHOOLID) %>%
-  summarize(MeanREADScore = mean(READ, na.rm = TRUE), .groups = 'drop')
+  summarize(MeanTotalScore = mean(TOTAL_SCORE, na.rm = TRUE), .groups = 'drop')
 
 # Select the top 5 and bottom 5 schools
-top_bottom_schools <- school_means %>%
-  arrange(MeanREADScore) %>%
+top_bottom_schools_total <- school_totals %>%
+  arrange(MeanTotalScore) %>%
   slice(c(1:5, (n()-4):n())) %>%
   pull(SCHOOLID)
 
 # Filter the original dataset to include only the selected schools
 selected_school_data <- cleaned_data %>%
-  filter(SCHOOLID %in% top_bottom_schools)
+  filter(SCHOOLID %in% top_bottom_schools_total)
 
 # Set the SCHOOLID as a factor ordered by the mean scores
 selected_school_data <- selected_school_data %>%
-  mutate(SCHOOLID = factor(SCHOOLID, levels = top_bottom_schools))
+  mutate(SCHOOLID = factor(SCHOOLID, levels = top_bottom_schools_total))
 
-read_counts <- selected_school_data %>%
+counts <- selected_school_data %>%
   group_by(SCHOOLID) %>%
   summarise(count = n())
-
 ```
 
 ::: grid
@@ -950,7 +958,7 @@ p1  <- ggplot(selected_school_data, aes(x = READ, y = SCHOOLID)) +
   scale_x_continuous(breaks = seq(0, 1000, by = 200),  
                      minor_breaks = seq(0, 1000, by = 100))  + 
   guides(color = FALSE, fill = FALSE)  +
-  geom_text(data = read_counts,
+  geom_text(data = counts,
             aes(x = 0, y = SCHOOLID, label = paste("n =", count)),
             hjust = 1.2, vjust = 0.45, size = 3, color = "black") +
   coord_cartesian(xlim = c(0, 1000))
@@ -964,7 +972,7 @@ p1 + annotate("rect", xmin = 545, xmax = Inf, ymin = -Inf, ymax = Inf,
 ::: g-col-6
 **Plot 2 with Violin + Notched Boxplots**
 
-```{r, fig.width= 12, fig.height = 10} 
+```{r, fig.width= 12, fig.height = 10}
 p2 <- ggplot(selected_school_data, aes(x = READ, y = SCHOOLID)) +  
   geom_violin(size = 0.6, alpha = 0.4, linewidth = 0) +
   geom_boxplot(width = 0.4, outlier.colour = "grey20", outlier.size = 1, 
@@ -983,7 +991,7 @@ geom_vline(data = cleaned_data %>%
   scale_x_continuous(breaks = seq(0, 1000, by = 200),  
                      minor_breaks = seq(0, 1000, by = 100)) + 
   guides(color = FALSE, fill = FALSE)  +
-  geom_text(data = read_counts,
+  geom_text(data = counts,
             aes(x = 0, y = SCHOOLID, label = paste("n =", count)),
             hjust = 1.2, vjust = 0.45, size = 3, color = "black") +
   coord_cartesian(xlim = c(0, 1000))
@@ -999,7 +1007,7 @@ p2 + annotate("rect", xmin = 545, xmax = Inf, ymin = -Inf, ymax = Inf,
 ::: g-col-6
 **Plot 3 with Ridgeline plots**
 
-```{r, fig.width= 12, fig.height = 10}   
+```{r, fig.width= 12, fig.height = 10}
 p3 <- ggplot(selected_school_data,
        aes(x = READ, 
            y = SCHOOLID, 
@@ -1010,7 +1018,6 @@ p3 <- ggplot(selected_school_data,
     calc_ecdf = TRUE, 
     quantiles = 4,
     quantile_lines = TRUE) +
-
    geom_vline(data = cleaned_data %>%
                summarize(mean_value = mean(READ)),
              aes(xintercept = mean_value),
@@ -1021,8 +1028,8 @@ p3 <- p3 + annotate("rect", xmin = 545, xmax = Inf, ymin = -Inf, ymax = Inf,
            alpha = .05,fill = "#0477bf") 
 
 p3 <- p3 + 
-   annotate("text", x = rep(0, nrow(read_counts)), y = read_counts$SCHOOLID, 
-           label = paste("n =", read_counts$count),
+   annotate("text", x = rep(0, nrow(counts)), y = counts$SCHOOLID, 
+           label = paste("n =", counts$count),
            hjust = 1.2, vjust = 0.45, size = 3, color = "black")
 
 p3 +
@@ -1036,7 +1043,7 @@ p3 +
 ::: g-col-6
 **Plot 4 with Raincloud plots**
 
-```{r, fig.width= 12, fig.height = 10}  
+```{r, fig.width= 12, fig.height = 10}
 p4 <- ggplot(selected_school_data, 
        aes(x = READ, 
            y = SCHOOLID)) +
@@ -1065,7 +1072,7 @@ geom_vline(data = cleaned_data %>%
              aes(x = mean_score - 100, y = Inf, label = paste("Mean:", round(mean_score, 0))),
              color = "black", vjust = 2, hjust = -0.8, size = 3) + 
   guides(color = FALSE, fill = FALSE) +
-  geom_text(data = read_counts,
+  geom_text(data = counts,
             aes(x = 0, y = SCHOOLID, label = paste("n =", count)),
             hjust = 0.3, vjust = 0.45, size = 3, color = "black") +
   coord_cartesian(xlim = c(0, 1000))
@@ -1076,4 +1083,194 @@ p4 + annotate("rect", xmin = 545, xmax = Inf, ymin = -Inf, ymax = Inf,
 :::
 :::
 
-In the end, Plot 3 seemed the most aesthetically pleasing for SchoolIDs - there were 10 schools that were to be represented and the other plots seem to visually represent these 10 in a messy manner. It was hard for the eye to focus and draw any conclusions. The Ridgeline plot allowed the top 5 and bottom 5 to be seamlessly separated by the mean score for Reading and packed the schools together for easy comparability. It was easy to see that the top 5 schools and bottom 5 schools had variations between and within the groups. Better performing schools also had higher student representation on  average.
+In the end, Plot 3 seemed the most aesthetically pleasing for SchoolIDs - there were 10 schools that were to be represented and the other plots seem to visually represent these 10 in a messy manner. It was hard for the eye to focus and draw any conclusions. The Ridgeline plot allowed the top 5 and bottom 5 to be seamlessly separated by the mean score for Reading and packed the schools together for easy comparability. It was easy to see that the top 5 schools and bottom 5 schools had variations between the groups and the bottom 5 performing schools had variations within their groups. Better performing schools also had higher student representation on average.
+
+### 2.3.4 Makeover {#makeover-2}
+
+The code chunk below prepares the individual histogram plots for each subject.
+
+::: panel-tabset
+## Reading vs Gender
+
+```{r}
+
+gender_counts <- cleaned_data %>%
+  group_by(GENDER) %>%
+  summarise(count = n())
+
+# Calculate mean scores by gender
+gender_means <- cleaned_data %>%
+  group_by(GENDER) %>%
+  summarise(MeanREADScore = mean(READ, na.rm = TRUE), .groups = 'drop')
+
+# Determine the order based on mean scores
+gender_order <- gender_means %>%
+  arrange(MeanREADScore) %>%
+  pull(GENDER)
+
+
+readvsgen <-ggplot(cleaned_data, 
+       aes(x = READ, 
+           y = factor(GENDER, levels = gender_order),
+           color = GENDER)) +
+  stat_halfeye(adjust = 0.5,
+               justification = -0.2,
+               .width = 0,
+               point_colour = NA,
+               height = 0.5) +
+  geom_boxplot(width = .15,
+               outlier.shape = NA,
+               notch = TRUE) +
+  scale_color_manual(values=c("#c73824", "#0477bf")) +
+  stat_dots(side = "left", 
+            justification = 1.1, 
+            binwidth = 3,
+            dotsize = 0.5,
+            alpha = 0.4,
+            aes(color = GENDER))  +
+    stat_summary(geom = "point",       
+               fun="mean",         
+               colour ="black",        
+               size=2) +
+   geom_vline(data = cleaned_data %>%
+               summarize(mean_value = mean(READ)),
+             aes(xintercept = mean_value),
+             color = "black", linetype = "dashed") + 
+    geom_text(data = cleaned_data %>%
+               summarize(mean_score = mean(READ)),
+             aes(x = mean_score - 100, y = Inf, label = paste("National Mean Reading Score:", round(mean_score, 0))),
+             color = "black", vjust = 2, hjust = 0.85, size = 2.5) + 
+  guides(color = FALSE, fill = FALSE) +
+  geom_text(data = gender_counts,
+            aes(x = 0, y = GENDER, label = paste("n =", count)),
+            hjust = 0.3, vjust = 0.45, size = 2, color = "black") +
+  coord_cartesian(xlim = c(0, 1000))  +
+ ylab(NULL) + xlab('Distribution of Reading Scores by Gender') 
+
+readvsgen <- readvsgen + annotate("rect", xmin = 545, xmax = Inf, ymin = -Inf, ymax = Inf,
+              alpha = 0.05, fill = "#0477bf")
+
+readvsgen
+```
+
+## Reading vs SES
+
+```{r}
+readvsses <- ggplot(cleaned_data, aes(x=READ, y=SES) ) +  
+  geom_point(alpha = 0.03) +
+  stat_poly_eq(use_label(c("eq", "R2")), hjust = -1, vjust =6.5, size = 2.5) +
+  geom_smooth(method = lm, linewidth = 0.2, color = "#008FD5", alpha = 0.3)  +
+  coord_cartesian(xlim = c(0, 1000), ylim = c(-5, 5))  +
+  scale_x_continuous(breaks = seq(0, 1000, by = 200),  
+                     minor_breaks = seq(0, 1000, by = 100))   +
+     geom_vline(data = cleaned_data %>%
+               summarize(mean_value = mean(READ)),
+             aes(xintercept = mean_value),
+             color = "black", linetype = "dashed") + 
+    geom_text(data = cleaned_data %>%
+               summarize(mean_score = mean(READ)),
+             aes(x = mean_score - 100, y = Inf, label = paste("National Mean Reading Score:", round(mean_score, 0))), color = "black", vjust = 2, hjust =0.85, size = 2.5) + 
+ ylab(NULL) + xlab('Distribution of Reading Scores by Socioeconomic Status') 
+readvsses <- readvsses + annotate("rect", xmin = 545, xmax = Inf, ymin = -Inf, ymax = Inf,
+              alpha = 0.05, fill = "#0477bf")
+
+readvsses
+
+```
+
+## Reading vs Schools
+
+```{r}
+
+# Create a new variable to calculate total scores of READ, MATH, and SCIENCE
+cleaned_data <- cleaned_data %>%
+  mutate(TOTAL_SCORE = READ + MATH + SCIENCE)
+
+# Calculate the mean total score for each school
+school_totals <- cleaned_data %>%
+  group_by(SCHOOLID) %>%
+  summarize(MeanTotalScore = mean(TOTAL_SCORE, na.rm = TRUE), .groups = 'drop')
+
+# Select the top 5 and bottom 5 schools
+top_bottom_schools_total <- school_totals %>%
+  arrange(MeanTotalScore) %>%
+  slice(c(1:5, (n()-4):n())) %>%
+  pull(SCHOOLID)
+
+# Filter the original dataset to include only the selected schools
+selected_school_data <- cleaned_data %>%
+  filter(SCHOOLID %in% top_bottom_schools_total)
+
+# Set the SCHOOLID as a factor ordered by the mean scores
+selected_school_data <- selected_school_data %>%
+  mutate(SCHOOLID = factor(SCHOOLID, levels = top_bottom_schools_total))
+
+counts <- selected_school_data %>%
+  group_by(SCHOOLID) %>%
+  summarise(count = n())
+
+
+readvssch <- ggplot(selected_school_data,
+       aes(x = READ, 
+           y = SCHOOLID, 
+           fill = factor(after_stat(quantile))
+           )) +
+  stat_density_ridges(
+    geom = "density_ridges_gradient",
+    calc_ecdf = TRUE, 
+    quantiles = 4,
+    quantile_lines = TRUE) +
+   geom_vline(data = cleaned_data %>%
+               summarize(mean_value = mean(READ)),
+             aes(xintercept = mean_value),
+             color = "black", linetype = "dashed") +
+  scale_fill_manual(name = "Quartiles", values = c("#696969", "darkgrey", "grey", "lightgrey"))   +
+ ylab(NULL) + xlab('Distribution of Reading Scores by Top 5 and Bottom 5 Schools') 
+
+readvssch <- readvssch + annotate("rect", xmin = 545, xmax = Inf, ymin = -Inf, ymax = Inf,
+           alpha = 0.05,fill = "#0477bf") 
+
+readvssch <- readvssch + 
+   annotate("text", x = rep(0, nrow(counts)), y = counts$SCHOOLID, 
+           label = paste("n =", counts$count),
+           hjust = 0.6, vjust = 0.45, size = 3, color = "black")
+
+readvssch <- readvssch +
+  annotate("text", x = mean(cleaned_data$READ) - 100, y = Inf, 
+           label = paste("National Mean Reading Score:", round(mean(cleaned_data$READ), 0)),
+           color = "black", vjust = 2, hjust = 0.85, size = 2.5)
+
+readvssch
+```
+:::
+
+### 2.3.5 Final Product: The relationships between Gender, SES and Schools with Reading scores
+
+The code chunk below prepares the individual scatterplots for subject pairwise comparison as a composite figure.
+
+```{r, fig.width= 12, fig.height = 6}
+patchwork <- readvsgen + readvsses + readvssch
+patchwork <- patchwork + 
+  plot_annotation(
+    title = "You will score higher on your reading if you are a girl and from a top 5 performing school.",
+    subtitle = "Significant statistical differences in mean and median Reading scores between gender and top 5 and bottom 5 schools. \nTo our surprise, Socioeconomic differences did not have a correlation with Reading scores.",
+    caption = "Data source: OECD PISA 2022",
+    theme = theme(plot.title = element_text(size = 50))  
+  )
+patchwork & theme_fivethirtyeight(base_size = 10) +
+  theme(
+    panel.grid.minor.x = element_line(linewidth = 0.2, linetype = 'solid', colour = "grey85"),
+    plot.title = element_text(face = "bold"), axis.title=element_text(face = "bold", size=9))
+```
+
+# 3 Learning Points
+
+This exercise gave me more scope on how to improve ways to visually represent data. My key learning points are:
+
+1.  Studying how to improve plots and reading up how to do them is very beneficial. As someone with no design background and aphantasia, I cannot visualise how to improve data visualisations. Seeing others in action is necessary for me e.g. putting a shaded rectangle area to denote the upper section of the mean Reading score (see [2.3.4 Makeover](#makeover-2)) came from trying to improve boxplot (see [Beyond the Trend: Storytelling with Scatter Plots](https://www.anyamemensah.com/blog/storytelling-with-scatter-plots)).
+
+2.  It is important to explore different ways to improve different types of plots - for e.g. the sections on [Improving overplotting in scatterplots] and [Improving the visualisation of distribution in a boxplot]. To improve a boxplot, I had Gender and Schools to plot against Reading scores. The improvement of Gender and Reading scores with a raincloud plot did not look good when applied to Schools and Reading scores, simply because Gender had 2 categories and I specified 10 schools for Schools. Hence, it is important to test out different visualisations to find what best fits your needs.
+
+3.  Even though there can be trade-offs between aesthetics and clarity, I think a well-written title and subtitle would help to provide clarity that therefore allows room for aesthetics. An example is [2.2.5 Final Product: The relationships between Math, Reading and Science scores] that did not have many explanatory elements in the plots but had a (hopefully) impactful title with a subtitle to provide context.
+
+4.  Doing VAA is good to prevent yourself from being bored in hospital 🙃.
