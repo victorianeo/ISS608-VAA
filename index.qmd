@@ -32,7 +32,7 @@ listing:
       - Take-home_Ex
     type: grid
     grid-columns: 4
-    max-items: 10
+    max-items: 8
     fields: [date-modified, image, title]
     sort:
       - "date-modified desc"

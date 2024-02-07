@@ -1,0 +1,466 @@
+---
+title: "Hands-on Exercise 4d"
+subtitle: "Lesson 4d: [Building Funnel Plot with R](https://r4va.netlify.app/chap12)" 
+author: "Victoria Neo"
+date: 02/6/2024
+date-modified: last-modified
+format:
+  html:
+    code-fold: true
+    code-summary: "code block"
+    code-tools: true
+    code-copy: true
+---
+
+![*Taken from* [NMPA: introduction to funnel plots](https://www.youtube.com/watch?v=2estbobsZ4g)](images/clipboard-2118847383.png){fig-align="left" width="353"}
+
+# Overview Summary
+
+|                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+|--------------------------|----------------------------------------------|
+| Work done        | Hands-on Exercise 4d                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| Hours taken      | ⏱️⏱️ ( hospitalisation leave)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Questions        | 0                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| How do I feel?   | 🫠                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| What do I think? | Wow I came across funnel plots while doing my own research and there must be a distinction drawn between [funnel charts](https://chartio.com/learn/charts/funnel-chart-complete-guide/#:~:text=A%20funnel%20chart%20is%20a,funnel's%20width%20as%20it%20narrows.) (used to demonstrate the flow of users through a business or sales process) and [funnel plots](https://s4be.cochrane.org/blog/2023/06/27/how-to-read-a-funnel-plot/#:~:text=What%20is%20a%20funnel%20plot,and%20results%20of%20individual%20studies.) (are scatterplots that compares the precision (how close the estimated intervention effect size is to the true effect size) and results of individual studies. Of course, funnel plots are more exciting! |
+
+# 1 Overview Notes
+
+Funnel plot is a specially designed data visualisation for conducting unbiased comparison between outlets, stores or business entities. By the end of this hands-on exercise, you will gain hands-on experience on:
+
+-   plotting funnel plots by using **funnelPlotR** package,
+
+-   plotting static funnel plot by using ggplot2 package, and
+
+-   plotting interactive funnel plot by using both **plotly R** and **ggplot2** packages.
+
+::: {.thinkbox .think data-latex="think"}
+#### Own Research
+
+According to [How to read a funnel plot](https://s4be.cochrane.org/blog/2023/06/27/how-to-read-a-funnel-plot/#:~:text=What%20is%20a%20funnel%20plot,and%20results%20of%20individual%20studies.),
+
+| *The term ‘funnel plot’ refers to the fact that the precision of the estimated intervention effect increases with the size of the study. Small study effect estimates will typically scatter more widely at the bottom of the graph, with the spread narrowing among larger studies as they are more precise and closer to the true effect.*
+
+::: {.callout-note collapse="true"}
+## Expand To Learn More About How to read funnel plots
+
+### How to read funnel plots
+
+![*Taken from* [How to read a funnel plot](https://s4be.cochrane.org/blog/2023/06/27/how-to-read-a-funnel-plot/#:~:text=What%20is%20a%20funnel%20plot,and%20results%20of%20individual%20studies.)](images/clipboard-3205258961.png){fig-align="left" width="436"}
+
+The plot should ideally look like a pyramid or a symmetrical inverted funnel, as seen in Image A.
+
+-   Each included study is represented as a dot.
+
+-   The y-axis represents a measure of study precision, with [standard error](https://s4be.cochrane.org/blog/2018/09/26/a-beginners-guide-to-standard-deviation-and-standard-error/) being commonly used. Larger studies with greater precision are displayed at the top and studies with lower precision at the bottom. Other measures such as the reciprocal of the standard error, the reciprocal of the sample size, or variance of the estimated effect can also be used as the y-axis.
+
+-   The x-axis displays the study estimated effect size for an outcome. The scale for the x-axis can include [risk ratios](https://s4be.cochrane.org/blog/2018/02/16/relative-measures-effects-can-misleading/) or [odds ratios](https://s4be.cochrane.org/blog/2013/08/13/a-beginners-guide-to-interpreting-odds-ratios-confidence-intervals-and-p-values-the-nuts-and-bolts-20-minute-tutorial/) (which should be plotted on a logarithmic scale), or continuous measures such as mean difference or standardised mean difference.
+
+-   In the absence of both bias and heterogeneity, 95% of studies would be expected to lie within the diagonal dotted ‘95% Confidence Interval’ lines, as shown in Figure A.
+
+As a rule of thumb, tests for funnel plot asymmetry should only be used when at least 10 studies are included in the meta-analysis, because the power of the tests is low when there are fewer studies.
+:::
+
+::: {.callout-note collapse="true"}
+## Expand To Learn More About What are you looking for in a funnel plot?
+
+### What are you looking for in a funnel plot?
+
+![](images/clipboard-953134237.png){width="436"}
+
+Image A is shown again below alongside Image B, which depicts an asymmetrical funnel due to presence of bias (the points are now predominantly towards the left). In this case, the meta-analysis summary estimate will tend to overestimate the intervention effect. The greater the asymmetry, the greater the likelihood that the amount of bias in the meta-analysis will be significant.
+
+**Possible reasons for asymmetry in a funnel plot are:**
+
+1.  **Non-reporting bias:** Some studies, or specific results, are less likely to be published if they are not statistically significant, or if the effect size is very small or non-existent.
+
+2.  **Poor methodological quality leading to exaggerated effects:** Studies with inferior methods may show larger effect estimates of an intervention than would have been observed in a well-designed study.
+
+3.  **True** [**heterogeneity**](https://s4be.cochrane.org/blog/2018/11/29/what-is-heterogeneity/)**:** Sometimes a significant benefit of an intervention can only be observed in patients who are at high risk for the outcome targeted by the intervention. These high-risk patients are more likely to be included in small, early trials, leading to asymmetry in the funnel plot.
+
+4.  **Artefactual:** Certain effect estimates, such as odds ratios or standardised mean differences, are inherently correlated with their standard errors. This correlation can create a false asymmetry in a funnel plot even when there is no bias.
+
+5.  **Chance:** With a small number of studies and their heterogeneity (variation), the analysis of the relationships between studies in a meta-analysis is more prone to false positives. This can affect the symmetry of the funnel plot.
+:::
+:::
+
+# 2 Getting Started
+
+## 2: Data
+
+### 2.1 Installing and loading the required libraries
+
+The code chunk below uses p_load() of pacman package to check if the following R packages are installed in the computer. If they are, then they will be launched into R.
+
+-   **readr** for importing csv into R.
+
+-   **FunnelPlotR** for creating funnel plot.
+
+-   **ggplot2** for creating funnel plot manually.
+
+-   **knitr** for building static html table.
+
+-   **plotly** for creating interactive funnel plot.
+
+```{r}
+pacman::p_load(tidyverse, FunnelPlotR, plotly, knitr)
+```
+
+### 2.2 Data Set
+
+In this section, *COVID-19_DKI_Jakarta* will be used. The data was downloaded from Open Data Covid-19 Provinsi DKI Jakarta portal. For this hands-on exercise, we are going to compare the cumulative COVID-19 cases and death by sub-district (i.e. kelurahan) as at 31st July 2021, DKI Jakarta.
+
+#### 2.2.1 Importing *covid19*
+
+The code chunk below imports the data into R and save it into a tibble data frame object called *covid19*.
+
+```{r}
+covid19 <- read_csv("data/COVID-19_DKI_Jakarta.csv") %>%
+  mutate_if(is.character, as.factor)
+
+covid19
+```
+
+# 3: Hands-on Exercise
+
+## 3.1 **FunnelPlotR methods**
+
+[**FunnelPlotR**](https://nhs-r-community.github.io/FunnelPlotR/) package uses ggplot to generate funnel plots. It requires a `numerator` (events of interest), `denominator` (population to be considered) and `group`. The key arguments selected for customisation are:
+
+-   `limit`: plot limits (95 or 99).
+
+-   `label_outliers`: to label outliers (true or false).
+
+-   `Poisson_limits`: to add Poisson limits to the plot.
+
+-   `OD_adjust`: to add overdispersed limits to the plot.
+
+-   `xrange` and `yrange`: to specify the range to display for axes, acts like a zoom function.
+
+-   Other aesthetic components such as graph title, axis labels etc.
+
+### 3.1.1 **FunnelPlotR methods: The basic plot**
+
+The code chunk below plots a funnel plot.
+
+::: panel-tabset
+## The plot
+
+```{r}
+#| echo: false 
+#| warning: false
+funnel_plot(
+  numerator = covid19$Positive,
+  denominator = covid19$Death,
+  group = covid19$`Sub-district`
+)
+```
+
+## The code chunk
+
+```{r}
+#| warning: false 
+#| code-fold: show
+#| eval: false
+funnel_plot(
+  numerator = covid19$Positive,
+  denominator = covid19$Death,
+  group = covid19$`Sub-district`
+)    
+```
+:::
+
+::: {.kambox .kam data-latex="kam"}
+#### What did Prof Kam say?
+
+Things to learn from the code chunk above:
+
+-   `group` in this function is different from the scatterplot. Here, it defines the level of the points to be plotted i.e. Sub-district, District or City. If Cityc is chosen, there are only six data points.
+
+-   By default, `data_type`argument is “SR”.
+
+-   `limit`: Plot limits, accepted values are: 95 or 99, corresponding to 95% or 99.8% quantiles of the distribution.
+:::
+
+### 3.1.2 **FunnelPlotR methods: Makeover 1**
+
+The code chunk below plots a funnel plot.
+
+::: panel-tabset
+## The plot
+
+```{r}
+#| echo: false 
+#| warning: false
+funnel_plot(
+  numerator = covid19$Death,
+  denominator = covid19$Positive,
+  group = covid19$`Sub-district`,
+  data_type = "PR",     #<<
+  xrange = c(0, 6500),  #<<
+  yrange = c(0, 0.05)   #<<
+)
+```
+
+## The code chunk
+
+```{r}
+#| warning: false 
+#| code-fold: show
+#| eval: false
+funnel_plot(
+  numerator = covid19$Death,
+  denominator = covid19$Positive,
+  group = covid19$`Sub-district`,
+  data_type = "PR",     #<<
+  xrange = c(0, 6500),  #<<
+  yrange = c(0, 0.05)   #<<
+) 
+```
+:::
+
+::: {.kambox .kam data-latex="kam"}
+#### What did Prof Kam say?
+
+Things to learn from the code chunk above:
+
+-   + `data_type` argument is used to change from default “SR” to “PR” (i.e. proportions).
+
+-   + `xrange` and `yrange` are used to set the range of x-axis and y-axis.
+:::
+
+### 3.1.3 **FunnelPlotR methods: Makeover 2**
+
+The code chunk below plots a funnel plot.
+
+::: panel-tabset
+## The plot
+
+```{r}
+#| echo: false 
+#| warning: false
+funnel_plot(
+  numerator = covid19$Death,
+  denominator = covid19$Positive,
+  group = covid19$`Sub-district`,
+  data_type = "PR",   
+  xrange = c(0, 6500),  
+  yrange = c(0, 0.05),
+  label = NA,
+  title = "Cumulative COVID-19 Fatality Rate by Cumulative Total Number of COVID-19 Positive Cases", #<<           
+  x_label = "Cumulative COVID-19 Positive Cases", #<<
+  y_label = "Cumulative Fatality Rate"  #<<
+)
+```
+
+## The code chunk
+
+```{r}
+#| warning: false 
+#| code-fold: show
+#| eval: false
+funnel_plot(
+  numerator = covid19$Death,
+  denominator = covid19$Positive,
+  group = covid19$`Sub-district`,
+  data_type = "PR",   
+  xrange = c(0, 6500),  
+  yrange = c(0, 0.05),
+  label = NA,
+  title = "Cumulative COVID-19 Fatality Rate by Cumulative Total Number of COVID-19 Positive Cases", #<<           
+  x_label = "Cumulative COVID-19 Positive Cases", #<<
+  y_label = "Cumulative Fatality Rate"  #<<
+)
+```
+:::
+
+::: {.kambox .kam data-latex="kam"}
+#### What did Prof Kam say?
+
+Things to learn from the code chunk above:
+
+-   `label = NA` argument is to removed the default label outliers feature.
+
+-   `title` argument is used to add plot title.
+
+-   `x_label` and `y_label` arguments are used to add/edit x-axis and y-axis titles.
+:::
+
+## 3.2 **Funnel Plot for Fair Visual Comparison: ggplot2 methods**
+
+In this section, you will gain hands-on experience on building funnel plots step-by-step by using ggplot2. It aims to enhance you working experience of ggplot2 to customise speciallised data visualisation like funnel plot.
+
+### 3.2.1 **Computing the basic derived fields**
+
+To plot the funnel plot from scratch, we need to derive cumulative death rate and standard error of cumulative death rate.
+
+```{r}
+#| code-fold: show
+df <- covid19 %>%
+  mutate(rate = Death / Positive) %>%
+  mutate(rate.se = sqrt((rate*(1-rate)) / (Positive))) %>%
+  filter(rate > 0)
+```
+
+Next, the *fit.mean* is computed by using the code chunk below.
+
+```{r}
+#| code-fold: show
+#| 
+fit.mean <- weighted.mean(df$rate, 1/df$rate.se^2)
+```
+
+### 3.2.2 **Calculate lower and upper limits for 95% and 99.9% CI**
+
+The code chunk below is used to compute the lower and upper limits for 95% confidence interval.
+
+```{r}
+#| code-fold: show
+
+number.seq <- seq(1, max(df$Positive), 1)
+number.ll95 <- fit.mean - 1.96 * sqrt((fit.mean*(1-fit.mean)) / (number.seq)) 
+number.ul95 <- fit.mean + 1.96 * sqrt((fit.mean*(1-fit.mean)) / (number.seq)) 
+number.ll999 <- fit.mean - 3.29 * sqrt((fit.mean*(1-fit.mean)) / (number.seq)) 
+number.ul999 <- fit.mean + 3.29 * sqrt((fit.mean*(1-fit.mean)) / (number.seq)) 
+dfCI <- data.frame(number.ll95, number.ul95, number.ll999, 
+                   number.ul999, number.seq, fit.mean)
+
+```
+
+### 3.2.3 **Plotting a static funnel plot**
+
+In the code chunk below, ggplot2 functions are used to plot a static funnel plot.
+
+::: panel-tabset
+## The plot
+
+```{r}
+#| echo: false  
+#| warning: false 
+p <- ggplot(df, aes(x = Positive, y = rate)) +
+  geom_point(aes(label=`Sub-district`), 
+             alpha=0.4) +
+  geom_line(data = dfCI, 
+            aes(x = number.seq, 
+                y = number.ll95), 
+            size = 0.4, 
+            colour = "grey40", 
+            linetype = "dashed") +
+  geom_line(data = dfCI, 
+            aes(x = number.seq, 
+                y = number.ul95), 
+            size = 0.4, 
+            colour = "grey40", 
+            linetype = "dashed") +
+  geom_line(data = dfCI, 
+            aes(x = number.seq, 
+                y = number.ll999), 
+            size = 0.4, 
+            colour = "grey40") +
+  geom_line(data = dfCI, 
+            aes(x = number.seq, 
+                y = number.ul999), 
+            size = 0.4, 
+            colour = "grey40") +
+  geom_hline(data = dfCI, 
+             aes(yintercept = fit.mean), 
+             size = 0.4, 
+             colour = "grey40") +
+  coord_cartesian(ylim=c(0,0.05)) +
+  annotate("text", x = 1, y = -0.13, label = "95%", size = 3, colour = "grey40") + 
+  annotate("text", x = 4.5, y = -0.18, label = "99%", size = 3, colour = "grey40") + 
+  ggtitle("Cumulative Fatality Rate by Cumulative Number of COVID-19 Cases") +
+  xlab("Cumulative Number of COVID-19 Cases") + 
+  ylab("Cumulative Fatality Rate") +
+  theme_light() +
+  theme(plot.title = element_text(size=12),
+        legend.position = c(0.91,0.85), 
+        legend.title = element_text(size=7),
+        legend.text = element_text(size=7),
+        legend.background = element_rect(colour = "grey60", linetype = "dotted"),
+        legend.key.height = unit(0.3, "cm"))
+p
+```
+
+## The code chunk
+
+```{r}
+#| warning: false 
+#| code-fold: show
+#| eval: false 
+p <- ggplot(df, aes(x = Positive, y = rate)) +
+  geom_point(aes(label=`Sub-district`), 
+             alpha=0.4) +
+  geom_line(data = dfCI, 
+            aes(x = number.seq, 
+                y = number.ll95), 
+            size = 0.4, 
+            colour = "grey40", 
+            linetype = "dashed") +
+  geom_line(data = dfCI, 
+            aes(x = number.seq, 
+                y = number.ul95), 
+            size = 0.4, 
+            colour = "grey40", 
+            linetype = "dashed") +
+  geom_line(data = dfCI, 
+            aes(x = number.seq, 
+                y = number.ll999), 
+            size = 0.4, 
+            colour = "grey40") +
+  geom_line(data = dfCI, 
+            aes(x = number.seq, 
+                y = number.ul999), 
+            size = 0.4, 
+            colour = "grey40") +
+  geom_hline(data = dfCI, 
+             aes(yintercept = fit.mean), 
+             size = 0.4, 
+             colour = "grey40") +
+  coord_cartesian(ylim=c(0,0.05)) +
+  annotate("text", x = 1, y = -0.13, label = "95%", size = 3, colour = "grey40") + 
+  annotate("text", x = 4.5, y = -0.18, label = "99%", size = 3, colour = "grey40") + 
+  ggtitle("Cumulative Fatality Rate by Cumulative Number of COVID-19 Cases") +
+  xlab("Cumulative Number of COVID-19 Cases") + 
+  ylab("Cumulative Fatality Rate") +
+  theme_light() +
+  theme(plot.title = element_text(size=12),
+        legend.position = c(0.91,0.85), 
+        legend.title = element_text(size=7),
+        legend.text = element_text(size=7),
+        legend.background = element_rect(colour = "grey60", linetype = "dotted"),
+        legend.key.height = unit(0.3, "cm"))
+p
+```
+:::
+
+### 3.2.4 **Interactive Funnel Plot: plotly + ggplot2**
+
+In the code chunk below, ggplot2 functions are used to plot a static funnel plot.
+
+::: panel-tabset
+## The plot
+
+```{r}
+#| echo: false  
+#| warning: false 
+fp_ggplotly <- ggplotly(p,
+  tooltip = c("label", 
+              "x", 
+              "y"))
+fp_ggplotly
+```
+
+## The code chunk
+
+```{r}
+#| warning: false 
+#| code-fold: show
+#| eval: false 
+fp_ggplotly <- ggplotly(p,
+  tooltip = c("label", 
+              "x", 
+              "y"))
+fp_ggplotly
+```
+:::
