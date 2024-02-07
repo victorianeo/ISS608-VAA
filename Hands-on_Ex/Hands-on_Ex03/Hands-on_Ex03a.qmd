@@ -3,7 +3,7 @@ title: "Hands-on Exercise 3a"
 subtitle: "Lesson 3: [Programming Interactive Data Visualisation with R](https://r4va.netlify.app/chap03)" 
 author: "Victoria Neo"
 date: 01/24/2024
-date-modified: last-modified
+date-modified: 01/25/2024
 format:
   html:
     code-fold: true
@@ -22,7 +22,7 @@ format:
 |--------------------------|----------------------------------------------|
 | Work done        | Hands-on Exercise 3a                                                                                                                                                                                                                            |
 | Hours taken      | ⏱️⏱️⏱️⏱️ (sick fil)                                                                                                                                                                                                                             |
-| Questions        | 0                                                                                                                                                                                                                                            |
+| Questions        | 0                                                                                                                                                                                                                                               |
 | How do I feel?   | 🚚😵                                                                                                                                                                                                                                            |
 | What do I think? | This week's Hands-on Exercises were a little long as we still had our Take-home Exercise 2 to think about and work on. That aside, I was very interactivity is very important because enabling the reader to explore helps to democratise data. |
 
@@ -578,7 +578,6 @@ plot_ly(data = exam_data,
 
 ## The code
 
-
 ```{r}
 #| warning: false 
 #| code-fold: show
@@ -676,6 +675,7 @@ DT::datatable(exam_data, class= "compact")
 ```
 
 ### 2.3.2 Linked brushing: crosstalk method
+
 ::: {.codebox .code data-latex="code"}
 Things to learn from the code chunk:
 
@@ -683,6 +683,7 @@ Things to learn from the code chunk:
 
 -   *bscols()* is a helper function of **crosstalk** package. It makes it easy to put HTML elements side by side. It can be called directly from the console but is especially designed to work in an R Markdown document. **Warning:** This will bring in all of Bootstrap!.
 :::
+
 ::: panel-tabset
 ## The plot
 

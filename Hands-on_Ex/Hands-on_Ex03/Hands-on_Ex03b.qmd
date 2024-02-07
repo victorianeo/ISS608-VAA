@@ -3,7 +3,7 @@ title: "Hands-on Exercise 3b"
 subtitle: "Lesson 3: [Programming Animated Statistical Graphics with R](https://r4va.netlify.app/chap04)" 
 author: "Victoria Neo"
 date: 01/24/2024
-date-modified: last-modified
+date-modified: 01/25/2024
 format:
   html:
     code-fold: true
