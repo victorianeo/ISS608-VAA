@@ -178,3 +178,5 @@ plot_ly(
 # To see the rest of Hands-on Exercise 5, please refer to the following links:
 
 [**Hands-on Exercise 5b: Visual Correlation Analysis**](/Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05b.html)
+
+[**Hands-on Exercise 5c: Heatmap for Visualising and Analysing Multivariate Data**](/Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05c.html)
