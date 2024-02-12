@@ -183,4 +183,4 @@ plot_ly(
 
 [**Hands-on Exercise 5d: Visual Multivariate Analysis with Parallel Coordinates Plot**](/Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05d.html)
 
-[**Hands-on Exercise 5e: Treemap Visualisation with R**](/Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05d.html)
+[**Hands-on Exercise 5e: Treemap Visualisation with R**](/Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05e.html)
