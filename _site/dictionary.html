@@ -30,11 +30,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-listing/list.min.js"></script>
-<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -67,70 +66,12 @@ ul.task-list li input[type="checkbox"] {
     "search-label": "Search"
   }
 }</script>
-<script>
 
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-stuff-listings .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date-modified','listing-image','listing-title',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-title","listing-author","listing-date","listing-image","listing-description"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-stuff-listings'] = new List('listing-stuff-listings', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
-
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -187,10 +128,6 @@ window.Quarto = {
         <li>
     <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05.html">
  <span class="dropdown-text">Hands-on Exercise 5</span></a>
-  </li>  
-        <li>
-    <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05b.html">
- <span class="dropdown-text">Hands-on Exercise 5b</span></a>
   </li>  
         <li>
     <a class="dropdown-item" href="./Hands-on_Ex/Hands-on_Ex06/Hands-on_Ex06.html">
@@ -259,7 +196,7 @@ window.Quarto = {
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link" href="./index.html"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -267,7 +204,7 @@ window.Quarto = {
 <span class="menu-text">My VAA Journey</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./dictionary.html"> 
+    <a class="nav-link active" href="./dictionary.html" aria-current="page"> 
 <span class="menu-text">Dictionary</span></a>
   </li>  
 </ul>
@@ -280,221 +217,19 @@ window.Quarto = {
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
+  
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
 <!-- main -->
 <main class="content column-page" id="quarto-document-content">
 
 
 
 
-<div class="quarto-about-trestles content column-page">
-  <div class="about-entity">
-    <img src="images/micandme.gif" class="about-image
-  round " style="height: 8cm; width: 8cm;">
-  </div>
-  <div class="about-contents"><div id="hero-heading">
-<section id="hi-im-victoria-neo" class="level3">
-<h3 data-anchor-id="hi-im-victoria-neo">Hi, I’m Victoria Neo!</h3>
-<p>I enjoy deep diving into things that spark my creativity. I look forward to my Visual Analytics and Applications journey and the artifacts I will create. It might take a lot of time and effort but I believe the result is worth it.</p>
-<blockquote class="blockquote">
-<p>“We must all suffer from one of two pains: the pain of discipline or the pain of regret. The difference is discipline weighs ounces while regret weighs tons.”</p>
-<p>― <strong>Jim Rohn</strong></p>
-</blockquote>
-</section>
-</div></div>
-</div>
-
-<section id="latest-creations" class="level3">
-<h3 data-anchor-id="latest-creations">Latest Creations</h3>
-<div id="listing-stuff-listings" class="quarto-listing quarto-listing-container-grid">
-<div class="list grid quarto-listing-cols-4">
-<div class="g-col-1" data-index="0" data-listing-date-sort="1707408000000" data-listing-file-modified-sort="1707704499541" data-listing-date-modified-sort="1707704499000" data-listing-reading-time-sort="15" data-listing-word-count-sort="2921">
-<a href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05b.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex05\Hands-on_Ex05b_files\figure-html\unnamed-chunk-3-1.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on Exercise 5c
-</h5>
-<table class="card-other-values">
-<tbody><tr>
-<td>
-Modified
-</td>
-<td class="date-modified">
-Feb 12, 2024
-</td>
-</tr>
-</tbody></table>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="1" data-listing-date-sort="1707408000000" data-listing-file-modified-sort="1707697480587" data-listing-date-modified-sort="1707697480000" data-listing-reading-time-sort="22" data-listing-word-count-sort="4344">
-<a href="./Hands-on_Ex/Hands-on_Ex05/Hands-on_Ex05.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex05\images\clipboard-140603643.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on Exercise 5
-</h5>
-<table class="card-other-values">
-<tbody><tr>
-<td>
-Modified
-</td>
-<td class="date-modified">
-Feb 12, 2024
-</td>
-</tr>
-</tbody></table>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="2" data-listing-date-sort="1707235200000" data-listing-file-modified-sort="1707324662786" data-listing-date-modified-sort="1707324662000" data-listing-reading-time-sort="2" data-listing-word-count-sort="235">
-<a href="./Take-home_Ex/Take-home_Ex03/Take-home_Ex03.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="Take-home_Ex\Take-home_Ex03\images\clipboard-939414320.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Take-home Exercise 3: Be Weatherwise or Otherwise
-</h5>
-<table class="card-other-values">
-<tbody><tr>
-<td>
-Modified
-</td>
-<td class="date-modified">
-Feb 8, 2024
-</td>
-</tr>
-</tbody></table>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="3" data-listing-date-sort="1707148800000" data-listing-file-modified-sort="1707294440472" data-listing-date-modified-sort="1707294440000" data-listing-reading-time-sort="32" data-listing-word-count-sort="6359">
-<a href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04c.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex04\images\clipboard-2210815851.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on Exercise 4c
-</h5>
-<table class="card-other-values">
-<tbody><tr>
-<td>
-Modified
-</td>
-<td class="date-modified">
-Feb 7, 2024
-</td>
-</tr>
-</tbody></table>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="4" data-listing-date-sort="1707148800000" data-listing-file-modified-sort="1707553862771" data-listing-date-modified-sort="1707235200000" data-listing-reading-time-sort="33" data-listing-word-count-sort="6414">
-<a href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04d.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex04\images\clipboard-2118847383.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on Exercise 4d
-</h5>
-<table class="card-other-values">
-<tbody><tr>
-<td>
-Modified
-</td>
-<td class="date-modified">
-Feb 7, 2024
-</td>
-</tr>
-</tbody></table>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="5" data-listing-date-sort="1707148800000" data-listing-file-modified-sort="1707219241432" data-listing-date-modified-sort="1707219241000" data-listing-reading-time-sort="13" data-listing-word-count-sort="2472">
-<a href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04b.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex04\images\clipboard-1237587139.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on Exercise 4b
-</h5>
-<table class="card-other-values">
-<tbody><tr>
-<td>
-Modified
-</td>
-<td class="date-modified">
-Feb 6, 2024
-</td>
-</tr>
-</tbody></table>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="6" data-listing-date-sort="1707148800000" data-listing-file-modified-sort="1707217058246" data-listing-date-modified-sort="1707217058000" data-listing-reading-time-sort="25" data-listing-word-count-sort="4838">
-<a href="./Hands-on_Ex/Hands-on_Ex04/Hands-on_Ex04a.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="Hands-on_Ex\Hands-on_Ex04\images\clipboard-1510941292.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Hands-on Exercise 4a
-</h5>
-<table class="card-other-values">
-<tbody><tr>
-<td>
-Modified
-</td>
-<td class="date-modified">
-Feb 6, 2024
-</td>
-</tr>
-</tbody></table>
-</div>
-</div>
-</a>
-</div>
-<div class="g-col-1" data-index="7" data-listing-date-sort="1706716800000" data-listing-file-modified-sort="1707194566920" data-listing-date-modified-sort="1707194566000" data-listing-reading-time-sort="53" data-listing-word-count-sort="10554">
-<a href="./Take-home_Ex/Take-home_Ex02/Take-home_Ex02.html" class="quarto-grid-link">
-<div class="quarto-grid-item card h-100 card-left">
-<p class="card-img-top"><img src="Take-home_Ex\Take-home_Ex02\images\clipboard-508869842.png" style="height: 150px;"  class="thumbnail-image card-img"/></p>
-<div class="card-body post-contents">
-<h5 class="no-anchor card-title listing-title">
-Take-home Exercise 2: DataVis Makeover
-</h5>
-<table class="card-other-values">
-<tbody><tr>
-<td>
-Modified
-</td>
-<td class="date-modified">
-Feb 6, 2024
-</td>
-</tr>
-</tbody></table>
-</div>
-</div>
-</a>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div>
 
 
-
-
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -517,6 +252,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

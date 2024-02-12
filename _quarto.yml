@@ -59,6 +59,8 @@ website:
       - href: index.qmd
         text: Home
       - about.qmd
+      - href: dictionary.qmd
+        text: Dictionary
 
 format:
   html:

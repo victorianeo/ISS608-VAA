@@ -1,0 +1,51 @@
+---
+title: "Take-home Exercise 3: Be Weatherwise or Otherwise"
+subtitle: "[DataVis of Singapore's weather](https://isss608-ay2023-24jan.netlify.app/take-home_ex/th_ex03)" 
+author: "Victoria Neo"
+date: 02/07/2024
+date-modified: last-modified
+format:
+  html:
+    code-fold: true
+    code-summary: "code block"
+    code-tools: true
+    code-copy: true
+    code-block-border-left: "#f9dc5c"
+    code-block-background: true
+execute:
+  warning: false
+---
+
+![*Taken from* [Impact Of Climate Change In Singapore](https://www.nccs.gov.sg/singapores-climate-action/impact-of-climate-change-in-singapore/)](images/clipboard-939414320.png){fig-align="left" width="413"}
+
+# 1 Setting the scene
+
+According to an office report as shown in the infographic above,
+
+-   Daily mean temperature are projected to increase by 1.4 to 4.6, and
+
+-   The contrast between the wet months (November to January) and dry month (February and June to September) is likely to be more pronounced.
+
+## 1.1 The Task {data-link="1.1 The Task"}
+
+In this take-home exercise, you are required to:
+
+-   Select a weather station and download [historical daily temperature or rainfall data](http://www.weather.gov.sg/climate-historical-daily/) from [Meteorological Service Singapore](http://www.weather.gov.sg/home/) website,
+
+-   Select either daily temperature or rainfall records of a month of the year 1983, 1993, 2003, 2013 and 2023 and create an analytics-driven data visualisation,
+
+-   Apply appropriate interactive techniques to enhance the user experience in data discovery and/or visual story-telling.
+
+![*Taken from* [Climate of Singapore](http://www.weather.gov.sg/climate-climate-of-singapore/)](images/clipboard-1146528269.png){fig-align="left" width="413"}
+
+![*Taken from* [Climate of Singapore](http://www.weather.gov.sg/climate-climate-of-singapore/)](images/CCS-Figure4.png){fig-align="left" width="413"}
+
+![*Taken from* [Wet Weather Expected To Continue In First Half Of July 2023](https://www.nea.gov.sg/media/news/advisories/index/wet-weather-expected-to-continue-in-first-half-of-july-2023)](images/fwo-1st-half-jul-23.png){fig-align="left" width="413"}
+
+Most parts of Singapore recorded above average rainfall in June 2023. MacRitchie Reservoir recorded rainfall of 84 per cent above average, and Mandai recorded rainfall of 34 per cent below average.
+
+![*Taken from* [Fewer Windy Days For The Rest Of December 2021](https://www.nea.gov.sg/media/news/advisories/index/fewer-windy-days-for-the-rest-of-december-2021)](images/whatsapp-image-2021-12-17-at-9-40-21-am.jpeg){fig-align="left" width="413"}
+
+In the first half of December 2021, rainfall was well below-average across the whole island. The rainfall anomaly at MacRitchie Reservoir was 81 per cent below average.
+
+![*Taken from* [Fewer Windy Days For The Rest Of December 2021](https://www.nea.gov.sg/media/news/advisories/index/fewer-windy-days-for-the-rest-of-december-2021)](images/clipboard-2930458702.png){fig-align="left" width="413"}

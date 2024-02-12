@@ -3,7 +3,7 @@ title: "Hands-on Exercise 4d"
 subtitle: "Lesson 4d: [Building Funnel Plot with R](https://r4va.netlify.app/chap12)" 
 author: "Victoria Neo"
 date: 02/6/2024
-date-modified: last-modified
+date-modified: 02/7/2024
 format:
   html:
     code-fold: true
@@ -436,7 +436,7 @@ p
 
 ### 3.2.4 **Interactive Funnel Plot: plotly + ggplot2**
 
-In the code chunk below, ggplot2 functions are used to plot a static funnel plot.
+The funnel plot created using ggplot2 functions can be made interactive with `ggplotly()` of **plotly** r package.
 
 ::: panel-tabset
 ## The plot
