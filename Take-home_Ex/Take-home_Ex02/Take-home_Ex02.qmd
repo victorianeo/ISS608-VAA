@@ -3,7 +3,7 @@ title: "Take-home Exercise 2: DataVis Makeover"
 subtitle: "[DataVis Makeover of Take-home Exercise 1](https://isss608-ay2023-24jan.netlify.app/take-home_ex/th_ex02)" 
 author: "Victoria Neo"
 date: 02/01/2024
-date-modified: last-modified
+date-modified: 02/06/2024
 format:
   html:
     code-fold: true
