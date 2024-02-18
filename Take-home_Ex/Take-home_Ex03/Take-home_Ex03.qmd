@@ -1293,7 +1293,7 @@ l2 <- heatmap_plot | ch_rainfall
 final <- l1/l2 + 
   plot_annotation(
     title = "February seems to be getting wetter.",
-    subtitle = "February is the driest month in Singapore but even its total rainfall has been increasing over the decades (although there is much uncertainty if this change is statistically \nsignificant). 1983 and 1993 were relatively dry while the later years became wetter and rain was often in the first half of the month. There were also more days with high amounts of rainfall (outliers). Climate change has also resulted in unusual weather patterns with 2013 being a blip year. \nIt was unusually rainy with high amounts of rainfall caused by the unusual wet phases of the Northeast Monsoon Season and Madden-Julian Oscillation.",
+    subtitle = "February is the driest month in Singapore but even its total rainfall has been increasing over the decades (although there is much uncertainty if this change is statistically \nsignificant). 1983 and 1993 were relatively dry while the later years became wetter and rain was often in the first half of the month. There were also more days with high \namounts of rainfall (outliers). Climate change has also resulted in unusual weather patterns with 2013 being a blip year. It was unusually rainy with high amounts of rainfall \ncaused by the unusual wet phases of the Northeast Monsoon Season and Madden-Julian Oscillation.",
     caption = "Data source: MSS 2024",
     theme = theme(plot.title = element_text(size = 25))  
   )
