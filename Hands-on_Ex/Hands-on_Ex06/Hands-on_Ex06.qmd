@@ -2,8 +2,8 @@
 title: "Hands-on Exercise 6"
 subtitle: "Lesson 6: [Visualising and Analysing Time-oriented Data](https://r4va.netlify.app/chap17)" 
 author: "Victoria Neo"
-date: 02/19/2024
-date-modified: last-modified
+date: "02/19/2024"
+date-modified: "last-modified"
 format:
   html:
     code-fold: true
@@ -11,20 +11,24 @@ format:
     code-tools: true
     code-copy: true
 execute:
+  eval: true
+  echo: true
+  freeze: true
   warning: false
+  message: false
 ---
 
 ![*Taken from* [Mastering Data Visualization: Unleashing the Power of Data Storytelling with Time Series Plots in Python](https://medium.com/@stephanhausberg/mastering-data-visualization-unleashing-the-power-of-data-storytelling-with-time-series-plots-in-aaefdcf2f1a1)](images/clipboard-1868755722.png){fig-align="left"}
 
 # Overview Summary
 
-|                  |                                                                                                                                                                      |
-|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Work done        | Hands-on Exercise 6                                                                                                                                                  |
-| Hours taken      | ⏱️⏱️⏱️ ( hospitalisation leave)                                                                                                                                      |
-| Questions        | 0                                                                                                                                                                    |
-| How do I feel?   | 🫥                                                                                                                                                                   |
-| What do I think? | It was helpful to go through this guide and I did use some idea for the Take-home_Ex03. I think I need more experience preparing data for such data visualisations.  |
+|                  |                                                                                                                                                                     |
+|----------------|--------------------------------------------------------|
+| Work done        | Hands-on Exercise 6                                                                                                                                                 |
+| Hours taken      | ⏱️⏱️⏱️ ( hospitalisation leave)                                                                                                                                     |
+| Questions        | 0                                                                                                                                                                   |
+| How do I feel?   | 🫥                                                                                                                                                                  |
+| What do I think? | It was helpful to go through this guide and I did use some idea for the Take-home_Ex03. I think I need more experience preparing data for such data visualisations. |
 
 # 1 Overview
 
@@ -140,6 +144,15 @@ attacks <- attacks %>%
     wkday, levels = wkday_levels),
     hour  = factor(
       hour, levels = 0:23))
+```
+
+```{r}
+#Another way to mutate using lubridaate
+#attacks <- attacks %>%
+#  mutate(wkday = lubridate::wday(timestamp, 
+#                                 label = True,
+#                                 abbr = FALSE),
+#         hour = lubridate::hour(timestamp))
 ```
 
 ::: callout-note
