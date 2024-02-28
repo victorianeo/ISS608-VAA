@@ -1,6 +1,6 @@
 ---
-title: "Hands-on Exercise 7"
-subtitle: "Lesson 7: [Visualising and Analysing Geographic Data](https://isss608-ay2023-24jan.netlify.app/outline/lesson07_outline)" 
+title: "Hands-on Exercise 7a"
+subtitle: "Lesson 7a: [Choropleth Mapping with R](https://r4va.netlify.app/chap21)" 
 author: "Victoria Neo"
 date: 02/24/2024
 date-modified: last-modified
@@ -239,7 +239,7 @@ tm_shape(mpsz_pop2020)+
 ::: {.kambox .kam data-latex="kam"}
 #### What did Prof Kam say?
 
-**Thing to learn from the code chunk above**
+**Things to learn from the code chunk above**
 
 -   The default interval binning used to draw the choropleth map is called “pretty”. A detailed discussion of the data classification methods supported by **tmap** will be provided in sub-section 4.3.
 
