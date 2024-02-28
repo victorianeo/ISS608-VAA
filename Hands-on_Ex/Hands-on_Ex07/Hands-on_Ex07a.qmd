@@ -20,13 +20,13 @@ execute:
 
 ![*Taken from* [Tableau](https://www.tableau.com/learn/articles/interactive-map-and-data-visualization-examples)](images/clipboard-3952092897.png){fig-align="left" width="674"}
 
-|                  |                              |
-|------------------|------------------------------|
-| Work done        | Hands-on Exercise 7a, 7b, 7c |
-| Hours taken      | ⏱️⏱️⏱️⏱️⏱️ ( Two sick kids)  |
-| Questions        | 0                            |
-| How do I feel?   | 😴                           |
-| What do I think? |                              |
+|                  |                                                                                                                                                                                 |
+|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Work done        | Hands-on Exercise 7a, 7b, 7c                                                                                                                                                    |
+| Hours taken      | ⏱️⏱️⏱️⏱️⏱️ ( Two sick kids)                                                                                                                                                     |
+| Questions        | 0                                                                                                                                                                               |
+| How do I feel?   | 😴                                                                                                                                                                              |
+| What do I think? | Wow... it is so cool that maps can be used to visualise data. I found the Analytical Mapping very interesting - I didn't know maps can be used in such a way to help visualise. |
 
 # 1 Overview
 
