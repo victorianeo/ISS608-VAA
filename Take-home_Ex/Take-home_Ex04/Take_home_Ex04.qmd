@@ -1,0 +1,264 @@
+---
+title: "Take-home Exercise 4"
+subtitle: "Take-home Exercise 4: [Prototyping Modules for Visual Analytics Shiny Application](https://isss608-ay2023-24jan.netlify.app/take-home_ex/th_ex04)" 
+author: "Victoria Neo"
+date: 02/29/2024
+date-modified: last-modified
+format:
+  html:
+    code-fold: true
+    code-summary: "code block"
+    code-tools: true
+    code-copy: true
+execute:
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+  message: false
+---
+
+# 1 Overview
+
+As mentioned in my group's [proposal](https://isss608-24jan-group1.netlify.app/proposal/proposal),
+
+The [Big Mac Index](https://en.wikipedia.org/wiki/Big_Mac_Index) (BMI) was invented by [The Economist](https://www.economist.com/big-mac-index) in 1986 as a light-hearted guide to whether currencies are at their “correct” level. It is based on the theory of purchasing-power parity (PPP), with the notion that in the long run, exchange rates should move towards the rate that would equalise the prices of an identical basket of goods and services (in this case, a burger) in any two countries. The BMI has become a global standard, included in several economic textbooks and the subject of dozens of academic studies. Thus, we would like to visually examine the phenomenon of inflation co-movement by looking at the similarities in inflation prices between countries through time, isolate groups with similar characteristics, and determine if the BMI is a suitable proxy to inflation prices.
+
+There is a significant gap in making complex economic data accessible to the general public and providing advanced analysis tools for professionals. Existing visualization tools, including government dashboards, often fail to cater effectively to both audiences. To address this, we propose an R Shiny-based interactive tool that leverages publicly available data, the Big Mac Index to simplify the understanding of global financial trends for laypersons while offering in-depth data exploration and modelling capabilities for analysts.
+
+# 2 **Getting Started**
+
+## 2.1 Installing and loading the required libraries
+
+-   **CGPfunctions**: for using `newggslopegraph()` for creating slopegraphs
+
+-   [**DT**](https://rstudio.github.io/DT/)**,** for providing an R interface to the JavaScript library [DataTables](https://datatables.net/) that create interactive table on html page
+
+-   **d3treeR**: for creating interactive treemaps
+
+-   **dplyr**: for manipulating, concatenating dataframes
+
+-   **ggHoriPlot**: for plotting horizon plots
+
+-   Hmisc:
+
+-   [**kableExtra**](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)**,** for creating and manipulating complex tables
+
+-   **lubridate**: for using [`dmy()`](https://lubridate.tidyverse.org/reference/ymd.html) function to parse the Date field into appropriate Date data type in R
+
+-   [**patchwork**](https://patchwork.data-imaginist.com/), for combining multiple ggplot2 graphs into one figure
+
+-   **purrr**: for handling lists and functional programming
+
+-   **naniar**: for using `miss_vis()` function to check data for missing values
+
+-   [**tidyverse**](https://www.tidyverse.org/), a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs
+
+-   **treemap**: for creating treemaps
+
+```{r}
+pacman::p_load(CGPfunctions, d3treeR,
+               DT,
+               dplyr, ggHoriPlot,
+               ggthemes,
+               kableExtra, lubridate,
+               MetBrewer, patchwork, 
+               purrr, naniar,
+               plotly, tidyverse, 
+               treemap
+               ) 
+```
+
+## 2.2 **Data Set**
+
+### 2.2.1 Loading the Data Set
+
+We load the dataset for Big Mac Index that has been combined with other data (e.g. GDP, Employment rates etc.) as seen here in our [data preparation](https://isss608-24jan-group1.netlify.app/prototype/data_preparation/data_preparation).
+
+```{r}
+bmi_data <- read_csv("data/countries_with_complete_data.csv")
+```
+
+### 2.2.2 Checking Data Health
+
+We now check the health of our dataset by using:
+
+-   `datatable()` from the DT package to view the dataframe more interactively,
+
+-   `glimpse()` to look at the structure of the dataframe, data types of the columns, and some values of the dataframe,
+
+-   `duplicate()` to check the dataframe for any duplicated entries using *duplicate()*, and
+
+-   `vis_miss()` to check the state of missing values in the dataset.
+
+-   `describe()` to produce a summary of all the variables.
+
+::: panel-tabset
+## **datatable()**
+
+```{r}
+datatable(bmi_data, 
+          class= "compact",
+          rownames = FALSE,
+          width="100%", 
+          options = list(pageLength = 10,scrollX=T))
+```
+
+## **glimpse()**
+
+```{r}
+glimpse(bmi_data)
+```
+
+## **duplicate()**
+
+```{r}
+bmi_data[duplicated(bmi_data),]
+```
+
+## **vis_miss()**
+
+```{r}
+vis_miss(bmi_data)
+```
+
+## **describe()**
+
+```{r}
+Hmisc::describe(bmi_data)
+```
+:::
+
+### 2.2.3 Descriptive Statistics
+
+We now summarize our dataset by using:
+
+-   a function for categorical variables
+
+-   `summary()` for continuous variables
+
+::: panel-tabset
+## **fun_cat for categorical variables**
+
+```{r}
+fun_cat <- function(x) {
+  # Count the number of missing values
+  nmiss <- sum(is.na(x))
+  # Frequency
+  n     <- table(x)
+  # Proportion
+  p     <- prop.table(n)
+  # Putting it together
+  OUT   <- cbind(n, p)
+  # Add nmiss, but first pad to have the right number of rows
+  nmiss <- c(nmiss, rep(NA, nrow(OUT)-1))
+  OUT   <- cbind(OUT, nmiss)
+  return(OUT)
+}
+```
+
+## **Categorical variables**
+
+```{r}
+fun_cat(bmi_data$country)
+fun_cat(bmi_data$currency_code)
+fun_cat(bmi_data$year)
+```
+
+## **Continuous variables**
+
+```{r}
+
+cont_data <- data.frame(bmi_data$bmi_localprice, bmi_data$bmi_usd_price, bmi_data$bmi_gdpadj_price, bmi_data$dollar_ex, bmi_data$GDP_bigmac, bmi_data$export_usd, bmi_data$import_usd, bmi_data$GDP, bmi_data$gdp_per_capita, bmi_data$gdp_per_employed, bmi_data$inflation)
+
+lapply(cont_data, summary)
+
+```
+
+## **bmi_usdprice by country**
+
+```{r}
+# Assuming 'bmi_data' is your data frame
+result_list <- lapply(
+  split(bmi_data, bmi_data$country),
+  function(sub_data) summary(sub_data$bmi_usd_price)
+)
+
+result_list
+
+
+```
+:::
+
+# 3 **Time-series Analysis of Big Mac Index**
+
+To study the phenomenon of inflation co-movement by looking at the similarities in BMI between countries through time, we will look at the following variables:
+
+1.  bmi_usdprice
+
+by dimensions
+
+1.  country
+
+2.  year
+
+For each measure, we will:
+
+-   Plot a slopegraph to observe the overall trend through 10 years intervals,
+
+-   Plot a horizon graph to look at patterns over time compared across dimensions,
+
+-   Plot a treemap to get a summary of similarities and anomalies within one dimension and between multiple dimensions.
+
+## 3.1 Looking at overall trends with `newsslopegraph()`
+
+```{r}
+bmi_data %>% 
+  mutate(year = factor(year)) %>%
+  filter(year %in% c(2002, 2012, 2021 )) %>%
+  newggslopegraph(year, bmi_usd_price, country,
+                Title = "Big Mac Index (USD) across 20 countries",
+                SubTitle = "At 5 Years Intervals from 2002-2021",
+                Caption = "Source: The Economist",
+                YTextSize = 2.5,
+                LineThickness = .5,
+                LineColor = "gray",
+                WiderLabels = TRUE)
+```
+
+## 3.2 Looking at variations in patterns with `ggHoriPlot()`
+
+```{r}
+bmi_data %>% 
+  filter(year >= "2002") %>%
+  ggplot() +
+  geom_horizon(aes(x = year, y=bmi_usdprice), 
+               origin = "mean", 
+               horizonscale = 6)+
+  facet_grid(`country`~.) +
+    theme_few() +
+  scale_fill_hcl(palette = 'RdBu') +
+  theme(panel.spacing.y=unit(0, "lines"), strip.text.y = element_text(
+    size = 5, angle = 0, hjust = 0),
+    legend.position = 'none',
+    axis.text.y = element_blank(),
+    axis.text.x = element_text(size=7),
+    axis.title.y = element_blank(),
+    axis.title.x = element_blank(),
+    axis.ticks.y = element_blank(),
+    panel.border = element_blank()
+    ) #+
+   # scale_x_date(expand=c(0,0), date_breaks = "3 month", date_labels = "%b%y") +
+  ggtitle('Average Retail Prices of Selected Consumer Items (Jan 2018 to Dec 2022)')
+```
+
+```{r}
+tm <- treemap(bmi_data,
+        index=c("Planning Region", "Planning Area"),
+        vSize="Total Unit Sold",
+        vColor="Median Unit Price ($ psm)",
+        type="value",
+        title="Private Residential Property Sold, 2017",
+        title.legend = "Median Unit Price (S$ per sq. m)"
+        )
+```
