@@ -18,6 +18,8 @@ execute:
   message: false
 ---
 
+![](images/bigmac.gif){fig-align="left" width="630"}
+
 # 1 Overview
 
 As mentioned in my group's [proposal](https://isss608-24jan-group1.netlify.app/proposal/proposal),
@@ -59,10 +61,12 @@ There is a significant gap in making complex economic data accessible to the gen
 ```{r}
 pacman::p_load(CGPfunctions, d3treeR,
                DT,
-               dplyr, ggHoriPlot,
-               ggthemes,
+               dplyr, ggExtra,
+               ggHoriPlot,
+               ggthemes, ggplot2,
                kableExtra, lubridate,
-               MetBrewer, patchwork, 
+               MetBrewer, packHV,
+               patchwork, 
                purrr, naniar,
                plotly, tidyverse, 
                treemap
@@ -190,11 +194,17 @@ result_list
 ```
 :::
 
-# 3 **Time-series Analysis of Big Mac Index**
+# 3 **Exploratory Data Analysis**
 
-To study the phenomenon of inflation co-movement by looking at the similarities in BMI between countries through time, we will look at the following variables:
+Some questions of interest regarding the problem statement of inflation co-movement by BMI are:
 
-1.  bmi_usdprice
+-   what type of variation occurs within BMI prices,
+
+-   what type of covariation occurs between BMI prices by dimensions.
+
+To do this, we will look at the following variables:
+
+1.  bmi_usd_price (in order to compare across currencies, we use the BMI prices converted to USD)
 
 by dimensions
 
@@ -202,37 +212,192 @@ by dimensions
 
 2.  year
 
-For each measure, we will:
+We will:
 
--   Plot a slopegraph to observe the overall trend through 10 years intervals,
+-   Plot a histogram to study the variation within BMI
 
--   Plot a horizon graph to look at patterns over time compared across dimensions,
+-   Plot a lollipop graph to observe the any patterns across dimensions
 
--   Plot a treemap to get a summary of similarities and anomalies within one dimension and between multiple dimensions.
+-   Plot a notched boxplot to study the distribution of BMI and its differences in central tendency across dimensions
 
-## 3.1 Looking at overall trends with `newsslopegraph()`
+## 3.1 Looking at BMI
+
+```{r}
+
+par(mfrow = c(1, 2))
+
+hist_boxplot(bmi_data$bmi_usd_price,col="#69b3a2",freq=TRUE,  xlab = "Prices in USD", main = "Histogram of Big Mac Index prices in USD")
+hist_boxplot(bmi_data$bmi_usd_price,col="#69b3a2",freq=FALSE,density=TRUE, xlab = "Prices in USD", main = "")
+
+```
+
+::: callout-note
+### **Insights**
+
+BMI is asymmetrically distributed and skewed to the right. Most of the Big Mac prices (adjusted to USD) are close to 3USD - this makes sense as McDonald's positions itself as an ultra-affordable fast food chain. Its mean (3.2198) is higher than its median (2.9915). But this also means that it has outliers with very expensive Big Mac prices.
+
+Questions:
+
+-   Why are the Big Mac prices close to 3USD?
+
+-   Given McDonald's strategy to be ultra-affordable, why is there a large spread in Big Mac prices and outliers on the right?
+:::
+
+## 3.2 Looking at BMI through dimensions
+
+### 3.2.1 Country dimension with Boxplot
+
+```{r}
+
+bmi_data %>% 
+  
+  # Calculate mean of bmi_usd_price for each country
+  group_by(country) %>%
+  mutate(median_bmi = median(bmi_usd_price)) %>%
+  ungroup() %>%
+  
+  # Reorder the countries based on the mean of bmi_usd_price
+  mutate(country = reorder(country, median_bmi)) %>%
+  
+  # Add a column called 'type': do we want to highlight the group or not?
+  mutate(type = ifelse(country %in% c("Russia", "Switzerland"), "Highlighted", "Normal")) %>%
+  
+  # Build the boxplot. 
+  ggplot(aes(x = country, y = bmi_usd_price, fill = type, alpha = type)) + 
+    geom_boxplot() +
+    geom_jitter(color = "black", size = 0.4, alpha = 0.9) +
+    scale_fill_manual(values = c("#69b3a2", "grey")) +
+    scale_alpha_manual(values = c(1, 0.1)) +
+    theme(legend.position = "none") +
+    labs(y = "Prices in USD",    
+       x = "",                  
+       title = "Boxplot of Big Mac Index Prices in USD across countries") +
+    coord_flip() +
+  # Add mean and median lines
+    geom_hline(aes(yintercept = mean(bmi_usd_price), linetype = "Mean"), 
+               color = "darkblue", linetype = "dashed", size = 0.5) +
+    geom_hline(aes(yintercept = median(bmi_usd_price), linetype = "Median"), 
+               color = "darkred", linetype = "dashed", size = 0.5) +
+  
+    # Add text labels for mean and median
+    geom_text(aes(x = mean(bmi_usd_price), label = paste("Mean: ", round(mean(bmi_usd_price), 2))),
+              y = max(bmi_data$bmi_usd_price, na.rm = TRUE), size = 3, vjust =3.5, hjust = 5, color = "darkblue") +
+    geom_text(aes(x = median(bmi_usd_price), label = paste("Median: ", round(median(bmi_usd_price), 2))),
+              y = max(bmi_data$bmi_usd_price, na.rm = TRUE), size = 3, vjust = -35, hjust = 7.35, color = "darkred") +
+  
+    # Customize legend
+    scale_linetype_manual(name = "Lines", values = c("Mean" = "dashed", "Median" = "dashed"),
+                          labels = c("Mean", "Median")) +
+    guides(fill = guide_legend(override.aes = list(alpha = c(1, 0.1)))) 
+
+```
+
+::: callout-note
+### **Insights**
+
+Some of the outliers pointed out in the previous data visualisations can be explained by the country dimension. Highly developed countries such as Switzerland, Sweden and Denmark have the top 3 most expensive Big Mac prices. However, Hong Kong, with also a highly developed economy, has the third lowest Big Mac price. In the boxplot above, there is no clear difference between developed and developing countries (even Philippines is more expensive than Hong Kong).
+
+The above boxplot also shows that there is variation within and between countries - there are some countries with greater variability e.g. Argentina and a number of countries with median BMI prices higher than the overall median BMI price such as Switzerland, Brazil and Canada while countries like Mexico and South Africa did not see much fluctuations in their BMI prices.
+
+Questions:
+
+-   Why do some countries have greater variability in their BMI prices?
+
+-   Why is there a difference in BMI prices between developed and developing countries?
+
+    -   especially for Hong Kong
+:::
+
+### 3.2.2 Year dimension with Boxplot
 
 ```{r}
 bmi_data %>% 
   mutate(year = factor(year)) %>%
-  filter(year %in% c(2002, 2012, 2021 )) %>%
+  # Add a column called 'type': do we want to highlight the group or not?
+  mutate( type=ifelse(year %in% c("2002", "2021"),"Highlighted","Normal")) %>%
+  
+  # Build the boxplot. In the 'fill' argument, give this column
+  ggplot( aes(x=year, y=bmi_usd_price, fill=type, alpha=type)) + 
+    geom_boxplot() +
+    geom_jitter(color = "black", size = 0.4, alpha = 0.9) +
+    scale_fill_manual(values=c("#69b3a2", "grey")) +
+    scale_alpha_manual(values=c(1,0.1)) +
+    theme(legend.position = "none") +
+    labs(y = "Prices in USD",    
+       x = "",                  
+       title = "Boxplot of Big Mac Index Prices in USD across years") +
+    coord_flip() +
+ # Add mean and median lines
+    geom_hline(aes(yintercept = mean(bmi_usd_price), linetype = "Mean"), 
+               color = "darkblue", linetype = "dashed", size = 0.5) +
+    geom_hline(aes(yintercept = median(bmi_usd_price), linetype = "Median"), 
+               color = "darkred", linetype = "dashed", size = 0.5) +
+  
+    # Add text labels for mean and median
+    geom_text(aes(x = mean(bmi_usd_price), label = paste("Mean: ", round(mean(bmi_usd_price), 2))),
+              y = max(bmi_data$bmi_usd_price, na.rm = TRUE), size = 3, vjust =3.5, hjust = 6.4, color = "darkblue") +
+    geom_text(aes(x = median(bmi_usd_price), label = paste("Median: ", round(median(bmi_usd_price), 2))),
+              y = max(bmi_data$bmi_usd_price, na.rm = TRUE), size = 3, vjust = -33.5, hjust = 7.35, color = "darkred") +
+  
+    # Customize legend
+    scale_linetype_manual(name = "Lines", values = c("Mean" = "dashed", "Median" = "dashed"),
+                          labels = c("Mean", "Median")) +
+    guides(fill = guide_legend(override.aes = list(alpha = c(1, 0.1)))) 
+```
+
+::: callout-note
+### **Insights**
+
+From the boxplot above, we can see that Big Mac prices have risen through the years - 2021 is the most expensive year for Big Mac prices. Despite the blip from 2013 - 2016 and 2018 - 2020, which saw falling Big Mac prices, as a whole, they have increased since 2002 which saw the lowest prices for Big Mac.
+
+Questions:
+
+-   Why was there a dip in Big Mac prices from 2013 to 2016 and 2018 to 2020?
+
+-   Why are Big Mac prices rising as a whole?
+:::
+
+# 4 **Time-series Analysis of Big Mac Index through time and countries**
+
+## 4.1 Looking at overall trends with `newsslopegraph()`
+
+```{r, fig.width= 10, fig.height = 15}
+bmi_data %>% 
+  mutate(year = factor(year)) %>%
+  filter(year %in% c(2002, 2011, 2021 )) %>%
   newggslopegraph(year, bmi_usd_price, country,
-                Title = "Big Mac Index (USD) across 20 countries",
-                SubTitle = "At 5 Years Intervals from 2002-2021",
+                Title = "Big Mac Index (USD) across 28 countries",
+                SubTitle = "At 10 Years Intervals from 2002-2021",
                 Caption = "Source: The Economist",
                 YTextSize = 2.5,
                 LineThickness = .5,
-                LineColor = "gray",
-                WiderLabels = TRUE)
+                LineColor = c(rep("gray",8), "red", rep("gray",10), "#69b3a2", rep("gray",3),"#69b3a2",rep("gray",4)),
+    WiderLabels = TRUE)
 ```
 
-## 3.2 Looking at variations in patterns with `ggHoriPlot()`
+::: callout-note
+### **Insights**
+
+From the slopegraph above, we can see that Big Mac prices increased for all countries in 2011 but later increased for some and decreased for others. Switzerland consistently had the most expensive Big Mac prices through the years while Argentina had the cheapest Big Mac in 2002 but is in 15th position (out of 28) in 2021. Most interesting is Hong Kong, that saw a consistent rise in Big Mac process, did not experience sharp changes, and had actually the cheapest Big Mac in 2011.
+
+Moreover, in 2002, the prices between countries were much closer in spread but this spread increased through the years.
+
+Questions:
+
+-   Why did the spread in Big Mac prices between countries increase through the years?
+
+-   Why did Big Mac prices increase in 2011 for all countries?
+
+-   Why did some countries experience a consistent increase in Big Mac prices while others experienced fluctuations?
+:::
+
+## 4.2 Looking at variations in patterns with `ggHoriPlot()` using mean as the baseline
 
 ```{r}
 bmi_data %>% 
   filter(year >= "2002") %>%
   ggplot() +
-  geom_horizon(aes(x = year, y=bmi_usdprice), 
+  geom_horizon(aes(x = year, y=bmi_usd_price), 
                origin = "mean", 
                horizonscale = 6)+
   facet_grid(`country`~.) +
@@ -247,18 +412,52 @@ bmi_data %>%
     axis.title.x = element_blank(),
     axis.ticks.y = element_blank(),
     panel.border = element_blank()
-    ) #+
-   # scale_x_date(expand=c(0,0), date_breaks = "3 month", date_labels = "%b%y") +
-  ggtitle('Average Retail Prices of Selected Consumer Items (Jan 2018 to Dec 2022)')
+    ) 
 ```
 
+::: callout-note
+### **Insights**
+
+The horizon plot showed that all countries were initially below the mean Big Mac price and all experienced some increase in price. China, Hong Kong, Korea, Singapore, Thailand and United States had a huge increase in Big Mac prices around 2018 to 2022. However, Turkey experienced a large drop in recent years while Russia experienced huge increase and than a large drop around 2015 and only had a smaller increase later on.
+
+Questions:
+
+-   Why do some countries experience a significant increase in Big Mac prices together over the same period?
+
+-   Why are there small sharp peaks for some years and long peaks for others?
+
+-   What other factors account for this co-movement in Big Mac prices? GDP per capita?
+:::
+
+## 4.3 Adding GDP per capita to track the movement of BMI through the years and countries with a Bubble Plot
+
 ```{r}
-tm <- treemap(bmi_data,
-        index=c("Planning Region", "Planning Area"),
-        vSize="Total Unit Sold",
-        vColor="Median Unit Price ($ psm)",
-        type="value",
-        title="Private Residential Property Sold, 2017",
-        title.legend = "Median Unit Price (S$ per sq. m)"
-        )
+bmi_data %>%
+  plot_ly(x = ~gdp_per_capita, 
+          y = ~bmi_usd_price, 
+          size = ~inflation, 
+          color = ~country,
+          sizes = c(10, 200),
+          frame = ~year, 
+          text = ~paste(country, "<br>Big Mac Price: USD$", bmi_usd_price,"<br>GDP per Capita: $", gdp_per_capita, "<br>Inflation: ", inflation, "%"), 
+          hoverinfo = "text",
+          type = 'scatter',
+          mode = 'markers'
+          ) %>%
+  layout(showlegend = FALSE,
+    xaxis = list(title = "GDP per Capita"),
+    yaxis = list(title = "Price in USD"),
+    title = "A Bubbleplot of Big Mac Index (USD) across 28 countries with inflation through the years")
 ```
+
+::: callout-note
+### **Insights**
+
+At the start, it seemed like there was a relationship between GDP per capita and BMI prices - the higher one's GDP per capita was, the higher the Big Mac price in USD. Switzerland with the highest GDP per capita also saw the most expensive Big Mac prices. The only exception is Hong Kong that had a small inflation rate throughout. For those with higher GDP per capita, their inflation rates were almost the same. While countries with higher GDP per capita above 40k saw their GDP per capita increasing with Big Mac prices consistently above USD\$3 since 2010, countries with GDP per capita below 20k saw small increases in their GDP per capita, still remained below 20k while Big Mac prices had a wider variability. Inflation did not seem to have much effect.
+
+Questions:
+
+-   There seems to be two different trajectory of BMI prices for countries with different GDP per capita. Are there other factors influencing this? Are there other trajectories that can be seen?
+
+-   We have been mostly looking at country and year effects. Are there other variables that affect BMI as a whole?
+:::

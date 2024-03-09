@@ -1,0 +1,100 @@
+---
+title: "In-class Exercise 7"
+subtitle: "Iso-Map" 
+author: "Victoria Neo"
+date: 03/9/2024
+date-modified: last-modified
+format:
+  html:
+    code-fold: true
+    code-summary: "code block"
+    code-tools: true
+    code-copy: true
+execute:
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+  message: false
+---
+
+```{r}
+pacman::p_load(sf, terra, gstat, tmap, viridis, tidyverse)
+```
+
+```{r}
+rfstations <- read_csv("data/aspatial/RainfallStation.csv")
+```
+
+The code chunk below imports the daily rainfall data and summarises the monthly rainfall by stations.
+
+```{r}
+rfdata <- read_csv("data/aspatial/DAILYDATA_202402.csv") %>%
+  select(c(1,5)) %>%
+  group_by(Station) %>%
+  summarise(MONTHSUM = sum(`Daily Rainfall Total (mm)`)) %>%
+  ungroup()
+```
+
+Given that rfdata.csv has 43 observations and rfstations.csv has 63 observations, there is missing station data in rfdata.csv. Thus, we left join it to rfstations to see which stations do not have data.
+
+```{r}
+rfdata <- rfdata %>%
+  left_join(rfstations)
+```
+
+In the code chunk below, crs is a code to do the projection - my raw data is in decimal degree (it is in WGSD) - I will then change to SVY21 as I need the distance (decimal degree to meters).
+
+```{r}
+rfdata_sf <- st_as_sf(rfdata,
+                      coords = 
+                        c('Longitude',
+                          'Latitude'),
+                      crs = 4326) %>%
+  st_transform(crs = 3414)
+```
+
+The code chunk below imports the shape file.
+
+```{r}
+mpsz2019 <- st_read(dsn = 'data/geospatial',
+                    layer = "MPSZ-2019") %>%
+  st_transform(crs = 3414)
+```
+
+The first line of the code checks and fixes the error that tmap shows.
+
+```{r}
+tmap_options(check.and.fix = TRUE)
+tmap_mode("view")
+tm_shape(mpsz2019) +
+  tm_borders() +
+  tm_shape(rfdata_sf) +
+  tm_dots(col = 'MONTHSUM')
+tmap_mode('plot')
+```
+
+The code chunk below builds the interpolation method. It first creates the raster layer which requires the number of rows and columns (take from st_transform of mpsz and take the difference between xmax and xmin and divide by raster resolution chosen, ymax and ymin and divide by raster resolution chosen).
+
+```{r}
+grid <- terra::rast(mpsz2019,
+                    nrows = 690,
+                    ncols = 1075)
+
+xy <- terra::xyFromCell(grid,
+                        1:ncell(grid))
+```
+
+The code chunk below is to create the sf layer and to do analytics later.
+
+```{r}
+#coop <- 
+```
+
+Calculate inverse distance neighbours - we want to carve 15 neighbours. This neighbours parameter is very important for hyperparameter tuning. With that, we will calculate the raster layer. It creates the predicted value to draw the map.
+
+```{r}
+#res <-
+```
+
+Variogram - more complicated method as it involves a plot for statistics then fit into a model to see how well it fits the model then do the interpolation that is being calibrated then it will be fitted into the gridline. The hyperparamters are vgm(psill, model, range, nugget) will change the output of the map. Change the range to 5000 so the map search is 5km.

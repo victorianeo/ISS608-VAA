@@ -1808,642 +1808,640 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>!<span class="co">[</span><span class="ot">*Taken from* [**How to map connections with great circles**](https://flowingdata.com/2011/05/11/how-to-map-connections-with-great-circles/)</span><span class="co">](images/clipboard-2906327176.png)</span>{fig-align="left"}</span>
 <span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>rrrrrrrrrrrrrrrr</span>
-<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>|                  |                                                                                                                                                                                             |</span>
-<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>|------------------|------------------------------------------------------|</span>
-<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>| Work done        | Hands-on Exercise 8                                                                                                                                                                         |</span>
-<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>| Hours taken      | ⏱️⏱️⏱️                                                                                                                                                                                      |</span>
-<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>| Questions        | 0                                                                                                                                                                                           |</span>
-<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a>| How do I feel?   | 🥲                                                                                                                                                                                          |</span>
-<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a>| What do I think? | I am hoping to use network analysis for the project so this exercise was very helpful. I think network analysis is very important and visualising it makes more sense than showing figures. |</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a>|                  |                                                                                                                                                                                             |</span>
+<span id="cb40-24"><a href="#cb40-24" aria-hidden="true" tabindex="-1"></a>|------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|</span>
+<span id="cb40-25"><a href="#cb40-25" aria-hidden="true" tabindex="-1"></a>| Work done        | Hands-on Exercise 8                                                                                                                                                                         |</span>
+<span id="cb40-26"><a href="#cb40-26" aria-hidden="true" tabindex="-1"></a>| Hours taken      | ⏱️⏱️⏱️                                                                                                                                                                                      |</span>
+<span id="cb40-27"><a href="#cb40-27" aria-hidden="true" tabindex="-1"></a>| Questions        | 0                                                                                                                                                                                           |</span>
+<span id="cb40-28"><a href="#cb40-28" aria-hidden="true" tabindex="-1"></a>| How do I feel?   | 🥲                                                                                                                                                                                          |</span>
+<span id="cb40-29"><a href="#cb40-29" aria-hidden="true" tabindex="-1"></a>| What do I think? | I am hoping to use network analysis for the project so this exercise was very helpful. I think network analysis is very important and visualising it makes more sense than showing figures. |</span>
+<span id="cb40-30"><a href="#cb40-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-31"><a href="#cb40-31" aria-hidden="true" tabindex="-1"></a><span class="fu"># 1 Overview</span></span>
 <span id="cb40-32"><a href="#cb40-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a><span class="fu"># 1 Overview</span></span>
+<span id="cb40-33"><a href="#cb40-33" aria-hidden="true" tabindex="-1"></a>In this hands-on exercise, you will learn how to model, analyse and visualise network data using R.</span>
 <span id="cb40-34"><a href="#cb40-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a>In this hands-on exercise, you will learn how to model, analyse and visualise network data using R.</span>
+<span id="cb40-35"><a href="#cb40-35" aria-hidden="true" tabindex="-1"></a>By the end of this hands-on exercise, you will be able to:</span>
 <span id="cb40-36"><a href="#cb40-36" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a>By the end of this hands-on exercise, you will be able to:</span>
+<span id="cb40-37"><a href="#cb40-37" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>create graph object data frames, manipulate them using appropriate functions of *dplyr*, *lubridate*, and *tidygraph*,</span>
 <span id="cb40-38"><a href="#cb40-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-39"><a href="#cb40-39" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>create graph object data frames, manipulate them using appropriate functions of *dplyr*, *lubridate*, and *tidygraph*,</span>
+<span id="cb40-39"><a href="#cb40-39" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>build network graph visualisation using appropriate functions of *ggraph*,</span>
 <span id="cb40-40"><a href="#cb40-40" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-41"><a href="#cb40-41" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>build network graph visualisation using appropriate functions of *ggraph*,</span>
+<span id="cb40-41"><a href="#cb40-41" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>compute network geometrics using *tidygraph*,</span>
 <span id="cb40-42"><a href="#cb40-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-43"><a href="#cb40-43" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>compute network geometrics using *tidygraph*,</span>
+<span id="cb40-43"><a href="#cb40-43" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>build advanced graph visualisation by incorporating the network geometrics, and</span>
 <span id="cb40-44"><a href="#cb40-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-45"><a href="#cb40-45" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>build advanced graph visualisation by incorporating the network geometrics, and</span>
+<span id="cb40-45"><a href="#cb40-45" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>build interactive network visualisation using *visNetwork* package.</span>
 <span id="cb40-46"><a href="#cb40-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-47"><a href="#cb40-47" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>build interactive network visualisation using *visNetwork* package.</span>
+<span id="cb40-47"><a href="#cb40-47" aria-hidden="true" tabindex="-1"></a><span class="fu"># 2 **Getting Started**</span></span>
 <span id="cb40-48"><a href="#cb40-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-49"><a href="#cb40-49" aria-hidden="true" tabindex="-1"></a><span class="fu"># 2 **Getting Started**</span></span>
+<span id="cb40-49"><a href="#cb40-49" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2.1 Installing and loading the required libraries</span></span>
 <span id="cb40-50"><a href="#cb40-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-51"><a href="#cb40-51" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2.1 Installing and loading the required libraries</span></span>
+<span id="cb40-51"><a href="#cb40-51" aria-hidden="true" tabindex="-1"></a>In this hands-on exercise, four network data modelling and visualisation packages will be installed and launched. They are igraph, tidygraph, ggraph and visNetwork. Beside these four packages, tidyverse and&nbsp;<span class="co">[</span><span class="ot">lubridate</span><span class="co">](https://lubridate.tidyverse.org/)</span>, an R package specially designed to handle and wrangling time data will be installed and launched too.</span>
 <span id="cb40-52"><a href="#cb40-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-53"><a href="#cb40-53" aria-hidden="true" tabindex="-1"></a>In this hands-on exercise, four network data modelling and visualisation packages will be installed and launched. They are igraph, tidygraph, ggraph and visNetwork. Beside these four packages, tidyverse and&nbsp;<span class="co">[</span><span class="ot">lubridate</span><span class="co">](https://lubridate.tidyverse.org/)</span>, an R package specially designed to handle and wrangling time data will be installed and launched too.</span>
-<span id="cb40-54"><a href="#cb40-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-57"><a href="#cb40-57" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-58"><a href="#cb40-58" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(igraph, tidygraph, ggraph, </span>
-<span id="cb40-59"><a href="#cb40-59" aria-hidden="true" tabindex="-1"></a>               visNetwork, lubridate, clock,</span>
-<span id="cb40-60"><a href="#cb40-60" aria-hidden="true" tabindex="-1"></a>               tidyverse, graphlayouts)</span>
-<span id="cb40-61"><a href="#cb40-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-55"><a href="#cb40-55" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-56"><a href="#cb40-56" aria-hidden="true" tabindex="-1"></a>pacman<span class="sc">::</span><span class="fu">p_load</span>(igraph, tidygraph, ggraph, </span>
+<span id="cb40-57"><a href="#cb40-57" aria-hidden="true" tabindex="-1"></a>               visNetwork, lubridate, clock,</span>
+<span id="cb40-58"><a href="#cb40-58" aria-hidden="true" tabindex="-1"></a>               tidyverse, graphlayouts)</span>
+<span id="cb40-59"><a href="#cb40-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-60"><a href="#cb40-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-61"><a href="#cb40-61" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2.2 Data</span></span>
 <span id="cb40-62"><a href="#cb40-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-63"><a href="#cb40-63" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2.2 Data</span></span>
+<span id="cb40-63"><a href="#cb40-63" aria-hidden="true" tabindex="-1"></a>The data sets used in this hands-on exercise is from an oil exploration and extraction company. There are two data sets. One contains the nodes data and the other contains the edges (also know as link) data.They are:</span>
 <span id="cb40-64"><a href="#cb40-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-65"><a href="#cb40-65" aria-hidden="true" tabindex="-1"></a>The data sets used in this hands-on exercise is from an oil exploration and extraction company. There are two data sets. One contains the nodes data and the other contains the edges (also know as link) data.They are:</span>
+<span id="cb40-65"><a href="#cb40-65" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**The edges data:** *GAStech-email_edges.csv* which consists of two weeks of 9063 emails correspondances between 55 employees.</span>
 <span id="cb40-66"><a href="#cb40-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-67"><a href="#cb40-67" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**The edges data:** *GAStech-email_edges.csv* which consists of two weeks of 9063 emails correspondances between 55 employees.</span>
+<span id="cb40-67"><a href="#cb40-67" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**The nodes data:** *GAStech_email_nodes.csv* which consist of the names, department and title of the 55 employees.</span>
 <span id="cb40-68"><a href="#cb40-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-69"><a href="#cb40-69" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**The nodes data:** *GAStech_email_nodes.csv* which consist of the names, department and title of the 55 employees.</span>
+<span id="cb40-69"><a href="#cb40-69" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.2.1 **Importing Data**</span></span>
 <span id="cb40-70"><a href="#cb40-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-71"><a href="#cb40-71" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.2.1 **Importing Data**</span></span>
+<span id="cb40-71"><a href="#cb40-71" aria-hidden="true" tabindex="-1"></a>In this step, you will import GAStech_email_node.csv and GAStech_email_edges-v2.csv into RStudio environment by using&nbsp;<span class="in">`read_csv()`</span>&nbsp;of&nbsp;**readr**&nbsp;package.</span>
 <span id="cb40-72"><a href="#cb40-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-73"><a href="#cb40-73" aria-hidden="true" tabindex="-1"></a>In this step, you will import GAStech_email_node.csv and GAStech_email_edges-v2.csv into RStudio environment by using&nbsp;<span class="in">`read_csv()`</span>&nbsp;of&nbsp;**readr**&nbsp;package.</span>
-<span id="cb40-74"><a href="#cb40-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-77"><a href="#cb40-77" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-78"><a href="#cb40-78" aria-hidden="true" tabindex="-1"></a>GAStech_nodes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/GAStech_email_node.csv"</span>)</span>
-<span id="cb40-79"><a href="#cb40-79" aria-hidden="true" tabindex="-1"></a>GAStech_edges <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/GAStech_email_edge-v2.csv"</span>)</span>
-<span id="cb40-80"><a href="#cb40-80" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-75"><a href="#cb40-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-76"><a href="#cb40-76" aria-hidden="true" tabindex="-1"></a>GAStech_nodes <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/GAStech_email_node.csv"</span>)</span>
+<span id="cb40-77"><a href="#cb40-77" aria-hidden="true" tabindex="-1"></a>GAStech_edges <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"data/GAStech_email_edge-v2.csv"</span>)</span>
+<span id="cb40-78"><a href="#cb40-78" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-79"><a href="#cb40-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-80"><a href="#cb40-80" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.2.2 Examining data</span></span>
 <span id="cb40-81"><a href="#cb40-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-82"><a href="#cb40-82" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.2.2 Examining data</span></span>
-<span id="cb40-83"><a href="#cb40-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-86"><a href="#cb40-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-87"><a href="#cb40-87" aria-hidden="true" tabindex="-1"></a>GAStech_nodes</span>
-<span id="cb40-88"><a href="#cb40-88" aria-hidden="true" tabindex="-1"></a>GAStech_edges</span>
-<span id="cb40-89"><a href="#cb40-89" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-84"><a href="#cb40-84" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-85"><a href="#cb40-85" aria-hidden="true" tabindex="-1"></a>GAStech_nodes</span>
+<span id="cb40-86"><a href="#cb40-86" aria-hidden="true" tabindex="-1"></a>GAStech_edges</span>
+<span id="cb40-87"><a href="#cb40-87" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-88"><a href="#cb40-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-89"><a href="#cb40-89" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.2.3 **Reviewing data**</span></span>
 <span id="cb40-90"><a href="#cb40-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-91"><a href="#cb40-91" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.2.3 **Reviewing data**</span></span>
+<span id="cb40-91"><a href="#cb40-91" aria-hidden="true" tabindex="-1"></a>Next, we will examine the structure of the data frame using&nbsp;*glimpse()*&nbsp;of&nbsp;**dplyr**.</span>
 <span id="cb40-92"><a href="#cb40-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-93"><a href="#cb40-93" aria-hidden="true" tabindex="-1"></a>Next, we will examine the structure of the data frame using&nbsp;*glimpse()*&nbsp;of&nbsp;**dplyr**.</span>
-<span id="cb40-94"><a href="#cb40-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-97"><a href="#cb40-97" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-98"><a href="#cb40-98" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(GAStech_edges)</span>
-<span id="cb40-99"><a href="#cb40-99" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb40-100"><a href="#cb40-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-101"><a href="#cb40-101" aria-hidden="true" tabindex="-1"></a>::: callout-warning</span>
-<span id="cb40-102"><a href="#cb40-102" aria-hidden="true" tabindex="-1"></a>The output report of GAStech_edges above reveals that the *SentDate* is treated as “Character” data type instead of *date* data type. This is an error! Before we continue, it is important for us to change the data type of *SentDate* field back to “Date”” data type.</span>
-<span id="cb40-103"><a href="#cb40-103" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-95"><a href="#cb40-95" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-96"><a href="#cb40-96" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(GAStech_edges)</span>
+<span id="cb40-97"><a href="#cb40-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-98"><a href="#cb40-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-99"><a href="#cb40-99" aria-hidden="true" tabindex="-1"></a>::: callout-warning</span>
+<span id="cb40-100"><a href="#cb40-100" aria-hidden="true" tabindex="-1"></a>The output report of GAStech_edges above reveals that the *SentDate* is treated as “Character” data type instead of *date* data type. This is an error! Before we continue, it is important for us to change the data type of *SentDate* field back to “Date”” data type.</span>
+<span id="cb40-101"><a href="#cb40-101" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-102"><a href="#cb40-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-103"><a href="#cb40-103" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.2.4 **Data Preparation**</span></span>
 <span id="cb40-104"><a href="#cb40-104" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-105"><a href="#cb40-105" aria-hidden="true" tabindex="-1"></a><span class="fu">### 2.2.4 **Data Preparation**</span></span>
+<span id="cb40-105"><a href="#cb40-105" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.2.4.1 **Wrangling time**</span></span>
 <span id="cb40-106"><a href="#cb40-106" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-107"><a href="#cb40-107" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.2.4.1 **Wrangling time**</span></span>
+<span id="cb40-107"><a href="#cb40-107" aria-hidden="true" tabindex="-1"></a>The code chunk below will be used to perform the changes.</span>
 <span id="cb40-108"><a href="#cb40-108" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-109"><a href="#cb40-109" aria-hidden="true" tabindex="-1"></a>The code chunk below will be used to perform the changes.</span>
-<span id="cb40-110"><a href="#cb40-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-113"><a href="#cb40-113" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-114"><a href="#cb40-114" aria-hidden="true" tabindex="-1"></a>GAStech_edges <span class="ot">&lt;-</span> GAStech_edges <span class="sc">%&gt;%</span></span>
-<span id="cb40-115"><a href="#cb40-115" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SendDate =</span> <span class="fu">dmy</span>(SentDate)) <span class="sc">%&gt;%</span></span>
-<span id="cb40-116"><a href="#cb40-116" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Weekday =</span> <span class="fu">wday</span>(SentDate,</span>
-<span id="cb40-117"><a href="#cb40-117" aria-hidden="true" tabindex="-1"></a>                        <span class="at">label =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb40-118"><a href="#cb40-118" aria-hidden="true" tabindex="-1"></a>                        <span class="at">abbr =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb40-119"><a href="#cb40-119" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb40-120"><a href="#cb40-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-121"><a href="#cb40-121" aria-hidden="true" tabindex="-1"></a>::: {.kambox .kam data-latex="kam"}</span>
-<span id="cb40-122"><a href="#cb40-122" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What did Prof Kam say?</span></span>
+<span id="cb40-111"><a href="#cb40-111" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-112"><a href="#cb40-112" aria-hidden="true" tabindex="-1"></a>GAStech_edges <span class="ot">&lt;-</span> GAStech_edges <span class="sc">%&gt;%</span></span>
+<span id="cb40-113"><a href="#cb40-113" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SendDate =</span> <span class="fu">dmy</span>(SentDate)) <span class="sc">%&gt;%</span></span>
+<span id="cb40-114"><a href="#cb40-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Weekday =</span> <span class="fu">wday</span>(SentDate,</span>
+<span id="cb40-115"><a href="#cb40-115" aria-hidden="true" tabindex="-1"></a>                        <span class="at">label =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb40-116"><a href="#cb40-116" aria-hidden="true" tabindex="-1"></a>                        <span class="at">abbr =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb40-117"><a href="#cb40-117" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-118"><a href="#cb40-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-119"><a href="#cb40-119" aria-hidden="true" tabindex="-1"></a>::: {.kambox .kam data-latex="kam"}</span>
+<span id="cb40-120"><a href="#cb40-120" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What did Prof Kam say?</span></span>
+<span id="cb40-121"><a href="#cb40-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-122"><a href="#cb40-122" aria-hidden="true" tabindex="-1"></a>**Thing to learn from the code chunk above:**</span>
 <span id="cb40-123"><a href="#cb40-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-124"><a href="#cb40-124" aria-hidden="true" tabindex="-1"></a>**Thing to learn from the code chunk above:**</span>
+<span id="cb40-124"><a href="#cb40-124" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>both *dmy()* and *wday()* are functions of **lubridate** package. <span class="co">[</span><span class="ot">lubridate</span><span class="co">](https://r4va.netlify.app/cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html)</span> is an R package that makes it easier to work with dates and times.</span>
 <span id="cb40-125"><a href="#cb40-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-126"><a href="#cb40-126" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>both *dmy()* and *wday()* are functions of **lubridate** package. <span class="co">[</span><span class="ot">lubridate</span><span class="co">](https://r4va.netlify.app/cran.r-project.org/web/packages/lubridate/vignettes/lubridate.html)</span> is an R package that makes it easier to work with dates and times.</span>
+<span id="cb40-126"><a href="#cb40-126" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*dmy()* transforms the SentDate to Date data type.</span>
 <span id="cb40-127"><a href="#cb40-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-128"><a href="#cb40-128" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*dmy()* transforms the SentDate to Date data type.</span>
+<span id="cb40-128"><a href="#cb40-128" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*wday()* returns the day of the week as a decimal number or an ordered factor if label is TRUE. The argument abbr is FALSE keep the daya spells in full, i.e.&nbsp;Monday. The function will create a new column in the data.frame i.e.&nbsp;Weekday and the output of *wday()* will save in this newly created field.</span>
 <span id="cb40-129"><a href="#cb40-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-130"><a href="#cb40-130" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*wday()* returns the day of the week as a decimal number or an ordered factor if label is TRUE. The argument abbr is FALSE keep the daya spells in full, i.e.&nbsp;Monday. The function will create a new column in the data.frame i.e.&nbsp;Weekday and the output of *wday()* will save in this newly created field.</span>
-<span id="cb40-131"><a href="#cb40-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-132"><a href="#cb40-132" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the values in the *Weekday* field are in ordinal scale.</span>
-<span id="cb40-133"><a href="#cb40-133" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-130"><a href="#cb40-130" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the values in the *Weekday* field are in ordinal scale.</span>
+<span id="cb40-131"><a href="#cb40-131" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-132"><a href="#cb40-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-133"><a href="#cb40-133" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.2.4.2 **Reviewing the revised date fields**</span></span>
 <span id="cb40-134"><a href="#cb40-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-135"><a href="#cb40-135" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.2.4.2 **Reviewing the revised date fields**</span></span>
+<span id="cb40-135"><a href="#cb40-135" aria-hidden="true" tabindex="-1"></a>Table below shows the data structure of the reformatted&nbsp;*GAStech_edges*&nbsp;data frame</span>
 <span id="cb40-136"><a href="#cb40-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-137"><a href="#cb40-137" aria-hidden="true" tabindex="-1"></a>Table below shows the data structure of the reformatted&nbsp;*GAStech_edges*&nbsp;data frame</span>
-<span id="cb40-138"><a href="#cb40-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-141"><a href="#cb40-141" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-142"><a href="#cb40-142" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(GAStech_edges)</span>
-<span id="cb40-143"><a href="#cb40-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-139"><a href="#cb40-139" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-140"><a href="#cb40-140" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(GAStech_edges)</span>
+<span id="cb40-141"><a href="#cb40-141" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-142"><a href="#cb40-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-143"><a href="#cb40-143" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.2.4.3 **Wrangling attributes**</span></span>
 <span id="cb40-144"><a href="#cb40-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-145"><a href="#cb40-145" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.2.4.3 **Wrangling attributes**</span></span>
+<span id="cb40-145"><a href="#cb40-145" aria-hidden="true" tabindex="-1"></a>A close examination of *GAStech_edges* data.frame reveals that it consists of individual e-mail flow records. This is not very useful for visualisation.</span>
 <span id="cb40-146"><a href="#cb40-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-147"><a href="#cb40-147" aria-hidden="true" tabindex="-1"></a>A close examination of *GAStech_edges* data.frame reveals that it consists of individual e-mail flow records. This is not very useful for visualisation.</span>
+<span id="cb40-147"><a href="#cb40-147" aria-hidden="true" tabindex="-1"></a>In view of this, we will aggregate the individual by date, senders, receivers, main subject and day of the week.</span>
 <span id="cb40-148"><a href="#cb40-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-149"><a href="#cb40-149" aria-hidden="true" tabindex="-1"></a>In view of this, we will aggregate the individual by date, senders, receivers, main subject and day of the week.</span>
-<span id="cb40-150"><a href="#cb40-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-153"><a href="#cb40-153" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-154"><a href="#cb40-154" aria-hidden="true" tabindex="-1"></a>GAStech_edges_aggregated <span class="ot">&lt;-</span> GAStech_edges <span class="sc">%&gt;%</span></span>
-<span id="cb40-155"><a href="#cb40-155" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(MainSubject <span class="sc">==</span> <span class="st">"Work related"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-156"><a href="#cb40-156" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(source, target, Weekday) <span class="sc">%&gt;%</span></span>
-<span id="cb40-157"><a href="#cb40-157" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">Weight =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb40-158"><a href="#cb40-158" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(source<span class="sc">!=</span>target) <span class="sc">%&gt;%</span></span>
-<span id="cb40-159"><a href="#cb40-159" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Weight <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-160"><a href="#cb40-160" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb40-161"><a href="#cb40-161" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb40-162"><a href="#cb40-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-163"><a href="#cb40-163" aria-hidden="true" tabindex="-1"></a>::: {.kambox .kam data-latex="kam"}</span>
-<span id="cb40-164"><a href="#cb40-164" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What did Prof Kam say?</span></span>
+<span id="cb40-151"><a href="#cb40-151" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-152"><a href="#cb40-152" aria-hidden="true" tabindex="-1"></a>GAStech_edges_aggregated <span class="ot">&lt;-</span> GAStech_edges <span class="sc">%&gt;%</span></span>
+<span id="cb40-153"><a href="#cb40-153" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(MainSubject <span class="sc">==</span> <span class="st">"Work related"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-154"><a href="#cb40-154" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(source, target, Weekday) <span class="sc">%&gt;%</span></span>
+<span id="cb40-155"><a href="#cb40-155" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">Weight =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb40-156"><a href="#cb40-156" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(source<span class="sc">!=</span>target) <span class="sc">%&gt;%</span></span>
+<span id="cb40-157"><a href="#cb40-157" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(Weight <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-158"><a href="#cb40-158" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb40-159"><a href="#cb40-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-160"><a href="#cb40-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-161"><a href="#cb40-161" aria-hidden="true" tabindex="-1"></a>::: {.kambox .kam data-latex="kam"}</span>
+<span id="cb40-162"><a href="#cb40-162" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What did Prof Kam say?</span></span>
+<span id="cb40-163"><a href="#cb40-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-164"><a href="#cb40-164" aria-hidden="true" tabindex="-1"></a>**Thing to learn from the code chunk above:**</span>
 <span id="cb40-165"><a href="#cb40-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-166"><a href="#cb40-166" aria-hidden="true" tabindex="-1"></a>**Thing to learn from the code chunk above:**</span>
+<span id="cb40-166"><a href="#cb40-166" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>four functions from **dplyr** package are used. They are: *filter()*, *group()*, *summarise()*, and *ungroup()*.</span>
 <span id="cb40-167"><a href="#cb40-167" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-168"><a href="#cb40-168" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>four functions from **dplyr** package are used. They are: *filter()*, *group()*, *summarise()*, and *ungroup()*.</span>
+<span id="cb40-168"><a href="#cb40-168" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The output data.frame is called **GAStech_edges_aggregated**.</span>
 <span id="cb40-169"><a href="#cb40-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-170"><a href="#cb40-170" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The output data.frame is called **GAStech_edges_aggregated**.</span>
-<span id="cb40-171"><a href="#cb40-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-172"><a href="#cb40-172" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>A new field called *Weight* has been added in GAStech_edges_aggregated.</span>
-<span id="cb40-173"><a href="#cb40-173" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-170"><a href="#cb40-170" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>A new field called *Weight* has been added in GAStech_edges_aggregated.</span>
+<span id="cb40-171"><a href="#cb40-171" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-172"><a href="#cb40-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-173"><a href="#cb40-173" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.2.4.4 **Reviewing the revised date fields**</span></span>
 <span id="cb40-174"><a href="#cb40-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-175"><a href="#cb40-175" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 2.2.4.4 **Reviewing the revised date fields**</span></span>
+<span id="cb40-175"><a href="#cb40-175" aria-hidden="true" tabindex="-1"></a>Table below shows the data structure of the reformatted&nbsp;*GAStech_edges*&nbsp;data frame</span>
 <span id="cb40-176"><a href="#cb40-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-177"><a href="#cb40-177" aria-hidden="true" tabindex="-1"></a>Table below shows the data structure of the reformatted&nbsp;*GAStech_edges*&nbsp;data frame</span>
-<span id="cb40-178"><a href="#cb40-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-181"><a href="#cb40-181" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-182"><a href="#cb40-182" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(GAStech_edges_aggregated)</span>
-<span id="cb40-183"><a href="#cb40-183" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-179"><a href="#cb40-179" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-180"><a href="#cb40-180" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(GAStech_edges_aggregated)</span>
+<span id="cb40-181"><a href="#cb40-181" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-182"><a href="#cb40-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-183"><a href="#cb40-183" aria-hidden="true" tabindex="-1"></a><span class="fu"># 3 **Creating network objects using tidygraph**</span></span>
 <span id="cb40-184"><a href="#cb40-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-185"><a href="#cb40-185" aria-hidden="true" tabindex="-1"></a><span class="fu"># 3 **Creating network objects using tidygraph**</span></span>
+<span id="cb40-185"><a href="#cb40-185" aria-hidden="true" tabindex="-1"></a>In this section, you will learn how to create a graph data model by using **tidygraph** package. It provides a tidy API for graph/network manipulation. While network data itself is not tidy, it can be envisioned as two tidy tables, one for node data and one for edge data. tidygraph provides a way to switch between the two tables and provides dplyr verbs for manipulating them. Furthermore it provides access to a lot of graph algorithms with return values that facilitate their use in a tidy workflow.</span>
 <span id="cb40-186"><a href="#cb40-186" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-187"><a href="#cb40-187" aria-hidden="true" tabindex="-1"></a>In this section, you will learn how to create a graph data model by using **tidygraph** package. It provides a tidy API for graph/network manipulation. While network data itself is not tidy, it can be envisioned as two tidy tables, one for node data and one for edge data. tidygraph provides a way to switch between the two tables and provides dplyr verbs for manipulating them. Furthermore it provides access to a lot of graph algorithms with return values that facilitate their use in a tidy workflow.</span>
+<span id="cb40-187"><a href="#cb40-187" aria-hidden="true" tabindex="-1"></a>You can refer to the following articles:</span>
 <span id="cb40-188"><a href="#cb40-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-189"><a href="#cb40-189" aria-hidden="true" tabindex="-1"></a>You can refer to the following articles:</span>
+<span id="cb40-189"><a href="#cb40-189" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Introducing tidygraph</span><span class="co">](https://www.data-imaginist.com/2017/introducing-tidygraph/)</span></span>
 <span id="cb40-190"><a href="#cb40-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-191"><a href="#cb40-191" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Introducing tidygraph</span><span class="co">](https://www.data-imaginist.com/2017/introducing-tidygraph/)</span></span>
+<span id="cb40-191"><a href="#cb40-191" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">tidygraph 1.1 - A tidy hope</span><span class="co">](https://www.data-imaginist.com/2018/tidygraph-1-1-a-tidy-hope/)</span></span>
 <span id="cb40-192"><a href="#cb40-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-193"><a href="#cb40-193" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">tidygraph 1.1 - A tidy hope</span><span class="co">](https://www.data-imaginist.com/2018/tidygraph-1-1-a-tidy-hope/)</span></span>
+<span id="cb40-193"><a href="#cb40-193" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3.1 **The tbl_graph object**</span></span>
 <span id="cb40-194"><a href="#cb40-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-195"><a href="#cb40-195" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3.1 **The tbl_graph object**</span></span>
+<span id="cb40-195"><a href="#cb40-195" aria-hidden="true" tabindex="-1"></a>Two functions of **tidygraph** package can be used to create network objects, they are:</span>
 <span id="cb40-196"><a href="#cb40-196" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-197"><a href="#cb40-197" aria-hidden="true" tabindex="-1"></a>Two functions of **tidygraph** package can be used to create network objects, they are:</span>
+<span id="cb40-197"><a href="#cb40-197" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">`tbl_graph()`</span><span class="co">](https://tidygraph.data-imaginist.com/reference/tbl_graph.html)</span> creates a **tbl_graph** network object from nodes and edges data.</span>
 <span id="cb40-198"><a href="#cb40-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-199"><a href="#cb40-199" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">`tbl_graph()`</span><span class="co">](https://tidygraph.data-imaginist.com/reference/tbl_graph.html)</span> creates a **tbl_graph** network object from nodes and edges data.</span>
+<span id="cb40-199"><a href="#cb40-199" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">`as_tbl_graph()`</span><span class="co">](https://tidygraph.data-imaginist.com/reference/tbl_graph.html)</span> converts network data and objects to a **tbl_graph** network. Below are network data and objects supported by <span class="in">`as_tbl_graph()`</span></span>
 <span id="cb40-200"><a href="#cb40-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-201"><a href="#cb40-201" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">`as_tbl_graph()`</span><span class="co">](https://tidygraph.data-imaginist.com/reference/tbl_graph.html)</span> converts network data and objects to a **tbl_graph** network. Below are network data and objects supported by <span class="in">`as_tbl_graph()`</span></span>
+<span id="cb40-201"><a href="#cb40-201" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>a node data.frame and an edge data.frame,</span>
 <span id="cb40-202"><a href="#cb40-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-203"><a href="#cb40-203" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>a node data.frame and an edge data.frame,</span>
+<span id="cb40-203"><a href="#cb40-203" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>data.frame, list, matrix from base,</span>
 <span id="cb40-204"><a href="#cb40-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-205"><a href="#cb40-205" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>data.frame, list, matrix from base,</span>
+<span id="cb40-205"><a href="#cb40-205" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>igraph from igraph,</span>
 <span id="cb40-206"><a href="#cb40-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-207"><a href="#cb40-207" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>igraph from igraph,</span>
+<span id="cb40-207"><a href="#cb40-207" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>network from network,</span>
 <span id="cb40-208"><a href="#cb40-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-209"><a href="#cb40-209" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>network from network,</span>
+<span id="cb40-209"><a href="#cb40-209" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>dendrogram and hclust from stats,</span>
 <span id="cb40-210"><a href="#cb40-210" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-211"><a href="#cb40-211" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>dendrogram and hclust from stats,</span>
+<span id="cb40-211"><a href="#cb40-211" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Node from data.tree,</span>
 <span id="cb40-212"><a href="#cb40-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-213"><a href="#cb40-213" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Node from data.tree,</span>
+<span id="cb40-213"><a href="#cb40-213" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>phylo and evonet from ape, and</span>
 <span id="cb40-214"><a href="#cb40-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-215"><a href="#cb40-215" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>phylo and evonet from ape, and</span>
+<span id="cb40-215"><a href="#cb40-215" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>graphNEL, graphAM, graphBAM from graph (in Bioconductor).</span>
 <span id="cb40-216"><a href="#cb40-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-217"><a href="#cb40-217" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>graphNEL, graphAM, graphBAM from graph (in Bioconductor).</span>
+<span id="cb40-217"><a href="#cb40-217" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3.2 **The dplyr verbs in tidygraph**</span></span>
 <span id="cb40-218"><a href="#cb40-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-219"><a href="#cb40-219" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3.2 **The dplyr verbs in tidygraph**</span></span>
+<span id="cb40-219"><a href="#cb40-219" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*activate()* verb from **tidygraph** serves as a switch between tibbles for nodes and edges. All dplyr verbs applied to **tbl_graph** object are applied to the active tibble.</span>
 <span id="cb40-220"><a href="#cb40-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-221"><a href="#cb40-221" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*activate()* verb from **tidygraph** serves as a switch between tibbles for nodes and edges. All dplyr verbs applied to **tbl_graph** object are applied to the active tibble.</span>
+<span id="cb40-221"><a href="#cb40-221" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/clipboard-4232653906.png)</span></span>
 <span id="cb40-222"><a href="#cb40-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-223"><a href="#cb40-223" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/clipboard-4232653906.png)</span></span>
+<span id="cb40-223"><a href="#cb40-223" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>In the above the *.N()* function is used to gain access to the node data while manipulating the edge data. Similarly *.E()* will give you the edge data and *.G()* will give you the **tbl_graph** object itself.</span>
 <span id="cb40-224"><a href="#cb40-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-225"><a href="#cb40-225" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>In the above the *.N()* function is used to gain access to the node data while manipulating the edge data. Similarly *.E()* will give you the edge data and *.G()* will give you the **tbl_graph** object itself.</span>
+<span id="cb40-225"><a href="#cb40-225" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3.3 **Using `tbl_graph()` to build tidygraph data model**</span></span>
 <span id="cb40-226"><a href="#cb40-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-227"><a href="#cb40-227" aria-hidden="true" tabindex="-1"></a><span class="fu">## 3.3 **Using `tbl_graph()` to build tidygraph data model**</span></span>
+<span id="cb40-227"><a href="#cb40-227" aria-hidden="true" tabindex="-1"></a>In this section, you will use <span class="in">`tbl_graph()`</span> of **tinygraph** package to build an tidygraph’s network graph data.frame.</span>
 <span id="cb40-228"><a href="#cb40-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-229"><a href="#cb40-229" aria-hidden="true" tabindex="-1"></a>In this section, you will use <span class="in">`tbl_graph()`</span> of **tinygraph** package to build an tidygraph’s network graph data.frame.</span>
+<span id="cb40-229"><a href="#cb40-229" aria-hidden="true" tabindex="-1"></a>Before typing the codes, you are recommended to review to reference guide of <span class="co">[</span><span class="ot">`tbl_graph()`</span><span class="co">](https://tidygraph.data-imaginist.com/reference/tbl_graph.html)</span></span>
 <span id="cb40-230"><a href="#cb40-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-231"><a href="#cb40-231" aria-hidden="true" tabindex="-1"></a>Before typing the codes, you are recommended to review to reference guide of <span class="co">[</span><span class="ot">`tbl_graph()`</span><span class="co">](https://tidygraph.data-imaginist.com/reference/tbl_graph.html)</span></span>
-<span id="cb40-232"><a href="#cb40-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-235"><a href="#cb40-235" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-236"><a href="#cb40-236" aria-hidden="true" tabindex="-1"></a>GAStech_graph <span class="ot">&lt;-</span> <span class="fu">tbl_graph</span>(<span class="at">nodes =</span> GAStech_nodes,</span>
-<span id="cb40-237"><a href="#cb40-237" aria-hidden="true" tabindex="-1"></a>                           <span class="at">edges =</span> GAStech_edges_aggregated, </span>
-<span id="cb40-238"><a href="#cb40-238" aria-hidden="true" tabindex="-1"></a>                           <span class="at">directed =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb40-239"><a href="#cb40-239" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-233"><a href="#cb40-233" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-234"><a href="#cb40-234" aria-hidden="true" tabindex="-1"></a>GAStech_graph <span class="ot">&lt;-</span> <span class="fu">tbl_graph</span>(<span class="at">nodes =</span> GAStech_nodes,</span>
+<span id="cb40-235"><a href="#cb40-235" aria-hidden="true" tabindex="-1"></a>                           <span class="at">edges =</span> GAStech_edges_aggregated, </span>
+<span id="cb40-236"><a href="#cb40-236" aria-hidden="true" tabindex="-1"></a>                           <span class="at">directed =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb40-237"><a href="#cb40-237" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-238"><a href="#cb40-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-239"><a href="#cb40-239" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3.3.1 **Reviewing the output tidygraph’s graph object**</span></span>
 <span id="cb40-240"><a href="#cb40-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-241"><a href="#cb40-241" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3.3.1 **Reviewing the output tidygraph’s graph object**</span></span>
-<span id="cb40-242"><a href="#cb40-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-245"><a href="#cb40-245" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-246"><a href="#cb40-246" aria-hidden="true" tabindex="-1"></a>GAStech_graph</span>
-<span id="cb40-247"><a href="#cb40-247" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-243"><a href="#cb40-243" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-244"><a href="#cb40-244" aria-hidden="true" tabindex="-1"></a>GAStech_graph</span>
+<span id="cb40-245"><a href="#cb40-245" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-246"><a href="#cb40-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-247"><a href="#cb40-247" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The output above reveals that *GAStech_graph* is a tbl_graph object with 54 nodes and 4541 edges.</span>
 <span id="cb40-248"><a href="#cb40-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-249"><a href="#cb40-249" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The output above reveals that *GAStech_graph* is a tbl_graph object with 54 nodes and 4541 edges.</span>
+<span id="cb40-249"><a href="#cb40-249" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The command also prints the first six rows of “Node Data” and the first three of “Edge Data”.</span>
 <span id="cb40-250"><a href="#cb40-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-251"><a href="#cb40-251" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The command also prints the first six rows of “Node Data” and the first three of “Edge Data”.</span>
+<span id="cb40-251"><a href="#cb40-251" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>It states that the Node Data is **active**. The notion of an active tibble within a tbl_graph object makes it possible to manipulate the data in one tibble at a time.</span>
 <span id="cb40-252"><a href="#cb40-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-253"><a href="#cb40-253" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>It states that the Node Data is **active**. The notion of an active tibble within a tbl_graph object makes it possible to manipulate the data in one tibble at a time.</span>
+<span id="cb40-253"><a href="#cb40-253" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3.3.2 **Changing the active object**</span></span>
 <span id="cb40-254"><a href="#cb40-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-255"><a href="#cb40-255" aria-hidden="true" tabindex="-1"></a><span class="fu">### 3.3.2 **Changing the active object**</span></span>
+<span id="cb40-255"><a href="#cb40-255" aria-hidden="true" tabindex="-1"></a>The nodes tibble data frame is activated by default, but you can change which tibble data frame is active with the *activate()* function. Thus, if we wanted to rearrange the rows in the edges tibble to list those with the highest “weight” first, we could use *activate()* and then *arrange()*.</span>
 <span id="cb40-256"><a href="#cb40-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-257"><a href="#cb40-257" aria-hidden="true" tabindex="-1"></a>The nodes tibble data frame is activated by default, but you can change which tibble data frame is active with the *activate()* function. Thus, if we wanted to rearrange the rows in the edges tibble to list those with the highest “weight” first, we could use *activate()* and then *arrange()*.</span>
+<span id="cb40-257"><a href="#cb40-257" aria-hidden="true" tabindex="-1"></a>For example,</span>
 <span id="cb40-258"><a href="#cb40-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-259"><a href="#cb40-259" aria-hidden="true" tabindex="-1"></a>For example,</span>
-<span id="cb40-260"><a href="#cb40-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-263"><a href="#cb40-263" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-264"><a href="#cb40-264" aria-hidden="true" tabindex="-1"></a>GAStech_graph <span class="sc">%&gt;%</span></span>
-<span id="cb40-265"><a href="#cb40-265" aria-hidden="true" tabindex="-1"></a>  <span class="fu">activate</span>(edges) <span class="sc">%&gt;%</span></span>
-<span id="cb40-266"><a href="#cb40-266" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Weight))</span>
-<span id="cb40-267"><a href="#cb40-267" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb40-268"><a href="#cb40-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-269"><a href="#cb40-269" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
-<span id="cb40-270"><a href="#cb40-270" aria-hidden="true" tabindex="-1"></a>Visit the reference guide of&nbsp;<span class="co">[</span><span class="ot">*activate()*</span><span class="co">](https://tidygraph.data-imaginist.com/reference/activate.html)</span>&nbsp;to find out more about the function.</span>
-<span id="cb40-271"><a href="#cb40-271" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-261"><a href="#cb40-261" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-262"><a href="#cb40-262" aria-hidden="true" tabindex="-1"></a>GAStech_graph <span class="sc">%&gt;%</span></span>
+<span id="cb40-263"><a href="#cb40-263" aria-hidden="true" tabindex="-1"></a>  <span class="fu">activate</span>(edges) <span class="sc">%&gt;%</span></span>
+<span id="cb40-264"><a href="#cb40-264" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(<span class="fu">desc</span>(Weight))</span>
+<span id="cb40-265"><a href="#cb40-265" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-266"><a href="#cb40-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-267"><a href="#cb40-267" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb40-268"><a href="#cb40-268" aria-hidden="true" tabindex="-1"></a>Visit the reference guide of&nbsp;<span class="co">[</span><span class="ot">*activate()*</span><span class="co">](https://tidygraph.data-imaginist.com/reference/activate.html)</span>&nbsp;to find out more about the function.</span>
+<span id="cb40-269"><a href="#cb40-269" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-270"><a href="#cb40-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-271"><a href="#cb40-271" aria-hidden="true" tabindex="-1"></a><span class="fu"># 4 **Plotting Static Network Graphs with ggraph package**</span></span>
 <span id="cb40-272"><a href="#cb40-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-273"><a href="#cb40-273" aria-hidden="true" tabindex="-1"></a><span class="fu"># 4 **Plotting Static Network Graphs with ggraph package**</span></span>
+<span id="cb40-273"><a href="#cb40-273" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">**ggraph**</span><span class="co">](https://ggraph.data-imaginist.com/)</span> is an extension of **ggplot2**, making it easier to carry over basic ggplot skills to the design of network graphs.</span>
 <span id="cb40-274"><a href="#cb40-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-275"><a href="#cb40-275" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">**ggraph**</span><span class="co">](https://ggraph.data-imaginist.com/)</span> is an extension of **ggplot2**, making it easier to carry over basic ggplot skills to the design of network graphs.</span>
+<span id="cb40-275"><a href="#cb40-275" aria-hidden="true" tabindex="-1"></a>As in all network graph, there are three main aspects to a **ggraph**’s network graph, they are:</span>
 <span id="cb40-276"><a href="#cb40-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-277"><a href="#cb40-277" aria-hidden="true" tabindex="-1"></a>As in all network graph, there are three main aspects to a **ggraph**’s network graph, they are:</span>
+<span id="cb40-277"><a href="#cb40-277" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">nodes</span><span class="co">](https://cran.r-project.org/web/packages/ggraph/vignettes/Nodes.html)</span>,</span>
 <span id="cb40-278"><a href="#cb40-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-279"><a href="#cb40-279" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">nodes</span><span class="co">](https://cran.r-project.org/web/packages/ggraph/vignettes/Nodes.html)</span>,</span>
+<span id="cb40-279"><a href="#cb40-279" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">edges</span><span class="co">](https://cran.r-project.org/web/packages/ggraph/vignettes/Edges.html)</span> and</span>
 <span id="cb40-280"><a href="#cb40-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-281"><a href="#cb40-281" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">edges</span><span class="co">](https://cran.r-project.org/web/packages/ggraph/vignettes/Edges.html)</span> and</span>
+<span id="cb40-281"><a href="#cb40-281" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">layouts</span><span class="co">](https://cran.r-project.org/web/packages/ggraph/vignettes/Layouts.html)</span>.</span>
 <span id="cb40-282"><a href="#cb40-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-283"><a href="#cb40-283" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">layouts</span><span class="co">](https://cran.r-project.org/web/packages/ggraph/vignettes/Layouts.html)</span>.</span>
+<span id="cb40-283"><a href="#cb40-283" aria-hidden="true" tabindex="-1"></a>For a comprehensive discussion of each of this aspect of graph, please refer to their respective vignettes provided.</span>
 <span id="cb40-284"><a href="#cb40-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-285"><a href="#cb40-285" aria-hidden="true" tabindex="-1"></a>For a comprehensive discussion of each of this aspect of graph, please refer to their respective vignettes provided.</span>
+<span id="cb40-285"><a href="#cb40-285" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4.1 **Plotting a basic network graph**</span></span>
 <span id="cb40-286"><a href="#cb40-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-287"><a href="#cb40-287" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4.1 **Plotting a basic network graph**</span></span>
+<span id="cb40-287"><a href="#cb40-287" aria-hidden="true" tabindex="-1"></a>The code chunk below uses&nbsp;<span class="co">[</span><span class="ot">*ggraph()*</span><span class="co">](https://ggraph.data-imaginist.com/reference/ggraph.html)</span>,&nbsp;<span class="co">[</span><span class="ot">*geom-edge_link()*</span><span class="co">](https://ggraph.data-imaginist.com/reference/geom_edge_link.html)</span>&nbsp;and&nbsp;<span class="co">[</span><span class="ot">*geom_node_point()*</span><span class="co">](https://ggraph.data-imaginist.com/reference/geom_node_point.html)</span>&nbsp;to plot a network graph by using&nbsp;*GAStech_graph*. Before your get started, it is advisable to read their respective reference guide at least once.</span>
 <span id="cb40-288"><a href="#cb40-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-289"><a href="#cb40-289" aria-hidden="true" tabindex="-1"></a>The code chunk below uses&nbsp;<span class="co">[</span><span class="ot">*ggraph()*</span><span class="co">](https://ggraph.data-imaginist.com/reference/ggraph.html)</span>,&nbsp;<span class="co">[</span><span class="ot">*geom-edge_link()*</span><span class="co">](https://ggraph.data-imaginist.com/reference/geom_edge_link.html)</span>&nbsp;and&nbsp;<span class="co">[</span><span class="ot">*geom_node_point()*</span><span class="co">](https://ggraph.data-imaginist.com/reference/geom_node_point.html)</span>&nbsp;to plot a network graph by using&nbsp;*GAStech_graph*. Before your get started, it is advisable to read their respective reference guide at least once.</span>
-<span id="cb40-290"><a href="#cb40-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-293"><a href="#cb40-293" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-294"><a href="#cb40-294" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(GAStech_graph) <span class="sc">+</span></span>
-<span id="cb40-295"><a href="#cb40-295" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
-<span id="cb40-296"><a href="#cb40-296" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>()</span>
-<span id="cb40-297"><a href="#cb40-297" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb40-298"><a href="#cb40-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-299"><a href="#cb40-299" aria-hidden="true" tabindex="-1"></a>::: {.kambox .kam data-latex="kam"}</span>
-<span id="cb40-300"><a href="#cb40-300" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What did Prof Kam say?</span></span>
+<span id="cb40-291"><a href="#cb40-291" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-292"><a href="#cb40-292" aria-hidden="true" tabindex="-1"></a><span class="fu">ggraph</span>(GAStech_graph) <span class="sc">+</span></span>
+<span id="cb40-293"><a href="#cb40-293" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>() <span class="sc">+</span></span>
+<span id="cb40-294"><a href="#cb40-294" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>()</span>
+<span id="cb40-295"><a href="#cb40-295" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-296"><a href="#cb40-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-297"><a href="#cb40-297" aria-hidden="true" tabindex="-1"></a>::: {.kambox .kam data-latex="kam"}</span>
+<span id="cb40-298"><a href="#cb40-298" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What did Prof Kam say?</span></span>
+<span id="cb40-299"><a href="#cb40-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-300"><a href="#cb40-300" aria-hidden="true" tabindex="-1"></a>**Thing to learn from the code chunk above:**</span>
 <span id="cb40-301"><a href="#cb40-301" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-302"><a href="#cb40-302" aria-hidden="true" tabindex="-1"></a>**Thing to learn from the code chunk above:**</span>
-<span id="cb40-303"><a href="#cb40-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-304"><a href="#cb40-304" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The basic plotting function is <span class="in">`ggraph()`</span>, which takes the data to be used for the graph and the type of layout desired. Both of the arguments for <span class="in">`ggraph()`</span> are built around *igraph*. Therefore, `ggraph()` can use either an *igraph* object or a *tbl_graph* object.</span>
-<span id="cb40-305"><a href="#cb40-305" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-302"><a href="#cb40-302" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The basic plotting function is <span class="in">`ggraph()`</span>, which takes the data to be used for the graph and the type of layout desired. Both of the arguments for <span class="in">`ggraph()`</span> are built around *igraph*. Therefore, `ggraph()` can use either an *igraph* object or a *tbl_graph* object.</span>
+<span id="cb40-303"><a href="#cb40-303" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-304"><a href="#cb40-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-305"><a href="#cb40-305" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4.2 **Changing the default network graph theme**</span></span>
 <span id="cb40-306"><a href="#cb40-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-307"><a href="#cb40-307" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4.2 **Changing the default network graph theme**</span></span>
+<span id="cb40-307"><a href="#cb40-307" aria-hidden="true" tabindex="-1"></a>In this section, you will use&nbsp;<span class="co">[</span><span class="ot">*theme_graph()*</span><span class="co">](https://ggraph.data-imaginist.com/reference/theme_graph.html)</span>&nbsp;to remove the x and y axes. Before your get started, it is advisable to read it’s reference guide at least once.</span>
 <span id="cb40-308"><a href="#cb40-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-309"><a href="#cb40-309" aria-hidden="true" tabindex="-1"></a>In this section, you will use&nbsp;<span class="co">[</span><span class="ot">*theme_graph()*</span><span class="co">](https://ggraph.data-imaginist.com/reference/theme_graph.html)</span>&nbsp;to remove the x and y axes. Before your get started, it is advisable to read it’s reference guide at least once.</span>
-<span id="cb40-310"><a href="#cb40-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-313"><a href="#cb40-313" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-314"><a href="#cb40-314" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph) <span class="sc">+</span> </span>
-<span id="cb40-315"><a href="#cb40-315" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>()) <span class="sc">+</span></span>
-<span id="cb40-316"><a href="#cb40-316" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>())</span>
-<span id="cb40-317"><a href="#cb40-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-318"><a href="#cb40-318" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_graph</span>()</span>
-<span id="cb40-319"><a href="#cb40-319" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb40-320"><a href="#cb40-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-321"><a href="#cb40-321" aria-hidden="true" tabindex="-1"></a>::: {.kambox .kam data-latex="kam"}</span>
-<span id="cb40-322"><a href="#cb40-322" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What did Prof Kam say?</span></span>
+<span id="cb40-311"><a href="#cb40-311" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-312"><a href="#cb40-312" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph) <span class="sc">+</span> </span>
+<span id="cb40-313"><a href="#cb40-313" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>()) <span class="sc">+</span></span>
+<span id="cb40-314"><a href="#cb40-314" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>())</span>
+<span id="cb40-315"><a href="#cb40-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-316"><a href="#cb40-316" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_graph</span>()</span>
+<span id="cb40-317"><a href="#cb40-317" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-318"><a href="#cb40-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-319"><a href="#cb40-319" aria-hidden="true" tabindex="-1"></a>::: {.kambox .kam data-latex="kam"}</span>
+<span id="cb40-320"><a href="#cb40-320" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What did Prof Kam say?</span></span>
+<span id="cb40-321"><a href="#cb40-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-322"><a href="#cb40-322" aria-hidden="true" tabindex="-1"></a>**Thing to learn from the code chunk above:**</span>
 <span id="cb40-323"><a href="#cb40-323" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-324"><a href="#cb40-324" aria-hidden="true" tabindex="-1"></a>**Thing to learn from the code chunk above:**</span>
+<span id="cb40-324"><a href="#cb40-324" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**ggraph** introduces a special ggplot theme that provides better defaults for network graphs than the normal ggplot defaults. <span class="in">`theme_graph()`</span>, besides removing axes, grids, and border, changes the font to Arial Narrow (this can be overridden).</span>
 <span id="cb40-325"><a href="#cb40-325" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-326"><a href="#cb40-326" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**ggraph** introduces a special ggplot theme that provides better defaults for network graphs than the normal ggplot defaults. <span class="in">`theme_graph()`</span>, besides removing axes, grids, and border, changes the font to Arial Narrow (this can be overridden).</span>
-<span id="cb40-327"><a href="#cb40-327" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-328"><a href="#cb40-328" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The ggraph theme can be set for a series of plots with the <span class="in">`set_graph_style()`</span> command run before the graphs are plotted or by using <span class="in">`theme_graph()`</span> in the individual plots.</span>
-<span id="cb40-329"><a href="#cb40-329" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-326"><a href="#cb40-326" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The ggraph theme can be set for a series of plots with the <span class="in">`set_graph_style()`</span> command run before the graphs are plotted or by using <span class="in">`theme_graph()`</span> in the individual plots.</span>
+<span id="cb40-327"><a href="#cb40-327" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-328"><a href="#cb40-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-329"><a href="#cb40-329" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4.3 **Changing the coloring of the plot**</span></span>
 <span id="cb40-330"><a href="#cb40-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-331"><a href="#cb40-331" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4.3  **Changing the coloring of the plot**</span></span>
+<span id="cb40-331"><a href="#cb40-331" aria-hidden="true" tabindex="-1"></a>Furthermore,&nbsp;<span class="in">`theme_graph()`</span>&nbsp;makes it easy to change the coloring of the plot.</span>
 <span id="cb40-332"><a href="#cb40-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-333"><a href="#cb40-333" aria-hidden="true" tabindex="-1"></a>Furthermore,&nbsp;<span class="in">`theme_graph()`</span>&nbsp;makes it easy to change the coloring of the plot.</span>
-<span id="cb40-334"><a href="#cb40-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-337"><a href="#cb40-337" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-338"><a href="#cb40-338" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph) <span class="sc">+</span> </span>
-<span id="cb40-339"><a href="#cb40-339" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="st">'grey50'</span>)) <span class="sc">+</span></span>
-<span id="cb40-340"><a href="#cb40-340" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="st">'grey40'</span>))</span>
-<span id="cb40-341"><a href="#cb40-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-342"><a href="#cb40-342" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_graph</span>(<span class="at">background =</span> <span class="st">'grey10'</span>,</span>
-<span id="cb40-343"><a href="#cb40-343" aria-hidden="true" tabindex="-1"></a>                <span class="at">text_colour =</span> <span class="st">'white'</span>)</span>
-<span id="cb40-344"><a href="#cb40-344" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-335"><a href="#cb40-335" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-336"><a href="#cb40-336" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph) <span class="sc">+</span> </span>
+<span id="cb40-337"><a href="#cb40-337" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="st">'grey50'</span>)) <span class="sc">+</span></span>
+<span id="cb40-338"><a href="#cb40-338" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> <span class="st">'grey40'</span>))</span>
+<span id="cb40-339"><a href="#cb40-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-340"><a href="#cb40-340" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_graph</span>(<span class="at">background =</span> <span class="st">'grey10'</span>,</span>
+<span id="cb40-341"><a href="#cb40-341" aria-hidden="true" tabindex="-1"></a>                <span class="at">text_colour =</span> <span class="st">'white'</span>)</span>
+<span id="cb40-342"><a href="#cb40-342" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-343"><a href="#cb40-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-344"><a href="#cb40-344" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4.4 **Working with ggraph’s layouts**</span></span>
 <span id="cb40-345"><a href="#cb40-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-346"><a href="#cb40-346" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4.4 **Working with ggraph’s layouts**</span></span>
+<span id="cb40-346"><a href="#cb40-346" aria-hidden="true" tabindex="-1"></a>**ggraph**&nbsp;support many layout for standard used, they are: star, circle, nicely (default), dh, gem, graphopt, grid, mds, spahere, randomly, fr, kk, drl and lgl. Figures below and on the right show layouts supported by&nbsp;<span class="in">`ggraph()`</span>.</span>
 <span id="cb40-347"><a href="#cb40-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-348"><a href="#cb40-348" aria-hidden="true" tabindex="-1"></a>**ggraph**&nbsp;support many layout for standard used, they are: star, circle, nicely (default), dh, gem, graphopt, grid, mds, spahere, randomly, fr, kk, drl and lgl. Figures below and on the right show layouts supported by&nbsp;<span class="in">`ggraph()`</span>.</span>
+<span id="cb40-348"><a href="#cb40-348" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/clipboard-1911961357.png)</span></span>
 <span id="cb40-349"><a href="#cb40-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-350"><a href="#cb40-350" aria-hidden="true" tabindex="-1"></a><span class="al">![](images/clipboard-1911961357.png)</span></span>
+<span id="cb40-350"><a href="#cb40-350" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4.4.1 **Fruchterman and Reingold layout**</span></span>
 <span id="cb40-351"><a href="#cb40-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-352"><a href="#cb40-352" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4.4.1 **Fruchterman and Reingold layout**</span></span>
+<span id="cb40-352"><a href="#cb40-352" aria-hidden="true" tabindex="-1"></a>The code chunks below will be used to plot the network graph using Fruchterman and Reingold layout.</span>
 <span id="cb40-353"><a href="#cb40-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-354"><a href="#cb40-354" aria-hidden="true" tabindex="-1"></a>The code chunks below will be used to plot the network graph using Fruchterman and Reingold layout.</span>
-<span id="cb40-355"><a href="#cb40-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-358"><a href="#cb40-358" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-359"><a href="#cb40-359" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph, </span>
-<span id="cb40-360"><a href="#cb40-360" aria-hidden="true" tabindex="-1"></a>            <span class="at">layout =</span> <span class="st">"fr"</span>) <span class="sc">+</span></span>
-<span id="cb40-361"><a href="#cb40-361" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>()) <span class="sc">+</span></span>
-<span id="cb40-362"><a href="#cb40-362" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>())</span>
-<span id="cb40-363"><a href="#cb40-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-364"><a href="#cb40-364" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_graph</span>()</span>
-<span id="cb40-365"><a href="#cb40-365" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb40-366"><a href="#cb40-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-367"><a href="#cb40-367" aria-hidden="true" tabindex="-1"></a>::: {.kambox .kam data-latex="kam"}</span>
-<span id="cb40-368"><a href="#cb40-368" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What did Prof Kam say?</span></span>
+<span id="cb40-356"><a href="#cb40-356" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-357"><a href="#cb40-357" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph, </span>
+<span id="cb40-358"><a href="#cb40-358" aria-hidden="true" tabindex="-1"></a>            <span class="at">layout =</span> <span class="st">"fr"</span>) <span class="sc">+</span></span>
+<span id="cb40-359"><a href="#cb40-359" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>()) <span class="sc">+</span></span>
+<span id="cb40-360"><a href="#cb40-360" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>())</span>
+<span id="cb40-361"><a href="#cb40-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-362"><a href="#cb40-362" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_graph</span>()</span>
+<span id="cb40-363"><a href="#cb40-363" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-364"><a href="#cb40-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-365"><a href="#cb40-365" aria-hidden="true" tabindex="-1"></a>::: {.kambox .kam data-latex="kam"}</span>
+<span id="cb40-366"><a href="#cb40-366" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What did Prof Kam say?</span></span>
+<span id="cb40-367"><a href="#cb40-367" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-368"><a href="#cb40-368" aria-hidden="true" tabindex="-1"></a>**Thing to learn from the code chunk above:**</span>
 <span id="cb40-369"><a href="#cb40-369" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-370"><a href="#cb40-370" aria-hidden="true" tabindex="-1"></a>**Thing to learn from the code chunk above:**</span>
-<span id="cb40-371"><a href="#cb40-371" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-372"><a href="#cb40-372" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*layout* argument is used to define the layout to be used.</span>
-<span id="cb40-373"><a href="#cb40-373" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-370"><a href="#cb40-370" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*layout* argument is used to define the layout to be used.</span>
+<span id="cb40-371"><a href="#cb40-371" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-372"><a href="#cb40-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-373"><a href="#cb40-373" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4.4.2 **Modifying network nodes**</span></span>
 <span id="cb40-374"><a href="#cb40-374" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-375"><a href="#cb40-375" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4.4.2 **Modifying network nodes**</span></span>
+<span id="cb40-375"><a href="#cb40-375" aria-hidden="true" tabindex="-1"></a>In this section, you will colour each node by referring to their respective departments.</span>
 <span id="cb40-376"><a href="#cb40-376" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-377"><a href="#cb40-377" aria-hidden="true" tabindex="-1"></a>In this section, you will colour each node by referring to their respective departments.</span>
-<span id="cb40-378"><a href="#cb40-378" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-381"><a href="#cb40-381" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-382"><a href="#cb40-382" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph, </span>
-<span id="cb40-383"><a href="#cb40-383" aria-hidden="true" tabindex="-1"></a>            <span class="at">layout =</span> <span class="st">"nicely"</span>) <span class="sc">+</span> </span>
-<span id="cb40-384"><a href="#cb40-384" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>()) <span class="sc">+</span></span>
-<span id="cb40-385"><a href="#cb40-385" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Department, </span>
-<span id="cb40-386"><a href="#cb40-386" aria-hidden="true" tabindex="-1"></a>                      <span class="at">size =</span> <span class="dv">3</span>))</span>
-<span id="cb40-387"><a href="#cb40-387" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-388"><a href="#cb40-388" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_graph</span>()</span>
-<span id="cb40-389"><a href="#cb40-389" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb40-390"><a href="#cb40-390" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-391"><a href="#cb40-391" aria-hidden="true" tabindex="-1"></a>::: {.kambox .kam data-latex="kam"}</span>
-<span id="cb40-392"><a href="#cb40-392" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What did Prof Kam say?</span></span>
+<span id="cb40-379"><a href="#cb40-379" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-380"><a href="#cb40-380" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph, </span>
+<span id="cb40-381"><a href="#cb40-381" aria-hidden="true" tabindex="-1"></a>            <span class="at">layout =</span> <span class="st">"nicely"</span>) <span class="sc">+</span> </span>
+<span id="cb40-382"><a href="#cb40-382" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>()) <span class="sc">+</span></span>
+<span id="cb40-383"><a href="#cb40-383" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Department, </span>
+<span id="cb40-384"><a href="#cb40-384" aria-hidden="true" tabindex="-1"></a>                      <span class="at">size =</span> <span class="dv">3</span>))</span>
+<span id="cb40-385"><a href="#cb40-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-386"><a href="#cb40-386" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_graph</span>()</span>
+<span id="cb40-387"><a href="#cb40-387" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-388"><a href="#cb40-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-389"><a href="#cb40-389" aria-hidden="true" tabindex="-1"></a>::: {.kambox .kam data-latex="kam"}</span>
+<span id="cb40-390"><a href="#cb40-390" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What did Prof Kam say?</span></span>
+<span id="cb40-391"><a href="#cb40-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-392"><a href="#cb40-392" aria-hidden="true" tabindex="-1"></a>**Thing to learn from the code chunk above:**</span>
 <span id="cb40-393"><a href="#cb40-393" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-394"><a href="#cb40-394" aria-hidden="true" tabindex="-1"></a>**Thing to learn from the code chunk above:**</span>
-<span id="cb40-395"><a href="#cb40-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-396"><a href="#cb40-396" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*geom_node_point* is equivalent in functionality to *geo_point* of **ggplot2**. It allows for simple plotting of nodes in different shapes, colours and sizes. In the codes chunks above colour and size are used.</span>
-<span id="cb40-397"><a href="#cb40-397" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-394"><a href="#cb40-394" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*geom_node_point* is equivalent in functionality to *geo_point* of **ggplot2**. It allows for simple plotting of nodes in different shapes, colours and sizes. In the codes chunks above colour and size are used.</span>
+<span id="cb40-395"><a href="#cb40-395" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-396"><a href="#cb40-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-397"><a href="#cb40-397" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4.4.3 **Modifying edges**</span></span>
 <span id="cb40-398"><a href="#cb40-398" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-399"><a href="#cb40-399" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4.4.3 **Modifying edges**</span></span>
+<span id="cb40-399"><a href="#cb40-399" aria-hidden="true" tabindex="-1"></a>In the code chunk below, the thickness of the edges will be mapped with the&nbsp;*Weight*&nbsp;variable.</span>
 <span id="cb40-400"><a href="#cb40-400" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-401"><a href="#cb40-401" aria-hidden="true" tabindex="-1"></a>In the code chunk below, the thickness of the edges will be mapped with the&nbsp;*Weight*&nbsp;variable.</span>
-<span id="cb40-402"><a href="#cb40-402" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-405"><a href="#cb40-405" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-406"><a href="#cb40-406" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph, </span>
-<span id="cb40-407"><a href="#cb40-407" aria-hidden="true" tabindex="-1"></a>            <span class="at">layout =</span> <span class="st">"nicely"</span>) <span class="sc">+</span></span>
-<span id="cb40-408"><a href="#cb40-408" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width=</span>Weight), </span>
-<span id="cb40-409"><a href="#cb40-409" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb40-410"><a href="#cb40-410" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
-<span id="cb40-411"><a href="#cb40-411" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Department), </span>
-<span id="cb40-412"><a href="#cb40-412" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">3</span>)</span>
-<span id="cb40-413"><a href="#cb40-413" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-414"><a href="#cb40-414" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_graph</span>()</span>
-<span id="cb40-415"><a href="#cb40-415" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb40-416"><a href="#cb40-416" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-417"><a href="#cb40-417" aria-hidden="true" tabindex="-1"></a>::: {.kambox .kam data-latex="kam"}</span>
-<span id="cb40-418"><a href="#cb40-418" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What did Prof Kam say?</span></span>
+<span id="cb40-403"><a href="#cb40-403" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-404"><a href="#cb40-404" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph, </span>
+<span id="cb40-405"><a href="#cb40-405" aria-hidden="true" tabindex="-1"></a>            <span class="at">layout =</span> <span class="st">"nicely"</span>) <span class="sc">+</span></span>
+<span id="cb40-406"><a href="#cb40-406" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width=</span>Weight), </span>
+<span id="cb40-407"><a href="#cb40-407" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb40-408"><a href="#cb40-408" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb40-409"><a href="#cb40-409" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Department), </span>
+<span id="cb40-410"><a href="#cb40-410" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">3</span>)</span>
+<span id="cb40-411"><a href="#cb40-411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-412"><a href="#cb40-412" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_graph</span>()</span>
+<span id="cb40-413"><a href="#cb40-413" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-414"><a href="#cb40-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-415"><a href="#cb40-415" aria-hidden="true" tabindex="-1"></a>::: {.kambox .kam data-latex="kam"}</span>
+<span id="cb40-416"><a href="#cb40-416" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What did Prof Kam say?</span></span>
+<span id="cb40-417"><a href="#cb40-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-418"><a href="#cb40-418" aria-hidden="true" tabindex="-1"></a>**Thing to learn from the code chunk above:**</span>
 <span id="cb40-419"><a href="#cb40-419" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-420"><a href="#cb40-420" aria-hidden="true" tabindex="-1"></a>**Thing to learn from the code chunk above:**</span>
-<span id="cb40-421"><a href="#cb40-421" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-422"><a href="#cb40-422" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*geom_edge_link* draws edges in the simplest way - as straight lines between the start and end nodes. But, it can do more that that. In the example above, argument *width* is used to map the width of the line in proportional to the Weight attribute and argument alpha is used to introduce opacity on the line.</span>
-<span id="cb40-423"><a href="#cb40-423" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-420"><a href="#cb40-420" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*geom_edge_link* draws edges in the simplest way - as straight lines between the start and end nodes. But, it can do more that that. In the example above, argument *width* is used to map the width of the line in proportional to the Weight attribute and argument alpha is used to introduce opacity on the line.</span>
+<span id="cb40-421"><a href="#cb40-421" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-422"><a href="#cb40-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-423"><a href="#cb40-423" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4.4 **Creating facet graphs**</span></span>
 <span id="cb40-424"><a href="#cb40-424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-425"><a href="#cb40-425" aria-hidden="true" tabindex="-1"></a><span class="fu">## 4.4 **Creating facet graphs**</span></span>
+<span id="cb40-425"><a href="#cb40-425" aria-hidden="true" tabindex="-1"></a>Another very useful feature of **ggraph** is faceting. In visualising network data, this technique can be used to reduce edge over-plotting in a very meaning way by spreading nodes and edges out based on their attributes. In this section, you will learn how to use faceting technique to visualise network data.</span>
 <span id="cb40-426"><a href="#cb40-426" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-427"><a href="#cb40-427" aria-hidden="true" tabindex="-1"></a>Another very useful feature of **ggraph** is faceting. In visualising network data, this technique can be used to reduce edge over-plotting in a very meaning way by spreading nodes and edges out based on their attributes. In this section, you will learn how to use faceting technique to visualise network data.</span>
+<span id="cb40-427"><a href="#cb40-427" aria-hidden="true" tabindex="-1"></a>There are three functions in ggraph to implement faceting, they are:</span>
 <span id="cb40-428"><a href="#cb40-428" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-429"><a href="#cb40-429" aria-hidden="true" tabindex="-1"></a>There are three functions in ggraph to implement faceting, they are:</span>
+<span id="cb40-429"><a href="#cb40-429" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">*facet_nodes()*</span><span class="co">](https://r4va.netlify.app/chap27)</span> whereby edges are only draw in a panel if both terminal nodes are present here,</span>
 <span id="cb40-430"><a href="#cb40-430" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-431"><a href="#cb40-431" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">*facet_nodes()*</span><span class="co">](https://r4va.netlify.app/chap27)</span> whereby edges are only draw in a panel if both terminal nodes are present here,</span>
+<span id="cb40-431"><a href="#cb40-431" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">*facet_edges()*</span><span class="co">](https://ggraph.data-imaginist.com/reference/facet_edges.html)</span> whereby nodes are always drawn in al panels even if the node data contains an attribute named the same as the one used for the edge facetting, and</span>
 <span id="cb40-432"><a href="#cb40-432" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-433"><a href="#cb40-433" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">*facet_edges()*</span><span class="co">](https://ggraph.data-imaginist.com/reference/facet_edges.html)</span> whereby nodes are always drawn in al panels even if the node data contains an attribute named the same as the one used for the edge facetting, and</span>
+<span id="cb40-433"><a href="#cb40-433" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">*facet_graph()*</span><span class="co">](https://ggraph.data-imaginist.com/reference/facet_graph.html)</span> faceting on two variables simultaneously.</span>
 <span id="cb40-434"><a href="#cb40-434" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-435"><a href="#cb40-435" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">*facet_graph()*</span><span class="co">](https://ggraph.data-imaginist.com/reference/facet_graph.html)</span> faceting on two variables simultaneously.</span>
+<span id="cb40-435"><a href="#cb40-435" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4.4.1 **Working with *facet_edges()***</span></span>
 <span id="cb40-436"><a href="#cb40-436" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-437"><a href="#cb40-437" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4.4.1 **Working with *facet_edges()***</span></span>
+<span id="cb40-437"><a href="#cb40-437" aria-hidden="true" tabindex="-1"></a>In the code chunk below,&nbsp;<span class="co">[</span><span class="ot">*facet_edges()*</span><span class="co">](https://ggraph.data-imaginist.com/reference/facet_edges.html)</span>&nbsp;is used. Before getting started, it is advisable for you to read it’s reference guide at least once.</span>
 <span id="cb40-438"><a href="#cb40-438" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-439"><a href="#cb40-439" aria-hidden="true" tabindex="-1"></a>In the code chunk below,&nbsp;<span class="co">[</span><span class="ot">*facet_edges()*</span><span class="co">](https://ggraph.data-imaginist.com/reference/facet_edges.html)</span>&nbsp;is used. Before getting started, it is advisable for you to read it’s reference guide at least once.</span>
-<span id="cb40-440"><a href="#cb40-440" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-443"><a href="#cb40-443" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-444"><a href="#cb40-444" aria-hidden="true" tabindex="-1"></a><span class="fu">set_graph_style</span>()</span>
-<span id="cb40-445"><a href="#cb40-445" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-446"><a href="#cb40-446" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph, </span>
-<span id="cb40-447"><a href="#cb40-447" aria-hidden="true" tabindex="-1"></a>            <span class="at">layout =</span> <span class="st">"nicely"</span>) <span class="sc">+</span> </span>
-<span id="cb40-448"><a href="#cb40-448" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width=</span>Weight), </span>
-<span id="cb40-449"><a href="#cb40-449" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb40-450"><a href="#cb40-450" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
-<span id="cb40-451"><a href="#cb40-451" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Department), </span>
-<span id="cb40-452"><a href="#cb40-452" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">2</span>)</span>
-<span id="cb40-453"><a href="#cb40-453" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-454"><a href="#cb40-454" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">facet_edges</span>(<span class="sc">~</span>Weekday)</span>
-<span id="cb40-455"><a href="#cb40-455" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb40-456"><a href="#cb40-456" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-459"><a href="#cb40-459" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-460"><a href="#cb40-460" aria-hidden="true" tabindex="-1"></a><span class="fu">set_graph_style</span>()</span>
-<span id="cb40-461"><a href="#cb40-461" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-462"><a href="#cb40-462" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph, </span>
-<span id="cb40-463"><a href="#cb40-463" aria-hidden="true" tabindex="-1"></a>            <span class="at">layout =</span> <span class="st">"nicely"</span>) <span class="sc">+</span> </span>
-<span id="cb40-464"><a href="#cb40-464" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width=</span>Weight), </span>
-<span id="cb40-465"><a href="#cb40-465" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb40-466"><a href="#cb40-466" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
-<span id="cb40-467"><a href="#cb40-467" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Department), </span>
-<span id="cb40-468"><a href="#cb40-468" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb40-469"><a href="#cb40-469" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'bottom'</span>)</span>
-<span id="cb40-470"><a href="#cb40-470" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb40-471"><a href="#cb40-471" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">facet_edges</span>(<span class="sc">~</span>Weekday)</span>
-<span id="cb40-472"><a href="#cb40-472" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-441"><a href="#cb40-441" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-442"><a href="#cb40-442" aria-hidden="true" tabindex="-1"></a><span class="fu">set_graph_style</span>()</span>
+<span id="cb40-443"><a href="#cb40-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-444"><a href="#cb40-444" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph, </span>
+<span id="cb40-445"><a href="#cb40-445" aria-hidden="true" tabindex="-1"></a>            <span class="at">layout =</span> <span class="st">"nicely"</span>) <span class="sc">+</span> </span>
+<span id="cb40-446"><a href="#cb40-446" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width=</span>Weight), </span>
+<span id="cb40-447"><a href="#cb40-447" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb40-448"><a href="#cb40-448" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb40-449"><a href="#cb40-449" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Department), </span>
+<span id="cb40-450"><a href="#cb40-450" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">2</span>)</span>
+<span id="cb40-451"><a href="#cb40-451" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-452"><a href="#cb40-452" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">facet_edges</span>(<span class="sc">~</span>Weekday)</span>
+<span id="cb40-453"><a href="#cb40-453" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-454"><a href="#cb40-454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-457"><a href="#cb40-457" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-458"><a href="#cb40-458" aria-hidden="true" tabindex="-1"></a><span class="fu">set_graph_style</span>()</span>
+<span id="cb40-459"><a href="#cb40-459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-460"><a href="#cb40-460" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph, </span>
+<span id="cb40-461"><a href="#cb40-461" aria-hidden="true" tabindex="-1"></a>            <span class="at">layout =</span> <span class="st">"nicely"</span>) <span class="sc">+</span> </span>
+<span id="cb40-462"><a href="#cb40-462" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width=</span>Weight), </span>
+<span id="cb40-463"><a href="#cb40-463" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb40-464"><a href="#cb40-464" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb40-465"><a href="#cb40-465" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Department), </span>
+<span id="cb40-466"><a href="#cb40-466" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb40-467"><a href="#cb40-467" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'bottom'</span>)</span>
+<span id="cb40-468"><a href="#cb40-468" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-469"><a href="#cb40-469" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">facet_edges</span>(<span class="sc">~</span>Weekday)</span>
+<span id="cb40-470"><a href="#cb40-470" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-471"><a href="#cb40-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-472"><a href="#cb40-472" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4.4.3 **A framed facet graph** {style="font-size: 1.25em !important; line-height: 1.2; color: rgb(0, 0, 0); font-family: \"Segoe UI\", serif; font-style: normal; font-variant-ligatures: none; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; caret-color: rgb(0, 0, 0); white-space: break-spaces; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"}</span></span>
 <span id="cb40-473"><a href="#cb40-473" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-474"><a href="#cb40-474" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4.4.3 **A framed facet graph** {style="font-size: 1.25em !important; line-height: 1.2; color: rgb(0, 0, 0); font-family: \"Segoe UI\", serif; font-style: normal; font-variant-ligatures: none; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; caret-color: rgb(0, 0, 0); white-space: break-spaces; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"}</span></span>
+<span id="cb40-474"><a href="#cb40-474" aria-hidden="true" tabindex="-1"></a>The code chunk below adds frame to each graph.</span>
 <span id="cb40-475"><a href="#cb40-475" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-476"><a href="#cb40-476" aria-hidden="true" tabindex="-1"></a>The code chunk below adds frame to each graph.</span>
-<span id="cb40-477"><a href="#cb40-477" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-480"><a href="#cb40-480" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-481"><a href="#cb40-481" aria-hidden="true" tabindex="-1"></a><span class="fu">set_graph_style</span>() </span>
-<span id="cb40-482"><a href="#cb40-482" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-483"><a href="#cb40-483" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph, </span>
-<span id="cb40-484"><a href="#cb40-484" aria-hidden="true" tabindex="-1"></a>            <span class="at">layout =</span> <span class="st">"nicely"</span>) <span class="sc">+</span> </span>
-<span id="cb40-485"><a href="#cb40-485" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width=</span>Weight), </span>
-<span id="cb40-486"><a href="#cb40-486" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb40-487"><a href="#cb40-487" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
-<span id="cb40-488"><a href="#cb40-488" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Department), </span>
-<span id="cb40-489"><a href="#cb40-489" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">2</span>)</span>
-<span id="cb40-490"><a href="#cb40-490" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb40-491"><a href="#cb40-491" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">facet_edges</span>(<span class="sc">~</span>Weekday) <span class="sc">+</span></span>
-<span id="cb40-492"><a href="#cb40-492" aria-hidden="true" tabindex="-1"></a>  <span class="fu">th_foreground</span>(<span class="at">foreground =</span> <span class="st">"grey80"</span>,  </span>
-<span id="cb40-493"><a href="#cb40-493" aria-hidden="true" tabindex="-1"></a>                <span class="at">border =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb40-494"><a href="#cb40-494" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'bottom'</span>)</span>
-<span id="cb40-495"><a href="#cb40-495" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-478"><a href="#cb40-478" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-479"><a href="#cb40-479" aria-hidden="true" tabindex="-1"></a><span class="fu">set_graph_style</span>() </span>
+<span id="cb40-480"><a href="#cb40-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-481"><a href="#cb40-481" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph, </span>
+<span id="cb40-482"><a href="#cb40-482" aria-hidden="true" tabindex="-1"></a>            <span class="at">layout =</span> <span class="st">"nicely"</span>) <span class="sc">+</span> </span>
+<span id="cb40-483"><a href="#cb40-483" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width=</span>Weight), </span>
+<span id="cb40-484"><a href="#cb40-484" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb40-485"><a href="#cb40-485" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb40-486"><a href="#cb40-486" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Department), </span>
+<span id="cb40-487"><a href="#cb40-487" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">2</span>)</span>
+<span id="cb40-488"><a href="#cb40-488" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-489"><a href="#cb40-489" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">facet_edges</span>(<span class="sc">~</span>Weekday) <span class="sc">+</span></span>
+<span id="cb40-490"><a href="#cb40-490" aria-hidden="true" tabindex="-1"></a>  <span class="fu">th_foreground</span>(<span class="at">foreground =</span> <span class="st">"grey80"</span>,  </span>
+<span id="cb40-491"><a href="#cb40-491" aria-hidden="true" tabindex="-1"></a>                <span class="at">border =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb40-492"><a href="#cb40-492" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'bottom'</span>)</span>
+<span id="cb40-493"><a href="#cb40-493" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-494"><a href="#cb40-494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-495"><a href="#cb40-495" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4.4.4 **Working with *facet_nodes()***</span></span>
 <span id="cb40-496"><a href="#cb40-496" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-497"><a href="#cb40-497" aria-hidden="true" tabindex="-1"></a><span class="fu">### 4.4.4 **Working with *facet_nodes()***</span></span>
+<span id="cb40-497"><a href="#cb40-497" aria-hidden="true" tabindex="-1"></a>In the code chunkc below,&nbsp;<span class="co">[</span><span class="ot">*facet_nodes()*</span><span class="co">](https://ggraph.data-imaginist.com/reference/facet_nodes.html)</span>&nbsp;is used. Before getting started, it is advisable for you to read it’s reference guide at least once.</span>
 <span id="cb40-498"><a href="#cb40-498" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-499"><a href="#cb40-499" aria-hidden="true" tabindex="-1"></a>In the code chunkc below,&nbsp;<span class="co">[</span><span class="ot">*facet_nodes()*</span><span class="co">](https://ggraph.data-imaginist.com/reference/facet_nodes.html)</span>&nbsp;is used. Before getting started, it is advisable for you to read it’s reference guide at least once.</span>
-<span id="cb40-500"><a href="#cb40-500" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-503"><a href="#cb40-503" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-504"><a href="#cb40-504" aria-hidden="true" tabindex="-1"></a><span class="fu">set_graph_style</span>()</span>
-<span id="cb40-505"><a href="#cb40-505" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-506"><a href="#cb40-506" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph, </span>
-<span id="cb40-507"><a href="#cb40-507" aria-hidden="true" tabindex="-1"></a>            <span class="at">layout =</span> <span class="st">"nicely"</span>) <span class="sc">+</span> </span>
-<span id="cb40-508"><a href="#cb40-508" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width=</span>Weight), </span>
-<span id="cb40-509"><a href="#cb40-509" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb40-510"><a href="#cb40-510" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
-<span id="cb40-511"><a href="#cb40-511" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Department), </span>
-<span id="cb40-512"><a href="#cb40-512" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">2</span>)</span>
-<span id="cb40-513"><a href="#cb40-513" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb40-514"><a href="#cb40-514" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">facet_nodes</span>(<span class="sc">~</span>Department)<span class="sc">+</span></span>
-<span id="cb40-515"><a href="#cb40-515" aria-hidden="true" tabindex="-1"></a>  <span class="fu">th_foreground</span>(<span class="at">foreground =</span> <span class="st">"grey80"</span>,  </span>
-<span id="cb40-516"><a href="#cb40-516" aria-hidden="true" tabindex="-1"></a>                <span class="at">border =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb40-517"><a href="#cb40-517" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'bottom'</span>)</span>
-<span id="cb40-518"><a href="#cb40-518" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-501"><a href="#cb40-501" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-502"><a href="#cb40-502" aria-hidden="true" tabindex="-1"></a><span class="fu">set_graph_style</span>()</span>
+<span id="cb40-503"><a href="#cb40-503" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-504"><a href="#cb40-504" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> <span class="fu">ggraph</span>(GAStech_graph, </span>
+<span id="cb40-505"><a href="#cb40-505" aria-hidden="true" tabindex="-1"></a>            <span class="at">layout =</span> <span class="st">"nicely"</span>) <span class="sc">+</span> </span>
+<span id="cb40-506"><a href="#cb40-506" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width=</span>Weight), </span>
+<span id="cb40-507"><a href="#cb40-507" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb40-508"><a href="#cb40-508" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb40-509"><a href="#cb40-509" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Department), </span>
+<span id="cb40-510"><a href="#cb40-510" aria-hidden="true" tabindex="-1"></a>                  <span class="at">size =</span> <span class="dv">2</span>)</span>
+<span id="cb40-511"><a href="#cb40-511" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb40-512"><a href="#cb40-512" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">facet_nodes</span>(<span class="sc">~</span>Department)<span class="sc">+</span></span>
+<span id="cb40-513"><a href="#cb40-513" aria-hidden="true" tabindex="-1"></a>  <span class="fu">th_foreground</span>(<span class="at">foreground =</span> <span class="st">"grey80"</span>,  </span>
+<span id="cb40-514"><a href="#cb40-514" aria-hidden="true" tabindex="-1"></a>                <span class="at">border =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
+<span id="cb40-515"><a href="#cb40-515" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">'bottom'</span>)</span>
+<span id="cb40-516"><a href="#cb40-516" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-517"><a href="#cb40-517" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-518"><a href="#cb40-518" aria-hidden="true" tabindex="-1"></a><span class="fu"># 5 **Network Metrics Analysis**</span></span>
 <span id="cb40-519"><a href="#cb40-519" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-520"><a href="#cb40-520" aria-hidden="true" tabindex="-1"></a><span class="fu"># 5 **Network Metrics Analysis**</span></span>
+<span id="cb40-520"><a href="#cb40-520" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5.1 **Computing centrality indices**</span></span>
 <span id="cb40-521"><a href="#cb40-521" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-522"><a href="#cb40-522" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5.1 **Computing centrality indices**</span></span>
+<span id="cb40-522"><a href="#cb40-522" aria-hidden="true" tabindex="-1"></a>Centrality measures are a collection of statistical indices use to describe the relative important of the actors are to a network. There are four well-known centrality measures, namely: degree, betweenness, closeness and eigenvector. It is beyond the scope of this hands-on exercise to cover the principles and mathematics of these measure here. Students are encouraged to refer to&nbsp;*Chapter 7: Actor Prominence*&nbsp;of&nbsp;**A User’s Guide to Network Analysis in R**&nbsp;to gain better understanding of theses network measures.</span>
 <span id="cb40-523"><a href="#cb40-523" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-524"><a href="#cb40-524" aria-hidden="true" tabindex="-1"></a>Centrality measures are a collection of statistical indices use to describe the relative important of the actors are to a network. There are four well-known centrality measures, namely: degree, betweenness, closeness and eigenvector. It is beyond the scope of this hands-on exercise to cover the principles and mathematics of these measure here. Students are encouraged to refer to&nbsp;*Chapter 7: Actor Prominence*&nbsp;of&nbsp;**A User’s Guide to Network Analysis in R**&nbsp;to gain better understanding of theses network measures.</span>
-<span id="cb40-525"><a href="#cb40-525" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-528"><a href="#cb40-528" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-529"><a href="#cb40-529" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> GAStech_graph <span class="sc">%&gt;%</span></span>
-<span id="cb40-530"><a href="#cb40-530" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">betweenness_centrality =</span> <span class="fu">centrality_betweenness</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb40-531"><a href="#cb40-531" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">"fr"</span>) <span class="sc">+</span> </span>
-<span id="cb40-532"><a href="#cb40-532" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width=</span>Weight), </span>
-<span id="cb40-533"><a href="#cb40-533" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb40-534"><a href="#cb40-534" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
-<span id="cb40-535"><a href="#cb40-535" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Department,</span>
-<span id="cb40-536"><a href="#cb40-536" aria-hidden="true" tabindex="-1"></a>            <span class="at">size=</span>betweenness_centrality))</span>
-<span id="cb40-537"><a href="#cb40-537" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_graph</span>()</span>
-<span id="cb40-538"><a href="#cb40-538" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb40-539"><a href="#cb40-539" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-540"><a href="#cb40-540" aria-hidden="true" tabindex="-1"></a>::: {.kambox .kam data-latex="kam"}</span>
-<span id="cb40-541"><a href="#cb40-541" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What did Prof Kam say?</span></span>
+<span id="cb40-526"><a href="#cb40-526" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-527"><a href="#cb40-527" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> GAStech_graph <span class="sc">%&gt;%</span></span>
+<span id="cb40-528"><a href="#cb40-528" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">betweenness_centrality =</span> <span class="fu">centrality_betweenness</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb40-529"><a href="#cb40-529" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">"fr"</span>) <span class="sc">+</span> </span>
+<span id="cb40-530"><a href="#cb40-530" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width=</span>Weight), </span>
+<span id="cb40-531"><a href="#cb40-531" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb40-532"><a href="#cb40-532" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb40-533"><a href="#cb40-533" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Department,</span>
+<span id="cb40-534"><a href="#cb40-534" aria-hidden="true" tabindex="-1"></a>            <span class="at">size=</span>betweenness_centrality))</span>
+<span id="cb40-535"><a href="#cb40-535" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_graph</span>()</span>
+<span id="cb40-536"><a href="#cb40-536" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-537"><a href="#cb40-537" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-538"><a href="#cb40-538" aria-hidden="true" tabindex="-1"></a>::: {.kambox .kam data-latex="kam"}</span>
+<span id="cb40-539"><a href="#cb40-539" aria-hidden="true" tabindex="-1"></a><span class="fu">#### What did Prof Kam say?</span></span>
+<span id="cb40-540"><a href="#cb40-540" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-541"><a href="#cb40-541" aria-hidden="true" tabindex="-1"></a>**Thing to learn from the code chunk above:**</span>
 <span id="cb40-542"><a href="#cb40-542" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-543"><a href="#cb40-543" aria-hidden="true" tabindex="-1"></a>**Thing to learn from the code chunk above:**</span>
+<span id="cb40-543"><a href="#cb40-543" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*mutate()* of **dplyr** is used to perform the computation.</span>
 <span id="cb40-544"><a href="#cb40-544" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-545"><a href="#cb40-545" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*mutate()* of **dplyr** is used to perform the computation.</span>
-<span id="cb40-546"><a href="#cb40-546" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-547"><a href="#cb40-547" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the algorithm used, on the other hand, is the *centrality_betweenness()* of **tidygraph**.</span>
-<span id="cb40-548"><a href="#cb40-548" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-545"><a href="#cb40-545" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>the algorithm used, on the other hand, is the *centrality_betweenness()* of **tidygraph**.</span>
+<span id="cb40-546"><a href="#cb40-546" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-547"><a href="#cb40-547" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-548"><a href="#cb40-548" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5.2 **Visualising network metrics**</span></span>
 <span id="cb40-549"><a href="#cb40-549" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-550"><a href="#cb40-550" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5.2 **Visualising network metrics**</span></span>
+<span id="cb40-550"><a href="#cb40-550" aria-hidden="true" tabindex="-1"></a>It is important to note that from&nbsp;**ggraph v2.0**&nbsp;onward tidygraph algorithms such as centrality measures can be accessed directly in ggraph calls. This means that it is no longer necessary to precompute and store derived node and edge centrality measures on the graph in order to use them in a plot.</span>
 <span id="cb40-551"><a href="#cb40-551" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-552"><a href="#cb40-552" aria-hidden="true" tabindex="-1"></a>It is important to note that from&nbsp;**ggraph v2.0**&nbsp;onward tidygraph algorithms such as centrality measures can be accessed directly in ggraph calls. This means that it is no longer necessary to precompute and store derived node and edge centrality measures on the graph in order to use them in a plot.</span>
-<span id="cb40-553"><a href="#cb40-553" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-556"><a href="#cb40-556" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-557"><a href="#cb40-557" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> GAStech_graph <span class="sc">%&gt;%</span></span>
-<span id="cb40-558"><a href="#cb40-558" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">"fr"</span>) <span class="sc">+</span> </span>
-<span id="cb40-559"><a href="#cb40-559" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width=</span>Weight), </span>
-<span id="cb40-560"><a href="#cb40-560" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb40-561"><a href="#cb40-561" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
-<span id="cb40-562"><a href="#cb40-562" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Department, </span>
-<span id="cb40-563"><a href="#cb40-563" aria-hidden="true" tabindex="-1"></a>                      <span class="at">size =</span> <span class="fu">centrality_betweenness</span>()))</span>
-<span id="cb40-564"><a href="#cb40-564" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_graph</span>()</span>
-<span id="cb40-565"><a href="#cb40-565" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-554"><a href="#cb40-554" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-555"><a href="#cb40-555" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> GAStech_graph <span class="sc">%&gt;%</span></span>
+<span id="cb40-556"><a href="#cb40-556" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">"fr"</span>) <span class="sc">+</span> </span>
+<span id="cb40-557"><a href="#cb40-557" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width=</span>Weight), </span>
+<span id="cb40-558"><a href="#cb40-558" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb40-559"><a href="#cb40-559" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb40-560"><a href="#cb40-560" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> Department, </span>
+<span id="cb40-561"><a href="#cb40-561" aria-hidden="true" tabindex="-1"></a>                      <span class="at">size =</span> <span class="fu">centrality_betweenness</span>()))</span>
+<span id="cb40-562"><a href="#cb40-562" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_graph</span>()</span>
+<span id="cb40-563"><a href="#cb40-563" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-564"><a href="#cb40-564" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-565"><a href="#cb40-565" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5.3 **Visualising Community**</span></span>
 <span id="cb40-566"><a href="#cb40-566" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-567"><a href="#cb40-567" aria-hidden="true" tabindex="-1"></a><span class="fu">## 5.3 **Visualising Community**</span></span>
+<span id="cb40-567"><a href="#cb40-567" aria-hidden="true" tabindex="-1"></a>tidygraph package inherits many of the community detection algorithms imbedded into igraph and makes them available to us, including *Edge-betweenness (group_edge_betweenness)*, *Leading eigenvector (group_leading_eigen)*, *Fast-greedy (group_fast_greedy)*, *Louvain (group_louvain)*, *Walktrap (group_walktrap)*, *Label propagation (group_label_prop)*, *InfoMAP (group_infomap)*, *Spinglass (group_spinglass)*, and *Optimal (group_optimal)*. Some community algorithms are designed to take into account direction or weight, while others ignore it. Use this <span class="co">[</span><span class="ot">link</span><span class="co">](https://tidygraph.data-imaginist.com/reference/group_graph.html)</span> to find out more about community detection functions provided by tidygraph,</span>
 <span id="cb40-568"><a href="#cb40-568" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-569"><a href="#cb40-569" aria-hidden="true" tabindex="-1"></a>tidygraph package inherits many of the community detection algorithms imbedded into igraph and makes them available to us, including *Edge-betweenness (group_edge_betweenness)*, *Leading eigenvector (group_leading_eigen)*, *Fast-greedy (group_fast_greedy)*, *Louvain (group_louvain)*, *Walktrap (group_walktrap)*, *Label propagation (group_label_prop)*, *InfoMAP (group_infomap)*, *Spinglass (group_spinglass)*, and *Optimal (group_optimal)*. Some community algorithms are designed to take into account direction or weight, while others ignore it. Use this <span class="co">[</span><span class="ot">link</span><span class="co">](https://tidygraph.data-imaginist.com/reference/group_graph.html)</span> to find out more about community detection functions provided by tidygraph,</span>
+<span id="cb40-569"><a href="#cb40-569" aria-hidden="true" tabindex="-1"></a>In the code chunk below *group_edge_betweenness()* is used.</span>
 <span id="cb40-570"><a href="#cb40-570" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-571"><a href="#cb40-571" aria-hidden="true" tabindex="-1"></a>In the code chunk below *group_edge_betweenness()* is used.</span>
-<span id="cb40-572"><a href="#cb40-572" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-575"><a href="#cb40-575" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-576"><a href="#cb40-576" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> GAStech_graph <span class="sc">%&gt;%</span></span>
-<span id="cb40-577"><a href="#cb40-577" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">community =</span> <span class="fu">as.factor</span>(<span class="fu">group_edge_betweenness</span>(<span class="at">weights =</span> Weight, <span class="at">directed =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb40-578"><a href="#cb40-578" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">"fr"</span>) <span class="sc">+</span> </span>
-<span id="cb40-579"><a href="#cb40-579" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width=</span>Weight), </span>
-<span id="cb40-580"><a href="#cb40-580" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
-<span id="cb40-581"><a href="#cb40-581" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
-<span id="cb40-582"><a href="#cb40-582" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> community))  </span>
-<span id="cb40-583"><a href="#cb40-583" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-584"><a href="#cb40-584" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_graph</span>()</span>
-<span id="cb40-585"><a href="#cb40-585" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-573"><a href="#cb40-573" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-574"><a href="#cb40-574" aria-hidden="true" tabindex="-1"></a>g <span class="ot">&lt;-</span> GAStech_graph <span class="sc">%&gt;%</span></span>
+<span id="cb40-575"><a href="#cb40-575" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">community =</span> <span class="fu">as.factor</span>(<span class="fu">group_edge_betweenness</span>(<span class="at">weights =</span> Weight, <span class="at">directed =</span> <span class="cn">TRUE</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb40-576"><a href="#cb40-576" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggraph</span>(<span class="at">layout =</span> <span class="st">"fr"</span>) <span class="sc">+</span> </span>
+<span id="cb40-577"><a href="#cb40-577" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_edge_link</span>(<span class="fu">aes</span>(<span class="at">width=</span>Weight), </span>
+<span id="cb40-578"><a href="#cb40-578" aria-hidden="true" tabindex="-1"></a>                 <span class="at">alpha=</span><span class="fl">0.2</span>) <span class="sc">+</span></span>
+<span id="cb40-579"><a href="#cb40-579" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_edge_width</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb40-580"><a href="#cb40-580" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_node_point</span>(<span class="fu">aes</span>(<span class="at">colour =</span> community))  </span>
+<span id="cb40-581"><a href="#cb40-581" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-582"><a href="#cb40-582" aria-hidden="true" tabindex="-1"></a>g <span class="sc">+</span> <span class="fu">theme_graph</span>()</span>
+<span id="cb40-583"><a href="#cb40-583" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-584"><a href="#cb40-584" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-585"><a href="#cb40-585" aria-hidden="true" tabindex="-1"></a><span class="fu"># 6 **Building Interactive Network Graph with visNetwork**</span></span>
 <span id="cb40-586"><a href="#cb40-586" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-587"><a href="#cb40-587" aria-hidden="true" tabindex="-1"></a><span class="fu"># 6 **Building Interactive Network Graph with visNetwork**</span></span>
+<span id="cb40-587"><a href="#cb40-587" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">visNetwork()</span><span class="co">](http://datastorm-open.github.io/visNetwork/)</span> is a R package for network visualization, using <span class="co">[</span><span class="ot">vis.js</span><span class="co">](http://visjs.org/)</span> javascript library.</span>
 <span id="cb40-588"><a href="#cb40-588" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-589"><a href="#cb40-589" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">visNetwork()</span><span class="co">](http://datastorm-open.github.io/visNetwork/)</span> is a R package for network visualization, using <span class="co">[</span><span class="ot">vis.js</span><span class="co">](http://visjs.org/)</span> javascript library.</span>
+<span id="cb40-589"><a href="#cb40-589" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*visNetwork()* function uses a nodes list and edges list to create an interactive graph.</span>
 <span id="cb40-590"><a href="#cb40-590" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-591"><a href="#cb40-591" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*visNetwork()* function uses a nodes list and edges list to create an interactive graph.</span>
+<span id="cb40-591"><a href="#cb40-591" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>The nodes list must include an “id” column, and the edge list must have “from” and “to” columns.</span>
 <span id="cb40-592"><a href="#cb40-592" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-593"><a href="#cb40-593" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>The nodes list must include an “id” column, and the edge list must have “from” and “to” columns.</span>
+<span id="cb40-593"><a href="#cb40-593" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>The function also plots the labels for the nodes, using the names of the actors from the “label” column in the node list.</span>
 <span id="cb40-594"><a href="#cb40-594" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-595"><a href="#cb40-595" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>The function also plots the labels for the nodes, using the names of the actors from the “label” column in the node list.</span>
+<span id="cb40-595"><a href="#cb40-595" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The resulting graph is fun to play around with.</span>
 <span id="cb40-596"><a href="#cb40-596" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-597"><a href="#cb40-597" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The resulting graph is fun to play around with.</span>
+<span id="cb40-597"><a href="#cb40-597" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>You can move the nodes and the graph will use an algorithm to keep the nodes properly spaced.</span>
 <span id="cb40-598"><a href="#cb40-598" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-599"><a href="#cb40-599" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>You can move the nodes and the graph will use an algorithm to keep the nodes properly spaced.</span>
+<span id="cb40-599"><a href="#cb40-599" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>You can also zoom in and out on the plot and move it around to re-center it.</span>
 <span id="cb40-600"><a href="#cb40-600" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-601"><a href="#cb40-601" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>You can also zoom in and out on the plot and move it around to re-center it.</span>
+<span id="cb40-601"><a href="#cb40-601" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6.1 **Data preparation**</span></span>
 <span id="cb40-602"><a href="#cb40-602" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-603"><a href="#cb40-603" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6.1 **Data preparation**</span></span>
+<span id="cb40-603"><a href="#cb40-603" aria-hidden="true" tabindex="-1"></a>Before we can plot the interactive network graph, we need to prepare the data model by using the code chunk below.</span>
 <span id="cb40-604"><a href="#cb40-604" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-605"><a href="#cb40-605" aria-hidden="true" tabindex="-1"></a>Before we can plot the interactive network graph, we need to prepare the data model by using the code chunk below.</span>
-<span id="cb40-606"><a href="#cb40-606" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-609"><a href="#cb40-609" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-610"><a href="#cb40-610" aria-hidden="true" tabindex="-1"></a>GAStech_edges_aggregated <span class="ot">&lt;-</span> GAStech_edges <span class="sc">%&gt;%</span></span>
-<span id="cb40-611"><a href="#cb40-611" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(GAStech_nodes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"sourceLabel"</span> <span class="ot">=</span> <span class="st">"label"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb40-612"><a href="#cb40-612" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span> id) <span class="sc">%&gt;%</span></span>
-<span id="cb40-613"><a href="#cb40-613" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(GAStech_nodes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"targetLabel"</span> <span class="ot">=</span> <span class="st">"label"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb40-614"><a href="#cb40-614" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">to =</span> id) <span class="sc">%&gt;%</span></span>
-<span id="cb40-615"><a href="#cb40-615" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(MainSubject <span class="sc">==</span> <span class="st">"Work related"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-616"><a href="#cb40-616" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(from, to) <span class="sc">%&gt;%</span></span>
-<span id="cb40-617"><a href="#cb40-617" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">weight =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb40-618"><a href="#cb40-618" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(from<span class="sc">!=</span>to) <span class="sc">%&gt;%</span></span>
-<span id="cb40-619"><a href="#cb40-619" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(weight <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-620"><a href="#cb40-620" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb40-621"><a href="#cb40-621" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-607"><a href="#cb40-607" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-608"><a href="#cb40-608" aria-hidden="true" tabindex="-1"></a>GAStech_edges_aggregated <span class="ot">&lt;-</span> GAStech_edges <span class="sc">%&gt;%</span></span>
+<span id="cb40-609"><a href="#cb40-609" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(GAStech_nodes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"sourceLabel"</span> <span class="ot">=</span> <span class="st">"label"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb40-610"><a href="#cb40-610" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">from =</span> id) <span class="sc">%&gt;%</span></span>
+<span id="cb40-611"><a href="#cb40-611" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(GAStech_nodes, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">"targetLabel"</span> <span class="ot">=</span> <span class="st">"label"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb40-612"><a href="#cb40-612" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">to =</span> id) <span class="sc">%&gt;%</span></span>
+<span id="cb40-613"><a href="#cb40-613" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(MainSubject <span class="sc">==</span> <span class="st">"Work related"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-614"><a href="#cb40-614" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(from, to) <span class="sc">%&gt;%</span></span>
+<span id="cb40-615"><a href="#cb40-615" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">weight =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb40-616"><a href="#cb40-616" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(from<span class="sc">!=</span>to) <span class="sc">%&gt;%</span></span>
+<span id="cb40-617"><a href="#cb40-617" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(weight <span class="sc">&gt;</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-618"><a href="#cb40-618" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb40-619"><a href="#cb40-619" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-620"><a href="#cb40-620" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-621"><a href="#cb40-621" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6.2 **Plotting the first interactive network graph**</span></span>
 <span id="cb40-622"><a href="#cb40-622" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-623"><a href="#cb40-623" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6.2 **Plotting the first interactive network graph**</span></span>
+<span id="cb40-623"><a href="#cb40-623" aria-hidden="true" tabindex="-1"></a>The code chunk below will be used to plot an interactive network graph by using the data prepared.</span>
 <span id="cb40-624"><a href="#cb40-624" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-625"><a href="#cb40-625" aria-hidden="true" tabindex="-1"></a>The code chunk below will be used to plot an interactive network graph by using the data prepared.</span>
-<span id="cb40-626"><a href="#cb40-626" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-629"><a href="#cb40-629" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-630"><a href="#cb40-630" aria-hidden="true" tabindex="-1"></a><span class="fu">visNetwork</span>(GAStech_nodes, </span>
-<span id="cb40-631"><a href="#cb40-631" aria-hidden="true" tabindex="-1"></a>           GAStech_edges_aggregated)</span>
-<span id="cb40-632"><a href="#cb40-632" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-627"><a href="#cb40-627" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-628"><a href="#cb40-628" aria-hidden="true" tabindex="-1"></a><span class="fu">visNetwork</span>(GAStech_nodes, </span>
+<span id="cb40-629"><a href="#cb40-629" aria-hidden="true" tabindex="-1"></a>           GAStech_edges_aggregated)</span>
+<span id="cb40-630"><a href="#cb40-630" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-631"><a href="#cb40-631" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-632"><a href="#cb40-632" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6.3 **Working with layout**</span></span>
 <span id="cb40-633"><a href="#cb40-633" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-634"><a href="#cb40-634" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6.3 **Working with layout**</span></span>
+<span id="cb40-634"><a href="#cb40-634" aria-hidden="true" tabindex="-1"></a>In the code chunk below, Fruchterman and Reingold layout is used.</span>
 <span id="cb40-635"><a href="#cb40-635" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-636"><a href="#cb40-636" aria-hidden="true" tabindex="-1"></a>In the code chunk below, Fruchterman and Reingold layout is used.</span>
-<span id="cb40-637"><a href="#cb40-637" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-640"><a href="#cb40-640" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-641"><a href="#cb40-641" aria-hidden="true" tabindex="-1"></a><span class="fu">visNetwork</span>(GAStech_nodes,</span>
-<span id="cb40-642"><a href="#cb40-642" aria-hidden="true" tabindex="-1"></a>           GAStech_edges_aggregated) <span class="sc">%&gt;%</span></span>
-<span id="cb40-643"><a href="#cb40-643" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visIgraphLayout</span>(<span class="at">layout =</span> <span class="st">"layout_with_fr"</span>) </span>
-<span id="cb40-644"><a href="#cb40-644" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb40-645"><a href="#cb40-645" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-646"><a href="#cb40-646" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
-<span id="cb40-647"><a href="#cb40-647" aria-hidden="true" tabindex="-1"></a>Visit&nbsp;<span class="co">[</span><span class="ot">Igraph</span><span class="co">](http://datastorm-open.github.io/visNetwork/igraph.html)</span>&nbsp;to find out more about&nbsp;*visIgraphLayout*’s argument.</span>
-<span id="cb40-648"><a href="#cb40-648" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-638"><a href="#cb40-638" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-639"><a href="#cb40-639" aria-hidden="true" tabindex="-1"></a><span class="fu">visNetwork</span>(GAStech_nodes,</span>
+<span id="cb40-640"><a href="#cb40-640" aria-hidden="true" tabindex="-1"></a>           GAStech_edges_aggregated) <span class="sc">%&gt;%</span></span>
+<span id="cb40-641"><a href="#cb40-641" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visIgraphLayout</span>(<span class="at">layout =</span> <span class="st">"layout_with_fr"</span>) </span>
+<span id="cb40-642"><a href="#cb40-642" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-643"><a href="#cb40-643" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-644"><a href="#cb40-644" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb40-645"><a href="#cb40-645" aria-hidden="true" tabindex="-1"></a>Visit&nbsp;<span class="co">[</span><span class="ot">Igraph</span><span class="co">](http://datastorm-open.github.io/visNetwork/igraph.html)</span>&nbsp;to find out more about&nbsp;*visIgraphLayout*’s argument.</span>
+<span id="cb40-646"><a href="#cb40-646" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-647"><a href="#cb40-647" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-648"><a href="#cb40-648" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6.4 **Working with visual attributes - Nodes**</span></span>
 <span id="cb40-649"><a href="#cb40-649" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-650"><a href="#cb40-650" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6.4 **Working with visual attributes - Nodes**</span></span>
+<span id="cb40-650"><a href="#cb40-650" aria-hidden="true" tabindex="-1"></a>visNetwork() looks for a field called “group” in the nodes object and colour the nodes according to the values of the group field.</span>
 <span id="cb40-651"><a href="#cb40-651" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-652"><a href="#cb40-652" aria-hidden="true" tabindex="-1"></a>visNetwork() looks for a field called “group” in the nodes object and colour the nodes according to the values of the group field.</span>
+<span id="cb40-652"><a href="#cb40-652" aria-hidden="true" tabindex="-1"></a>The code chunk below rename Department field to group.</span>
 <span id="cb40-653"><a href="#cb40-653" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-654"><a href="#cb40-654" aria-hidden="true" tabindex="-1"></a>The code chunk below rename Department field to group.</span>
-<span id="cb40-655"><a href="#cb40-655" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-658"><a href="#cb40-658" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-659"><a href="#cb40-659" aria-hidden="true" tabindex="-1"></a>GAStech_nodes <span class="ot">&lt;-</span> GAStech_nodes <span class="sc">%&gt;%</span></span>
-<span id="cb40-660"><a href="#cb40-660" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">group =</span> Department) </span>
-<span id="cb40-661"><a href="#cb40-661" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-656"><a href="#cb40-656" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-657"><a href="#cb40-657" aria-hidden="true" tabindex="-1"></a>GAStech_nodes <span class="ot">&lt;-</span> GAStech_nodes <span class="sc">%&gt;%</span></span>
+<span id="cb40-658"><a href="#cb40-658" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">group =</span> Department) </span>
+<span id="cb40-659"><a href="#cb40-659" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-660"><a href="#cb40-660" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-661"><a href="#cb40-661" aria-hidden="true" tabindex="-1"></a>When we rerun the code chunk below, visNetwork shades the nodes by assigning unique colour to each category in the&nbsp;*group*&nbsp;field.</span>
 <span id="cb40-662"><a href="#cb40-662" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-663"><a href="#cb40-663" aria-hidden="true" tabindex="-1"></a>When we rerun the code chunk below, visNetwork shades the nodes by assigning unique colour to each category in the&nbsp;*group*&nbsp;field.</span>
-<span id="cb40-664"><a href="#cb40-664" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-667"><a href="#cb40-667" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-668"><a href="#cb40-668" aria-hidden="true" tabindex="-1"></a><span class="fu">visNetwork</span>(GAStech_nodes,</span>
-<span id="cb40-669"><a href="#cb40-669" aria-hidden="true" tabindex="-1"></a>           GAStech_edges_aggregated) <span class="sc">%&gt;%</span></span>
-<span id="cb40-670"><a href="#cb40-670" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visIgraphLayout</span>(<span class="at">layout =</span> <span class="st">"layout_with_fr"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-671"><a href="#cb40-671" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLegend</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb40-672"><a href="#cb40-672" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLayout</span>(<span class="at">randomSeed =</span> <span class="dv">123</span>)</span>
-<span id="cb40-673"><a href="#cb40-673" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-665"><a href="#cb40-665" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-666"><a href="#cb40-666" aria-hidden="true" tabindex="-1"></a><span class="fu">visNetwork</span>(GAStech_nodes,</span>
+<span id="cb40-667"><a href="#cb40-667" aria-hidden="true" tabindex="-1"></a>           GAStech_edges_aggregated) <span class="sc">%&gt;%</span></span>
+<span id="cb40-668"><a href="#cb40-668" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visIgraphLayout</span>(<span class="at">layout =</span> <span class="st">"layout_with_fr"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-669"><a href="#cb40-669" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLegend</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb40-670"><a href="#cb40-670" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLayout</span>(<span class="at">randomSeed =</span> <span class="dv">123</span>)</span>
+<span id="cb40-671"><a href="#cb40-671" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-672"><a href="#cb40-672" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-673"><a href="#cb40-673" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6.5 **Working with visual attributes - Edges**</span></span>
 <span id="cb40-674"><a href="#cb40-674" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-675"><a href="#cb40-675" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6.5 **Working with visual attributes - Edges**</span></span>
-<span id="cb40-676"><a href="#cb40-676" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-677"><a href="#cb40-677" aria-hidden="true" tabindex="-1"></a>In the code run below&nbsp;*visEdges()*&nbsp;is used to symbolise the edges.\</span>
-<span id="cb40-678"><a href="#cb40-678" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The argument&nbsp;*arrows*&nbsp;is used to define where to place the arrow.\</span>
-<span id="cb40-679"><a href="#cb40-679" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The&nbsp;*smooth*&nbsp;argument is used to plot the edges using a smooth curve.</span>
-<span id="cb40-680"><a href="#cb40-680" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-683"><a href="#cb40-683" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-684"><a href="#cb40-684" aria-hidden="true" tabindex="-1"></a><span class="fu">visNetwork</span>(GAStech_nodes,</span>
-<span id="cb40-685"><a href="#cb40-685" aria-hidden="true" tabindex="-1"></a>           GAStech_edges_aggregated) <span class="sc">%&gt;%</span></span>
-<span id="cb40-686"><a href="#cb40-686" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visIgraphLayout</span>(<span class="at">layout =</span> <span class="st">"layout_with_fr"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-687"><a href="#cb40-687" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visEdges</span>(<span class="at">arrows =</span> <span class="st">"to"</span>, </span>
-<span id="cb40-688"><a href="#cb40-688" aria-hidden="true" tabindex="-1"></a>           <span class="at">smooth =</span> <span class="fu">list</span>(<span class="at">enabled =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb40-689"><a href="#cb40-689" aria-hidden="true" tabindex="-1"></a>                         <span class="at">type =</span> <span class="st">"curvedCW"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb40-690"><a href="#cb40-690" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLegend</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb40-691"><a href="#cb40-691" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLayout</span>(<span class="at">randomSeed =</span> <span class="dv">123</span>) </span>
-<span id="cb40-692"><a href="#cb40-692" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb40-693"><a href="#cb40-693" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-694"><a href="#cb40-694" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
-<span id="cb40-695"><a href="#cb40-695" aria-hidden="true" tabindex="-1"></a>Visit&nbsp;<span class="co">[</span><span class="ot">Option</span><span class="co">](http://datastorm-open.github.io/visNetwork/edges.html)</span>&nbsp;to find out more about visEdges’s argument.</span>
-<span id="cb40-696"><a href="#cb40-696" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-675"><a href="#cb40-675" aria-hidden="true" tabindex="-1"></a>In the code run below&nbsp;*visEdges()*&nbsp;is used to symbolise the edges.\</span>
+<span id="cb40-676"><a href="#cb40-676" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The argument&nbsp;*arrows*&nbsp;is used to define where to place the arrow.\</span>
+<span id="cb40-677"><a href="#cb40-677" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>The&nbsp;*smooth*&nbsp;argument is used to plot the edges using a smooth curve.</span>
+<span id="cb40-678"><a href="#cb40-678" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-681"><a href="#cb40-681" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-682"><a href="#cb40-682" aria-hidden="true" tabindex="-1"></a><span class="fu">visNetwork</span>(GAStech_nodes,</span>
+<span id="cb40-683"><a href="#cb40-683" aria-hidden="true" tabindex="-1"></a>           GAStech_edges_aggregated) <span class="sc">%&gt;%</span></span>
+<span id="cb40-684"><a href="#cb40-684" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visIgraphLayout</span>(<span class="at">layout =</span> <span class="st">"layout_with_fr"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-685"><a href="#cb40-685" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visEdges</span>(<span class="at">arrows =</span> <span class="st">"to"</span>, </span>
+<span id="cb40-686"><a href="#cb40-686" aria-hidden="true" tabindex="-1"></a>           <span class="at">smooth =</span> <span class="fu">list</span>(<span class="at">enabled =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb40-687"><a href="#cb40-687" aria-hidden="true" tabindex="-1"></a>                         <span class="at">type =</span> <span class="st">"curvedCW"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb40-688"><a href="#cb40-688" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLegend</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb40-689"><a href="#cb40-689" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLayout</span>(<span class="at">randomSeed =</span> <span class="dv">123</span>) </span>
+<span id="cb40-690"><a href="#cb40-690" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-691"><a href="#cb40-691" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-692"><a href="#cb40-692" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb40-693"><a href="#cb40-693" aria-hidden="true" tabindex="-1"></a>Visit&nbsp;<span class="co">[</span><span class="ot">Option</span><span class="co">](http://datastorm-open.github.io/visNetwork/edges.html)</span>&nbsp;to find out more about visEdges’s argument.</span>
+<span id="cb40-694"><a href="#cb40-694" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-695"><a href="#cb40-695" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-696"><a href="#cb40-696" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6.6 **Interactivity**</span></span>
 <span id="cb40-697"><a href="#cb40-697" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-698"><a href="#cb40-698" aria-hidden="true" tabindex="-1"></a><span class="fu">## 6.6 **Interactivity**</span></span>
+<span id="cb40-698"><a href="#cb40-698" aria-hidden="true" tabindex="-1"></a>In the code chunk below, *visOptions()* is used to incorporate interactivity features in the data visualisation.</span>
 <span id="cb40-699"><a href="#cb40-699" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-700"><a href="#cb40-700" aria-hidden="true" tabindex="-1"></a>In the code chunk below, *visOptions()* is used to incorporate interactivity features in the data visualisation.</span>
+<span id="cb40-700"><a href="#cb40-700" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The argument *highlightNearest* highlights nearest when clicking a node.</span>
 <span id="cb40-701"><a href="#cb40-701" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-702"><a href="#cb40-702" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The argument *highlightNearest* highlights nearest when clicking a node.</span>
+<span id="cb40-702"><a href="#cb40-702" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The argument *nodesIdSelection* adds an id node selection creating an HTML select element.</span>
 <span id="cb40-703"><a href="#cb40-703" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-704"><a href="#cb40-704" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>The argument *nodesIdSelection* adds an id node selection creating an HTML select element.</span>
-<span id="cb40-705"><a href="#cb40-705" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-708"><a href="#cb40-708" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb40-709"><a href="#cb40-709" aria-hidden="true" tabindex="-1"></a><span class="fu">visNetwork</span>(GAStech_nodes,</span>
-<span id="cb40-710"><a href="#cb40-710" aria-hidden="true" tabindex="-1"></a>           GAStech_edges_aggregated) <span class="sc">%&gt;%</span></span>
-<span id="cb40-711"><a href="#cb40-711" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visIgraphLayout</span>(<span class="at">layout =</span> <span class="st">"layout_with_fr"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-712"><a href="#cb40-712" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visOptions</span>(<span class="at">highlightNearest =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb40-713"><a href="#cb40-713" aria-hidden="true" tabindex="-1"></a>             <span class="at">nodesIdSelection =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb40-714"><a href="#cb40-714" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLegend</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb40-715"><a href="#cb40-715" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLayout</span>(<span class="at">randomSeed =</span> <span class="dv">123</span>)</span>
-<span id="cb40-716"><a href="#cb40-716" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb40-717"><a href="#cb40-717" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-718"><a href="#cb40-718" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
-<span id="cb40-719"><a href="#cb40-719" aria-hidden="true" tabindex="-1"></a>Visit <span class="co">[</span><span class="ot">Option</span><span class="co">](http://datastorm-open.github.io/visNetwork/options.html)</span> to find out more about visOption’s argument.</span>
-<span id="cb40-720"><a href="#cb40-720" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb40-706"><a href="#cb40-706" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb40-707"><a href="#cb40-707" aria-hidden="true" tabindex="-1"></a><span class="fu">visNetwork</span>(GAStech_nodes,</span>
+<span id="cb40-708"><a href="#cb40-708" aria-hidden="true" tabindex="-1"></a>           GAStech_edges_aggregated) <span class="sc">%&gt;%</span></span>
+<span id="cb40-709"><a href="#cb40-709" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visIgraphLayout</span>(<span class="at">layout =</span> <span class="st">"layout_with_fr"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-710"><a href="#cb40-710" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visOptions</span>(<span class="at">highlightNearest =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb40-711"><a href="#cb40-711" aria-hidden="true" tabindex="-1"></a>             <span class="at">nodesIdSelection =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb40-712"><a href="#cb40-712" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLegend</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb40-713"><a href="#cb40-713" aria-hidden="true" tabindex="-1"></a>  <span class="fu">visLayout</span>(<span class="at">randomSeed =</span> <span class="dv">123</span>)</span>
+<span id="cb40-714"><a href="#cb40-714" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb40-715"><a href="#cb40-715" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-716"><a href="#cb40-716" aria-hidden="true" tabindex="-1"></a>::: callout-note</span>
+<span id="cb40-717"><a href="#cb40-717" aria-hidden="true" tabindex="-1"></a>Visit <span class="co">[</span><span class="ot">Option</span><span class="co">](http://datastorm-open.github.io/visNetwork/options.html)</span> to find out more about visOption’s argument.</span>
+<span id="cb40-718"><a href="#cb40-718" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
