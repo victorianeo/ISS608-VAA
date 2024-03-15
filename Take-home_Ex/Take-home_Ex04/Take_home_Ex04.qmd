@@ -56,21 +56,19 @@ There is a significant gap in making complex economic data accessible to the gen
 
 -   [**tidyverse**](https://www.tidyverse.org/), a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs
 
--   **treemap**: for creating treemaps
-
 ```{r}
-pacman::p_load(CGPfunctions, corrplot,
+pacman::p_load(AER, CGPfunctions, 
+               corrplot,
                d3treeR,
                DT,
                dplyr, ggExtra,
-               ggHoriPlot,
+               ggHoriPlot, ggpmisc,
                ggthemes, ggplot2,
                kableExtra, lubridate,
                MetBrewer, packHV,
-               patchwork, parallelPlot,
+               patchwork, parallelPlot, plm,
                purrr, naniar,
-               plotly, tidyverse, 
-               treemap
+               plotly, tidyverse
                ) 
 ```
 
@@ -578,13 +576,13 @@ Based on the parallel coordinates plot, there appears to be interesting patterns
 
 Questions:
 
--   What are the correlations between variables with BMI prices?
+-   What are the correlations between variables with BMI in USD prices?
 :::
 
 ## 5.2 Plotting a Correlation plot to see correlations between variables
 
-```{r}
-bmi.cor <- cor(bmi_data[, c(4:11)])
+```{r, fig.width = 12}
+bmi.cor <- cor(bmi_data[, c(4:13)])
 
 bmi.sig = cor.mtest(bmi.cor, conf.level= .95)
 corrplot(bmi.cor,
@@ -600,5 +598,182 @@ corrplot(bmi.cor,
 ::: callout-note
 **Insights**
 
-GDP per capita, inflation and Human Development Index are significantly correlated to Big Mac price Index. However, we cannot tell if there is a year/country effect - there is no information on the correlation even though though these variables are constant in the time dimension and across countries.
+GDP per capita, inflation and Human Development Index are significantly correlated to Big Mac Index prices. Interestingly, even though we had initially posited that inflation and Big Mac prices are correlated, it appears that they are not - inflation is not correlated to Big Mac Index prices. However, we cannot tell if there is a year/country effect - there is no information on the correlation even though though these variables are constant in the time dimension and across countries.
 :::
+
+# 6 Panel Data Regression
+
+Given the time-series (by 20 years) and cross sectionality (by 28 countries) of our data, panel data regression is a good technique to analyze the relationship between our independent variables and Big Mac Index price.
+
+## 6.1 Simple Regression of selected years
+
+At this point, we will estimate simple regressions using data for years 2002, 2011 and 2021 to model the relationship between the statistically significant correlated GDP per capita and the Big Mac Index price. We will then plot the data and add the corresponding estimated regression functions.
+
+::: panel-tabset
+## **2002**
+
+```{r}
+bmi_2002 <- subset(bmi_data, year == "2002")
+bmi_2002_mod <- lm(bmi_usd_price ~ gdp_per_capita, data = bmi_2002)
+coeftest(bmi_2002_mod, vcov. = vcovHC, type = "HC1")
+
+```
+
+```{r}
+# plot the observations and add the estimated regression line for 2002 data
+sr2002 <- ggplot(bmi_2002_mod, aes(x=gdp_per_capita, y=bmi_usd_price) ) +  
+  geom_point(alpha = 0.5) +
+  stat_poly_eq(use_label(c("eq", "R2"))) +
+  geom_smooth(method = lm, linewidth = 0.2, color = "#008FD5", alpha = 0.3)  +
+  coord_cartesian(xlim = c(0, 100000), ylim = c(0, 10)) +
+ ylab('Big Mac Index price (US$) in 2002') + xlab('GDP per capita (US$) in 2002')  
+
+sr2002
+```
+
+## **2011**
+
+```{r}
+bmi_2011 <- subset(bmi_data, year == "2011")
+bmi_2011_mod <- lm(bmi_usd_price ~ gdp_per_capita, data = bmi_2011)
+coeftest(bmi_2011_mod, vcov. = vcovHC, type = "HC1")
+
+```
+
+```{r}
+# plot the observations and add the estimated regression line for 2011 data
+sr2011 <- ggplot(bmi_2011_mod, aes(x=gdp_per_capita, y=bmi_usd_price) ) +  
+  geom_point(alpha = 0.5) +
+  stat_poly_eq(use_label(c("eq", "R2"))) +
+  geom_smooth(method = lm, linewidth = 0.2, color = "#008FD5", alpha = 0.3)  +
+  coord_cartesian(xlim = c(0, 100000), ylim = c(0, 10)) +
+ ylab('Big Mac Index price (US$) in 2011') + xlab('GDP per capita (US$) in 2011') 
+
+sr2011
+```
+
+## **2021**
+
+```{r}
+bmi_2021 <- subset(bmi_data, year == "2021")
+bmi_2021_mod <- lm(bmi_usd_price ~ gdp_per_capita, data = bmi_2021)
+coeftest(bmi_2021_mod, vcov. = vcovHC, type = "HC1")
+```
+
+```{r}
+# plot the observations and add the estimated regression line for 2021 data
+sr2021 <- ggplot(bmi_2021_mod, aes(x=gdp_per_capita, y=bmi_usd_price) ) +  
+  geom_point(alpha = 0.5) +
+  stat_poly_eq(use_label(c("eq", "R2"))) +
+  geom_smooth(method = lm, linewidth = 0.2, color = "#008FD5", alpha = 0.3)  +
+  coord_cartesian(xlim = c(0, 100000), ylim = c(0, 10)) +
+ ylab('Big Mac Index price (US$) in 2021') + xlab('GDP per capita (US$) in 2021') 
+
+sr2021
+```
+:::
+
+### 6.1.1 Putting it together
+
+```{r, fig.width= 12, fig.height = 6}
+patchwork <- sr2002 + sr2011 + sr2021
+patchwork <- patchwork + 
+  plot_annotation(
+    title = "The higher the GDP per capita, the more likely you will have a higher Big Mac Index price.",
+    subtitle = "Strong positive linear relationships between GDP per capita and Big Mac Index price for 2002, 2011 and 2022.",
+    caption = "Data source: The Economist, World Bank",
+    theme = theme(plot.title = element_text(size = 50))  
+  )
+patchwork & theme_fivethirtyeight(base_size = 10) +
+  theme(
+    panel.grid.minor.x = element_line(linewidth = 0.2, linetype = 'solid', colour = "grey85"),
+    plot.title = element_text(face = "bold"), axis.title=element_text(face = "bold", size=9))
+```
+
+::: callout-note
+**Insights**
+
+In the three plots, each point represents observations of GDP per capita and BMI price in their respective year and the regression results indicate a positive relationship throughout the years. However, this cannot account for omitted unobservable factors that exist from country to country but can be assumed to be constant over the observed time period using panel data regression.
+:::
+
+## 6.2 Panel Data Regression
+
+### 6.2.1 Choosing which model is appropriate
+
+Definitions of different models taken from the articles [**A Guide to Panel Data Regression: Theoretics and Implementation with Python**](https://towardsdatascience.com/a-guide-to-panel-data-regression-theoretics-and-implementation-with-python-4c84c5055cf8)and [**Panel Data Using R: Fixed-effects and Random-effects**](https://libguides.princeton.edu/R-Panel):
+
+1.  Fixed Effects model
+
+    > The FE-model determines individual effects of unobserved, independent variables as constant (“fix“) over time. Within FE-models, the relationship between unobserved, independent variables and the IVs (i.e. endogeneity) can be existent.
+    >
+    > ![](images/clipboard-2889706925.png)
+    >
+    > Moreover,
+    >
+    > **FE remove the effect of those time-invariant characteristics so we can assess the net effect of the predictors on the outcome variable.**
+    >
+    > Another important assumption of the FE model is that those time-invariant characteristics are unique to the individual and should not be correlated with other individual characteristics. Each entity is different therefore the entity’s error term and the constant (which captures individual characteristics) should not be correlated with the others. If the error terms are correlated, then FE is no suitable since inferences may not be correct and you need to model that relationship (probably using random-effects).
+
+2.  Random Effects model
+
+    > RE-models determine individual effects of unobserved, independent variables as random variables over time. They are able to “switch” between OLS and FE and hence, can focus on both dependencies **between** and **within** **individuals**. 
+    >
+    > ![](images/clipboard-493286578.png)
+    >
+    > Moreover,
+    >
+    > An advantage of random effects is that you can include time invariant variables (i.e. gender). In the fixed effects model these variables are absorbed by the intercept. The cost is the possibility of inconsistent estimators, of the assumption is inappropriate.
+
+Using the two statistically significant correlated variables of GDP per capita and HDI, we will create the panel regression to analyze the relationship with Big Mac Index prices.
+
+::: panel-tabset
+## **Fixed effects model**
+
+```{r}
+fixed <- plm(bmi_usd_price ~ gdp_per_capita+hdi, data=bmi_data, index=c("country", "year"), model="within")  #fixed model
+summary(fixed)
+```
+
+## **Random effects model**
+
+```{r}
+random <- plm(bmi_usd_price ~ gdp_per_capita+hdi, data=bmi_data, index=c("country", "year"), model="random")  #fixed model
+summary(random)
+```
+:::
+
+As seen above, FE and RE models' independent variables (GDP per capita and HDI) both have significant influence on BMI prices. Moreover, both models are good to use as their p-values are below alpha = 0.05. The Adjusted R-square variables are high with FE model having a higher value at 60% which means it represents the portion of the total variation in BMI prices that is explained by GDP per capita and HDI.
+
+To determine between FE and RE models, we can use the Hausman-Test:
+
+> By running the Hausman-Test, the null hypothesis is that the covariance between IV(s) and *alpha* is zero. If this is the case, then RE is preferred over FE. If the null hypothesis is not true, we must go with the FE-model.
+
+```{r}
+
+random <- plm(bmi_usd_price ~ gdp_per_capita+hdi, data=bmi_data, index=c("country", "year"), model="random")  #random model
+phtest(fixed,random) #Hausman test
+```
+
+::: callout-note
+**Insights**
+
+Given that the p-value is significant (\<0.05), we reject the null hypothesis and can conclude that the fixed effects model is better.
+:::
+
+To determine between FE and OLS (simple regression) models, we can use the pFtest to see which one is a better fitted model.
+
+```{r}
+ols <- lm(bmi_usd_price ~ gdp_per_capita + hdi, data = bmi_data)
+summary(ols)
+
+```
+
+```{r}
+pFtest(fixed, ols)
+```
+
+::: callout-note
+Given that the null hypothesis is that OLS is better fit model than Fixed Effect, the p-value is really small which means we reject the null hypothesis and can conclude that a FE model is a better fit.
+:::
+
+## 6.3 Visualising Panel Data Regression with ExPanD
