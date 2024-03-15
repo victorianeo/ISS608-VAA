@@ -24,7 +24,7 @@ execute:
 
 As mentioned in my group's [proposal](https://isss608-24jan-group1.netlify.app/proposal/proposal),
 
-The [Big Mac Index](https://en.wikipedia.org/wiki/Big_Mac_Index) (BMI) was invented by [The Economist](https://www.economist.com/big-mac-index) in 1986 as a light-hearted guide to whether currencies are at their “correct” level. It is based on the theory of purchasing-power parity (PPP), with the notion that in the long run, exchange rates should move towards the rate that would equalise the prices of an identical basket of goods and services (in this case, a burger) in any two countries. The BMI has become a global standard, included in several economic textbooks and the subject of dozens of academic studies. Thus, we would like to visually examine the phenomenon of inflation co-movement by looking at the similarities in inflation prices between countries through time, isolate groups with similar characteristics, and determine if the BMI is a suitable proxy to inflation prices.
+The [Big Mac Index](https://en.wikipedia.org/wiki/Big_Mac_Index) (BMI) was invented by [The Economist](https://www.economist.com/big-mac-index) in 1986 as a light-hearted guide to whether currencies are at their “correct” level. It is based on the theory of purchasing-power parity (PPP), with the notion that in the long run, exchange rates should move towards the rate that would equalise the prices of an identical basket of goods and services (in this case, a burger) in any two countries. The BMI has become a global standard, included in several economic textbooks and the subject of dozens of academic studies. Thus, we would like to visually examine the phenomenon of inflation co-movement by looking at the similarities in BMI prices between countries through time, isolate groups with similar characteristics, and determine if the BMI is a suitable proxy to inflation prices.
 
 There is a significant gap in making complex economic data accessible to the general public and providing advanced analysis tools for professionals. Existing visualization tools, including government dashboards, often fail to cater effectively to both audiences. To address this, we propose an R Shiny-based interactive tool that leverages publicly available data, the Big Mac Index to simplify the understanding of global financial trends for laypersons while offering in-depth data exploration and modelling capabilities for analysts.
 
@@ -65,6 +65,7 @@ pacman::p_load(AER, CGPfunctions,
                ggExtra, ggHoriPlot, 
                ggiraphExtra, ggpmisc,
                ggthemes, ggplot2,
+               ggstatsplot,
                kableExtra, lubridate,
                MetBrewer, packHV,
                patchwork, parallelPlot, plm,
@@ -222,6 +223,29 @@ result_list
 
 # 3 **Exploratory Data Analysis**
 
+```{mermaid}
+flowchart TB
+  A[Year]
+  B[Country]
+  C[Big Mac Index price]
+  D[Inflation rate]
+  E[GDP per capita]
+  F[Balance of Trade]
+  G[Unemployment rate]
+  H[Human Development Index]
+  I[Population size]
+  
+  A --> C
+  B --> C
+  C --> D
+  C --> E
+  C --> F
+  C --> G
+  C --> H
+  C --> I
+
+```
+
 Some questions of interest regarding the problem statement of inflation co-movement by BMI are:
 
 -   what type of variation occurs within BMI prices,
@@ -238,13 +262,7 @@ by dimensions
 
 2.  year
 
-We will:
-
--   Plot a histogram to study the variation within BMI
-
--   Plot a notched boxplot to study the distribution of BMI and its differences in central tendency across dimensions
-
-## 3.1 Looking at BMI
+## 3.1 Univariate Analysis: Looking at BMI
 
 ```{r}
 
@@ -269,7 +287,7 @@ Questions:
 
 ## 3.2 Looking at BMI through individual dimensions
 
-### 3.2.1 Country dimension with Boxplot
+### 3.2.1 Country dimension **with Violin+Boxplot**
 
 ```{r, fig.height = 8}
 
@@ -289,7 +307,7 @@ bmi_data %>%
   # Build the boxplot. 
   ggplot(aes(x = country, y = bmi_usd_price, fill = type, alpha = type)) + 
     geom_violin(width=1.0) +
-    geom_boxplot(width=0.4, color="black", alpha=0.8) +
+    geom_boxplot(width=0.3, color="black", alpha=0.8) +
     geom_jitter(color = "black", size = 0.4, alpha = 0.9) +
     scale_fill_manual(values = c("#69b3a2", "grey")) +
     scale_alpha_manual(values = c(1, 0.1)) +
@@ -333,7 +351,7 @@ Questions:
     -   especially for Hong Kong
 :::
 
-### 3.2.2 Year dimension with Boxplot
+### 3.2.2 Year dimension with Violin+Boxplot
 
 ```{r, fig.height = 8}
 bmi_data %>% 
@@ -344,7 +362,7 @@ bmi_data %>%
   # Build the boxplot. In the 'fill' argument, give this column
   ggplot( aes(x=year, y=bmi_usd_price, fill=type, alpha=type)) + 
     geom_violin(width=1.0) +
-    geom_boxplot(width=0.4, color="black", alpha=0.8) +
+    geom_boxplot(width=0.3, color="black", alpha=0.8) +
     geom_jitter(color = "black", size = 0.4, alpha = 0.9) +
     scale_fill_manual(values=c("#69b3a2", "grey")) +
     scale_alpha_manual(values=c(1,0.1)) +
@@ -495,7 +513,7 @@ bmi_data %>%
     ) 
 ```
 
-3jklmk3k \## **using median bmi_usd_price as the baseline**
+## **using median bmi_usd_price as the baseline**
 
 ```{r}
 bmi_data %>% 
@@ -634,7 +652,7 @@ ggPredict(ols,interactive=TRUE)
 ```
 
 ::: callout-note
-I**nsights**
+**Insights**
 
 Each point represents observations of GDP per capita, HDI and BMI price in USD - the multiple regression results indicate a positive relationship throughout the years.. However, this cannot account for omitted unobservable factors that exist from country to country and year to year.
 :::
@@ -743,4 +761,62 @@ pFtest(fixed, ols)
 Given that the null hypothesis is that OLS is better fit model than Fixed Effect, the p-value is really small which means we reject the null hypothesis and can conclude that a FE model is a better fit.
 :::
 
-## 
+# 7 Conclusion
+
+In conclusion, we used visualizations to explore the Big Mac Index prices for 28 countries across 20 years of 2002 to 2021. Visually, using univariate analysis, our plots depicted different trajectories in BMI prices across countries and a general upward trend across the years. When both dimensions were combined, we realised that there was an interaction effect between years and countries, and that there were 3 types of relationships ( positive, weak/zero, negative) between BMI prices and years when conditioned on countries.
+
+This was further expanded in the visual time-series analysis that showed several outlier countries such as Hong Kong, Mexico, Russia, South Africa and Turkey. We could also see that when GDP per Capita was plotted against BMI prices, there seemed to be two groups of countries with different trajectories.
+
+Thus, we conducted multivariate analysis to check which variables influenced Big Mac Index prices (putting aside year and country effects). There were interesting patterns e.g. those with large population sizes tended to have lower Big Mac Index prices. However, when statistically tested in a correlation plot, only GDP per capita and Human Development Index were statistically significantly correlated with BMI prices.
+
+Despite our initial claim that the Big Mac Index is a proxy for inflation, our visual and statistical multivariate analyses did not support this claim.
+
+With these variables, we conducted panel data regression analysis to confirm our analysis. Given the heterogeneity of data across years and countries, we cannot use homogeneous panel data models like OLS regression. Instead, through statistical analysis, Fixed Effect regression model is most suitable to explain the variation in BMI prices is explained by GDP per capita and HDI when we account for year and country effects.
+
+# 8 Storyboard
+
+For my part that comprised exploratory data analysis with univariate and time-series analysis, and confirmatory data analysis with panel data regression, my part in the Shiny web application is developed into the main dashboard, panel data analysis page under the Data Exploration analysis, and panel data regression under the Modelling page.
+
+## 8.1 Dashboard (Summary)
+
+The first section will consist of a homepage tab that allows users to select a country and year that the user is interested in. With a chloropleth map as the main focus (please refer to my groupmate Firdaus's Take-home Exercise 4), a lollipop graph and violin+boxplot graph will be placed next to the chloropleth graph. Through this, the user is able to obtain a basic understanding on the individual country's economic information, their BMI prices in relation to other countries and their BMI prices in relation to other years giving them the overall feel on how the BMI prices vary between countries and years and other information on their economic measures (that are later used for analysis).
+
+Also, upload and export buttons are included for users to import data and export data of a fixed format. With the upload feature, any data uploaded by users will be automatically transformed and immediately analysed in the application. The export button allows the analysis and forecasted results to be exported in data or report format.
+
+![Proposed layout of Dashboard](images/clipboard-3472528936.png){fig-align="left"}
+
+The figure below shows some of the interactive features that will be incorporated into the dashboard. Users will have an overview of the BMI prices during their selected year with four key indicators.
+
+![Proposed interactive features of Dashboard](images/clipboard-2052266158.png)
+
+## 8.2 Panel Data Analysis (Data Exploration)
+
+This section will be created using the ExPanD package that allows for interactive panel data exploration and analyses. Throughout the application, users will be able to select what variables they are interested in and tweak the plots to explore different parameters. After this section, the user will have a clearer understanding on the variables that influence BMI prices and the effects of time and countries on these relationships.
+
+![](images/clipboard-578988398.png)
+
+![](images/clipboard-1648077134.png)
+
+![](images/clipboard-745088425.png)
+
+![](images/clipboard-1057339020.png)
+
+![](images/clipboard-3733328162.png)
+
+## 8.3 Panel Data Regression (Modelling)
+
+This section will be also be created using the ExPanD package that allows for interactive panel data exploration and analyses. In this section, it showcases the statistical analysis on the variables that can explain the variation in BMI prices. Users will be able to vary the (multiple) variables in the panel regression analysis and see the results in the table. There will also be options to change the type of panel data regression and to select different clusters e.g. continents and clusters from my groupmate Jiayi's clustering analysis.
+
+![](images/clipboard-1735006144.png)
+
+## 8.4 Conclusion
+
+This section shows the initial prototype of the web application that we are planning to build to analyse and predict Big Mac Index prices.
+
+1.  **Dashboard for Analysis and Prediction**: The web application will serve as a dashboard where users can perform exploratory analysis, modelling and predicting of Big Mac Index prices.
+
+2.  **Customizable Filters**: The dashboard will include various filters such as selected periods and countries used for panel data analysis. These filters will allow users to customize their analysis based on their specific needs and preferences.
+
+3.  **Personalized User Experience**: The inclusion of customizable filters adds a personal touch to the user experience, allowing users to tailor their analysis to suit their individual requirements.
+
+Overall, the web application aims to provide users with a powerful tool for analyzing and predicting Big Mac Index prices, leveraging customizable analysis features to enhance user experiences and provide valuable insights.
