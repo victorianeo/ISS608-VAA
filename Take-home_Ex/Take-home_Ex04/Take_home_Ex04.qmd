@@ -61,8 +61,9 @@ pacman::p_load(AER, CGPfunctions,
                corrplot,
                d3treeR,
                DT,
-               dplyr, ggExtra,
-               ggHoriPlot, ggpmisc,
+               dplyr, gplots,
+               ggExtra, ggHoriPlot, 
+               ggiraphExtra, ggpmisc,
                ggthemes, ggplot2,
                kableExtra, lubridate,
                MetBrewer, packHV,
@@ -88,16 +89,6 @@ country_data <- read_csv("data/country_all.csv")
 
 ```{r}
 bmi_data <- left_join(indicator_data, country_data, by = c("country"))
-```
-
-```{r}
-bmi_data <- bmi_data %>%
-  group_by(country) %>%  
-  arrange(country, currency_code, year) %>%  
-  mutate(bmi_change = (bmi_localprice / lag(bmi_localprice) - 1) * 100) %>%
-  ungroup()  
-
-head(bmi_data)
 ```
 
 ### 2.2.2 Checking Data Health
@@ -276,7 +267,7 @@ Questions:
 -   Given McDonald's strategy to be ultra-affordable, why is there a large spread in Big Mac prices and outliers on the right?
 :::
 
-## 3.2 Looking at BMI through dimensions
+## 3.2 Looking at BMI through individual dimensions
 
 ### 3.2.1 Country dimension with Boxplot
 
@@ -390,6 +381,25 @@ Questions:
 -   Why was there a dip in Big Mac prices from 2013 to 2016 and 2018 to 2020?
 
 -   Why are Big Mac prices rising as a whole?
+:::
+
+## 3.3 Looking at BMI through both dimensions
+
+### 3.3.1 Plotting a Coplot plot to determine if there is a third variable influence
+
+The BMI price in USD is plotted on the y axis and the years are on the x axis. The 28 plots show the relationship between these two variables by each country. The bars at the top indicate the countries position from left to right, starting from the bottom row.
+
+```{r, fig.width = 12}
+coplot(bmi_usd_price ~ year|country, data =  bmi_data,         
+       panel = function(x, y, ...) {         
+         points(x, y, ...)         
+         abline(lm(y ~ x), col = "blue")})
+```
+
+::: callout-note
+**Insights**
+
+From the coplots above, there is an interaction between years and countries. Conditionally on country, the relationship between BMI price in USD and year looks roughly linear - the regression results for most countries indicate a positive relationship throughout the years. However, countries like Hong Kong(11), Mexico(15), Russia(20) and South Africa(22) have almost flat regression lines that suggest a weak or almost no relationship between the variables. Moreover, Turkey(26) is the only country with a negative relationship.
 :::
 
 # 4 **Time-series Analysis of Big Mac Index through time and countries**
@@ -561,7 +571,7 @@ Questions:
 
 ## 5.1 Plotting a Parallel Coordinates plot to see relationships between variables
 
-```{r}
+```{r, fig.width=12, fig.height=10}
 pc <- bmi_data %>%
   select( gdp_per_capita, bot, inflation, unemployment, hdi, population, bmi_usd_price)
 histoVisibility <- rep(TRUE, ncol(pc))
@@ -606,100 +616,60 @@ GDP per capita, inflation and Human Development Index are significantly correlat
 
 Given the time-series (by 20 years) and cross sectionality (by 28 countries) of our data, panel data regression is a good technique to analyze the relationship between our independent variables and Big Mac Index price.
 
-## 6.1 Simple Regression of selected years
+## 6.1 Homogenous Panel Data model
 
-At this point, we will estimate simple regressions using data for years 2002, 2011 and 2021 to model the relationship between the statistically significant correlated GDP per capita and the Big Mac Index price. We will then plot the data and add the corresponding estimated regression functions.
+From the article [**Introduction to the Fundamentals of Panel Data**](https://www.aptech.com/blog/introduction-to-the-fundamentals-of-panel-data/),
 
-::: panel-tabset
-## **2002**
+> Homogeneous (or pooled) panel data models assume that the model parameters are common across individuals.
 
-```{r}
-bmi_2002 <- subset(bmi_data, year == "2002")
-bmi_2002_mod <- lm(bmi_usd_price ~ gdp_per_capita, data = bmi_2002)
-coeftest(bmi_2002_mod, vcov. = vcovHC, type = "HC1")
-
-```
+Thus, the basic OLS regression model does not consider heterogeneity across countries or years.
 
 ```{r}
-# plot the observations and add the estimated regression line for 2002 data
-sr2002 <- ggplot(bmi_2002_mod, aes(x=gdp_per_capita, y=bmi_usd_price) ) +  
-  geom_point(alpha = 0.5) +
-  stat_poly_eq(use_label(c("eq", "R2"))) +
-  geom_smooth(method = lm, linewidth = 0.2, color = "#008FD5", alpha = 0.3)  +
-  coord_cartesian(xlim = c(0, 100000), ylim = c(0, 10)) +
- ylab('Big Mac Index price (US$) in 2002') + xlab('GDP per capita (US$) in 2002')  
-
-sr2002
+ols <- lm(bmi_usd_price ~ gdp_per_capita + hdi, data = bmi_data)
+summary(ols)
 ```
 
-## **2011**
-
-```{r}
-bmi_2011 <- subset(bmi_data, year == "2011")
-bmi_2011_mod <- lm(bmi_usd_price ~ gdp_per_capita, data = bmi_2011)
-coeftest(bmi_2011_mod, vcov. = vcovHC, type = "HC1")
-
+```{r, fig.width = 12, fig.height = 10}
+ggPredict(ols,interactive=TRUE)
 ```
 
-```{r}
-# plot the observations and add the estimated regression line for 2011 data
-sr2011 <- ggplot(bmi_2011_mod, aes(x=gdp_per_capita, y=bmi_usd_price) ) +  
-  geom_point(alpha = 0.5) +
-  stat_poly_eq(use_label(c("eq", "R2"))) +
-  geom_smooth(method = lm, linewidth = 0.2, color = "#008FD5", alpha = 0.3)  +
-  coord_cartesian(xlim = c(0, 100000), ylim = c(0, 10)) +
- ylab('Big Mac Index price (US$) in 2011') + xlab('GDP per capita (US$) in 2011') 
+::: callout-note
+I**nsights**
 
-sr2011
-```
-
-## **2021**
-
-```{r}
-bmi_2021 <- subset(bmi_data, year == "2021")
-bmi_2021_mod <- lm(bmi_usd_price ~ gdp_per_capita, data = bmi_2021)
-coeftest(bmi_2021_mod, vcov. = vcovHC, type = "HC1")
-```
-
-```{r}
-# plot the observations and add the estimated regression line for 2021 data
-sr2021 <- ggplot(bmi_2021_mod, aes(x=gdp_per_capita, y=bmi_usd_price) ) +  
-  geom_point(alpha = 0.5) +
-  stat_poly_eq(use_label(c("eq", "R2"))) +
-  geom_smooth(method = lm, linewidth = 0.2, color = "#008FD5", alpha = 0.3)  +
-  coord_cartesian(xlim = c(0, 100000), ylim = c(0, 10)) +
- ylab('Big Mac Index price (US$) in 2021') + xlab('GDP per capita (US$) in 2021') 
-
-sr2021
-```
+Each point represents observations of GDP per capita, HDI and BMI price in USD - the multiple regression results indicate a positive relationship throughout the years.. However, this cannot account for omitted unobservable factors that exist from country to country and year to year.
 :::
 
-### 6.1.1 Putting it together
+## 6.2 Heterogeneous Panel Data models
 
-```{r, fig.width= 12, fig.height = 6}
-patchwork <- sr2002 + sr2011 + sr2021
-patchwork <- patchwork + 
-  plot_annotation(
-    title = "The higher the GDP per capita, the more likely you will have a higher Big Mac Index price.",
-    subtitle = "Strong positive linear relationships between GDP per capita and Big Mac Index price for 2002, 2011 and 2022.",
-    caption = "Data source: The Economist, World Bank",
-    theme = theme(plot.title = element_text(size = 50))  
-  )
-patchwork & theme_fivethirtyeight(base_size = 10) +
-  theme(
-    panel.grid.minor.x = element_line(linewidth = 0.2, linetype = 'solid', colour = "grey85"),
-    plot.title = element_text(face = "bold"), axis.title=element_text(face = "bold", size=9))
+From the article [**Introduction to the Fundamentals of Panel Data**](https://www.aptech.com/blog/introduction-to-the-fundamentals-of-panel-data/),
+
+> Heterogeneous models allow for any or all of the model parameters to vary across individuals. Fixed effects and random effects models are both examples of heterogeneous panel data models.
+
+### 6.2.1 Testing for Heterogeneity across Year and Country
+
+**By Year**
+
+```{r}
+plotmeans(bmi_usd_price~year, data = bmi_data, n.label=FALSE,
+          xlab="Years",
+          ylab="Big Mac Index price (USD)")
+```
+
+**By Country**
+
+```{r}
+plotmeans(bmi_usd_price~country, data = bmi_data, n.label=FALSE,
+          xlab="Years",
+          ylab="Big Mac Index price (USD)")
 ```
 
 ::: callout-note
 **Insights**
 
-In the three plots, each point represents observations of GDP per capita and BMI price in their respective year and the regression results indicate a positive relationship throughout the years. However, this cannot account for omitted unobservable factors that exist from country to country but can be assumed to be constant over the observed time period using panel data regression.
+We can see from the above plots that there is no homogeneity across years and countries. Hence, we should use heterogeneous panel data models.
 :::
 
-## 6.2 Panel Data Regression
-
-### 6.2.1 Choosing which model is appropriate
+### 6.2.2 Choosing which model is appropriate
 
 Definitions of different models taken from the articles [**A Guide to Panel Data Regression: Theoretics and Implementation with Python**](https://towardsdatascience.com/a-guide-to-panel-data-regression-theoretics-and-implementation-with-python-4c84c5055cf8)and [**Panel Data Using R: Fixed-effects and Random-effects**](https://libguides.princeton.edu/R-Panel):
 
@@ -761,13 +731,9 @@ phtest(fixed,random) #Hausman test
 Given that the p-value is significant (\<0.05), we reject the null hypothesis and can conclude that the fixed effects model is better.
 :::
 
+### 6.2.3 Testing between FE and OLS models
+
 To determine between FE and OLS (simple regression) models, we can use the pFtest to see which one is a better fitted model.
-
-```{r}
-ols <- lm(bmi_usd_price ~ gdp_per_capita + hdi, data = bmi_data)
-summary(ols)
-
-```
 
 ```{r}
 pFtest(fixed, ols)
@@ -777,4 +743,4 @@ pFtest(fixed, ols)
 Given that the null hypothesis is that OLS is better fit model than Fixed Effect, the p-value is really small which means we reject the null hypothesis and can conclude that a FE model is a better fit.
 :::
 
-## 6.3 Visualising Panel Data Regression with ExPanD
+## 
