@@ -582,7 +582,8 @@ Questions:
 ## 5.2 Plotting a Correlation plot to see correlations between variables
 
 ```{r, fig.width = 12}
-bmi.cor <- cor(bmi_data[, c(4:13)])
+columns_of_interest <- c("gdp_per_capita", "bot", "inflation", "unemployment", "hdi", "population", "bmi_usd_price")
+bmi.cor <- cor(bmi_data[, columns_of_interest])
 
 bmi.sig = cor.mtest(bmi.cor, conf.level= .95)
 corrplot(bmi.cor,
