@@ -32,42 +32,56 @@ There is a significant gap in making complex economic data accessible to the gen
 
 ## 2.1 Installing and loading the required libraries
 
+-   [**AER**](https://cran.r-project.org/web/packages/AER/AER.pdf): for functions used in Applied Econometrics with R
+
 -   **CGPfunctions**: for using `newggslopegraph()` for creating slopegraphs
 
--   [**DT**](https://rstudio.github.io/DT/)**,** for providing an R interface to the JavaScript library [DataTables](https://datatables.net/) that create interactive table on html page
+-   [**corrplot**](https://cran.r-project.org/web/packages/corrplot/vignettes/corrplot-intro.html): provides a visual exploratory tool on correlation matrix that supports automatic variable reordering to help detect hidden patterns among variables.
 
--   **d3treeR**: for creating interactive treemaps
+-   [**dplyr**](https://dplyr.tidyverse.org/): for manipulating, concatenating dataframes
 
--   **dplyr**: for manipulating, concatenating dataframes
+-   [**gplot**](https://cran.r-project.org/web/packages/gplots/gplots.pdf): for using `coplot()` for creating coplots
 
--   **ggHoriPlot**: for plotting horizon plots
+-   [**ggExtra**](https://cran.r-project.org/web/packages/ggExtra/vignettes/ggExtra.html): for adding marginal histograms to ggplot2
 
--   Hmisc:
+-   [**ggHoriPlot**](https://rivasiker.github.io/ggHoriPlot/): for plotting horizon plots
+
+-   [**ggiraphExtra**](https://cran.r-project.org/web/packages/ggiraphExtra/index.html): for using ggPredict`()` for creating interactive multiple linear regression plots
+
+-   [**ggpmisc**](https://cran.r-project.org/web/packages/ggpmisc/vignettes/model-based-annotations.html)**:** for using `stat_poly_eq()` for creating linear regression equations
+
+-   [**ggstatsplot**](https://indrajeetpatil.github.io/ggstatsplot/): is an extension of [`{ggplot2}`](https://github.com/tidyverse/ggplot2) package for creating graphics with details from statistical tests
 
 -   [**kableExtra**](https://cran.r-project.org/web/packages/kableExtra/vignettes/awesome_table_in_html.html)**,** for creating and manipulating complex tables
 
--   **lubridate**: for using [`dmy()`](https://lubridate.tidyverse.org/reference/ymd.html) function to parse the Date field into appropriate Date data type in R
+-   [**lubridate**](https://lubridate.tidyverse.org/): for using [`dmy()`](https://lubridate.tidyverse.org/reference/ymd.html) function to parse the Date field into appropriate Date data type in R
 
--   [**patchwork**](https://patchwork.data-imaginist.com/), for combining multiple ggplot2 graphs into one figure
+-   [**packHV**](https://cran.r-project.org/web/packages/packHV/packHV.pdf): for using `hist_boxplot()` for creating histograms with boxplots
 
--   **purrr**: for handling lists and functional programming
+-   [**patchwork**](https://cran.r-project.org/web/packages/patchwork/vignettes/patchwork.html)**:** for combining multiple ggplot2 graphs into one figure
 
--   **naniar**: for using `miss_vis()` function to check data for missing values
+-   [**parallelPlot**](https://cran.r-project.org/web/packages/parallelPlot/parallelPlot.pdf): for plotting Parallel Coordinates plots
+
+-   [**plm**](https://cran.r-project.org/web/packages/plm/plm.pdf): for creating linear regression plots for panel data
+
+-   [**purrr**](https://purrr.tidyverse.org/): for handling lists and functional programming
+
+-   [**naniar**](https://cran.r-project.org/web/packages/naniar/vignettes/getting-started-w-naniar.html): for using `miss_vis()` function to check data for missing values
+
+-   [**plotly**](https://plotly.com/r/): to make interactive graphs
 
 -   [**tidyverse**](https://www.tidyverse.org/), a family of modern R packages specially designed to support data science, analysis and communication task including creating static statistical graphs
 
 ```{r}
 pacman::p_load(AER, CGPfunctions, 
-               corrplot,
-               d3treeR,
-               DT,
-               dplyr, gplots,
+               corrplot, dplyr, 
+               DT, gplots,
                ggExtra, ggHoriPlot, 
                ggiraphExtra, ggpmisc,
                ggthemes, ggplot2,
                ggstatsplot,
                kableExtra, lubridate,
-               MetBrewer, packHV,
+               packHV,
                patchwork, parallelPlot, plm,
                purrr, naniar,
                plotly, tidyverse
@@ -738,8 +752,6 @@ To determine between FE and RE models, we can use the Hausman-Test:
 > By running the Hausman-Test, the null hypothesis is that the covariance between IV(s) and *alpha* is zero. If this is the case, then RE is preferred over FE. If the null hypothesis is not true, we must go with the FE-model.
 
 ```{r}
-
-random <- plm(bmi_usd_price ~ gdp_per_capita+hdi, data=bmi_data, index=c("country", "year"), model="random")  #random model
 phtest(fixed,random) #Hausman test
 ```
 
@@ -759,6 +771,37 @@ pFtest(fixed, ols)
 
 ::: callout-note
 Given that the null hypothesis is that OLS is better fit model than Fixed Effect, the p-value is really small which means we reject the null hypothesis and can conclude that a FE model is a better fit.
+:::
+
+### 6.2.4 FE Model Diagnostics: Plotting predicted vs expected values
+
+After conducting panel data regression, plotting predicted vs expected values allows us to visually assess the accuracy of your model's predictions. The plot helps us identify any patterns or discrepancies between the predicted values from the Fixed Effects regression model and the actual observed values. It helps us validate the performance of the model and ensure it captures the underlying relationships effectively.
+
+```{r, fig.width=12}
+## produce a dataset of prediction, added to the group means
+bmi_means <- bmi_data %>% 
+  mutate(y = bmi_usd_price) %>% 
+  group_by(country) %>% 
+  transmute(y_mean = mean(y),
+            y = y, 
+            year = year) %>% 
+  ungroup() %>% 
+  mutate(y_pred = predict(fixed) + y_mean) %>% 
+  select(-y_mean)
+
+## plot it
+bmi_means %>% 
+  gather(type, value, y, y_pred) %>% 
+  ggplot(aes(x = year, y = value, linetype = type))+
+  geom_line() +
+  facet_wrap(~country) +
+  ggtitle("Visualising in-sample predictions across 28 countries")
+```
+
+::: callout-note
+**Insights**
+
+As we can see from the plots above, even though the Adjusted Rsquared for this model is 0.60, its predicted values are consistently higher than the observed y values. This means the model is not effectively capturing the relationships at each panel. Perhaps this poor model performance can be improved with clustering the countries - two different types of clusters (network clustering and time-series clustering) will be provided by my groupmates Firdaus and Jiayi respectively and added into the final Shiny app.
 :::
 
 # 7 Conclusion
@@ -805,9 +848,11 @@ This section will be created using the ExPanD package that allows for interactiv
 
 ## 8.3 Panel Data Regression (Modelling)
 
-This section will be also be created using the ExPanD package that allows for interactive panel data exploration and analyses. In this section, it showcases the statistical analysis on the variables that can explain the variation in BMI prices. Users will be able to vary the (multiple) variables in the panel regression analysis and see the results in the table. There will also be options to change the type of panel data regression and to select different clusters e.g. continents and clusters from my groupmate Jiayi's clustering analysis.
+This section will be also be created using the ExPanD package that allows for interactive panel data exploration and analyses. In this section, it showcases the statistical analysis on the variables that can explain the variation in BMI prices. Users will be able to vary the (multiple) variables in the panel regression analysis and see the results in the table. There will also be options to change the type of panel data regression and to select different clusters e.g. clusters from my groupmates Firdaus' and Jiayi's clustering analysis. At the bottom, ExPanD does not allow for custom addition of other plots so I will manually paste the predicted vs observed values plots according to no cluster, network cluster and time-series cluster.
 
 ![](images/clipboard-1735006144.png)
+
+![](images/clipboard-3838105402.png)
 
 ## 8.4 Conclusion
 
@@ -820,3 +865,5 @@ This section shows the initial prototype of the web application that we are plan
 3.  **Personalized User Experience**: The inclusion of customizable filters adds a personal touch to the user experience, allowing users to tailor their analysis to suit their individual requirements.
 
 Overall, the web application aims to provide users with a powerful tool for analyzing and predicting Big Mac Index prices, leveraging customizable analysis features to enhance user experiences and provide valuable insights.
+
+## 

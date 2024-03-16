@@ -1,0 +1,147 @@
+---
+title: "In-class Exercise 9"
+subtitle: "" 
+author: "Victoria Neo"
+date: 03/16/2024
+date-modified: last-modified
+format:
+  html:
+    code-fold: true
+    code-summary: "code block"
+    code-tools: true
+    code-copy: true
+execute:
+  eval: true
+  echo: true
+  freeze: true
+  warning: false
+  message: false
+---
+
+![](images/clipboard-1636277876.png)
+
+Lubridate is for day, clock is for time. Graphlayouts provide additional layouts that complements ggraph.
+
+```{r}
+pacman::p_load(igraph, tidygraph, ggraph,
+              visNetwork, lubridate, clock,
+              tidyverse, graphlayouts)
+```
+
+In this step, you will import GAStech_email_node.csv and GAStech_email_edges-v2.csv into RStudio environment by using read_csv() of readr package.
+
+```{r}
+GAStech_nodes <- read_csv("data/GAStech_email_node.csv")
+GAStech_edges <- read_csv("data/GAStech_email_edge-v2.csv")
+```
+
+SentDate is currently character field and I want to change it to date field in the DD-MM-YY format. I will then extract out the Weekday from the SentDate. Label = True means the full day is spelt out. Abbr = FALSE means the abbreviated spelling e.g. Mon is turned off.
+
+```{r}
+GAStech_edges <- GAStech_edges %>%
+  mutate(SendDate = dmy(SentDate)) %>%
+  mutate(Weekday = wday(SentDate,
+                        label = TRUE,
+                        abbr = FALSE))
+```
+
+A person have different multi timestamps - I want to find out if same day, then aggregate them out. I want email conversations that are not to oneself, that are \>2 times of communication and also those that are Work-related.
+
+```{r}
+GAStech_edges_aggregated <- GAStech_edges %>%
+  filter(MainSubject == "Work related") %>%
+  group_by(source, target, Weekday) %>%
+    summarise(Weight = n()) %>%
+  filter(source!=target) %>%
+  filter(Weight > 1) %>%
+  ungroup()
+```
+
+tbl is a graph creation method. In R, use `class()` to check the type of dataframe. In network graph, you can use a relationship without direction but if you want to see the interaction/connection, use direction.
+
+```{r}
+GAStech_graph <- tbl_graph(nodes = GAStech_nodes,
+                           edges = GAStech_edges_aggregated, 
+                           directed = TRUE)
+```
+
+```{r}
+class(GAStech_nodes)
+```
+
+```{r}
+class(GAStech_graph)
+```
+
+Using ggraph, taking the whole model to do the analysis. Geom_node and geom_link must be changed to deconflict with ggraph. Note that geom_arc will give a curve while geom_link will give a straight line between nodes.
+
+```{r}
+ggraph(GAStech_graph) + 
+  geom_edge_link() +
+  geom_node_point()
+```
+
+```{r}
+g <- ggraph(GAStech_graph) + 
+  geom_edge_link(aes(colour = 'grey50')) +
+  geom_node_point(aes(colour = 'grey40'))
+
+g + theme_graph(background = 'grey10',
+                text_colour = 'white')
+```
+
+Looking at graph layouts: look at features supported by igraph. The code chunks below will be used to plot the network graph using Fruchterman and Reingold layout.
+
+```{r}
+g <- ggraph(GAStech_graph, 
+            layout = "fr") +
+  geom_edge_link(aes()) +
+  geom_node_point(aes())
+
+g + theme_graph()
+```
+
+```{r}
+g <- ggraph(GAStech_graph, 
+            layout = "kk") +
+  geom_edge_link(aes()) +
+  geom_node_point(aes())
+
+g + theme_graph()
+```
+
+```{r}
+
+g <- ggraph(GAStech_graph, 
+            layout = "nicely") +
+  geom_edge_link(aes()) +
+  geom_node_point(aes(colour = Department,
+                      size = 3))
+
+g + theme_graph()
+```
+
+```{r}
+
+g <- ggraph(GAStech_graph, 
+            layout = "nicely") +
+  geom_edge_link(aes(width=Weight),
+                 alpha=0.2) +
+  geom_node_point(aes(colour = Department,
+                      size = 3))
+
+g + theme_graph()
+```
+
+The darker lines means you have like each day overlay - frequent communication!
+
+```{r}
+g <- ggraph(GAStech_graph, 
+            layout = "nicely") +
+  geom_edge_link(aes(width=Weight),
+                 alpha=0.2) +
+  geom_node_point(aes(colour = Department,
+                      size = 3))
+
+g + facet_edges(~Weekday)
+```
