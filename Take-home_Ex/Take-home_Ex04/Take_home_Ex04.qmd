@@ -338,9 +338,9 @@ bmi_data %>%
   
     # Add text labels for mean and median
     geom_text(aes(x = mean(bmi_usd_price), label = paste("Mean: ", round(mean(bmi_usd_price), 2))),
-              y = max(bmi_data$bmi_usd_price, na.rm = TRUE), size = 3, vjust =3.5, hjust = 5, color = "darkblue") +
+              y = max(bmi_data$bmi_usd_price, na.rm = TRUE), size = 3, vjust =3.5, hjust = 1, color = "darkblue") +
     geom_text(aes(x = median(bmi_usd_price), label = paste("Median: ", round(median(bmi_usd_price), 2))),
-              y = max(bmi_data$bmi_usd_price, na.rm = TRUE), size = 3, vjust = -35, hjust = 7.35, color = "darkred") +
+              y = max(bmi_data$bmi_usd_price, na.rm = TRUE), size = 3, vjust = 4, hjust = 1, color = "darkred") +
   
     # Customize legend
     scale_linetype_manual(name = "Lines", values = c("Mean" = "dashed", "Median" = "dashed"),
@@ -393,9 +393,9 @@ bmi_data %>%
   
     # Add text labels for mean and median
     geom_text(aes(x = mean(bmi_usd_price), label = paste("Mean: ", round(mean(bmi_usd_price), 2))),
-              y = max(bmi_data$bmi_usd_price, na.rm = TRUE), size = 3, vjust =3.5, hjust = 6.4, color = "darkblue") +
+              y = max(bmi_data$bmi_usd_price, na.rm = TRUE), size = 3, vjust =3.5, hjust = 1, color = "darkblue") +
     geom_text(aes(x = median(bmi_usd_price), label = paste("Median: ", round(median(bmi_usd_price), 2))),
-              y = max(bmi_data$bmi_usd_price, na.rm = TRUE), size = 3, vjust = -33.5, hjust = 7.35, color = "darkred") +
+              y = max(bmi_data$bmi_usd_price, na.rm = TRUE), size = 3, vjust = 4, hjust = 1, color = "darkred") +
   
     # Customize legend
     scale_linetype_manual(name = "Lines", values = c("Mean" = "dashed", "Median" = "dashed"),
@@ -469,6 +469,8 @@ Questions:
 :::
 
 ## 4.2 Looking at variations in patterns with `ggHoriPlot()`
+
+Toggle the different tabsets to see the different horizon plots.
 
 ::: panel-tabset
 ## **using United States mean bmi_usd_price as the baseline**
@@ -555,7 +557,7 @@ bmi_data %>%
 ::: callout-note
 ### **Insights**
 
-The horizon plot showed that all countries were initially below the median Big Mac price and all experienced some increase in price. China, Hong Kong, Korea, Singapore, Thailand and United States had a huge increase in Big Mac prices around 2018 to 2022. However, Turkey experienced a large drop in recent years while Russia experienced huge increase and than a large drop around 2015 and only had a smaller increase later on.
+The horizon plot (**using median bmi_usd_price as the baseline)** showed that all countries were initially below the median Big Mac price and all experienced some increase in price. China, Hong Kong, Korea, Singapore, Thailand and United States had a huge increase in Big Mac prices around 2018 to 2022. However, Turkey experienced a large drop in recent years while Russia experienced huge increase and than a large drop around 2015 and only had a smaller increase later on.
 
 Questions:
 
@@ -848,7 +850,7 @@ This section will be created using the ExPanD package that allows for interactiv
 
 ## 8.3 Panel Data Regression (Modelling)
 
-This section will be also be created using the ExPanD package that allows for interactive panel data exploration and analyses. In this section, it showcases the statistical analysis on the variables that can explain the variation in BMI prices. Users will be able to vary the (multiple) variables in the panel regression analysis and see the results in the table. There will also be options to change the type of panel data regression and to select different clusters e.g. clusters from my groupmates Firdaus' and Jiayi's clustering analysis. At the bottom, ExPanD does not allow for custom addition of other plots so I will manually paste the predicted vs observed values plots according to no cluster, network cluster and time-series cluster.
+This section will be also be created using the ExPanD package that allows for interactive panel data exploration and analyses. In this section, it showcases the statistical analysis on the variables that can explain the variation in BMI prices. Users will be able to vary the (multiple) variables in the panel regression analysis and see the results in the table. There will also be options to change the type of panel data regression and to select different clusters e.g. clusters from my groupmates Firdaus' and Jiayi's clustering analysis. At the bottom, ExPanD does not allow for custom addition of other plots so I will manually paste the predicted vs observed values plots according to no cluster, network cluster and time-series cluster.p;\[
 
 ![](images/clipboard-1735006144.png)
 
